@@ -53,7 +53,7 @@ var getAxios = exports.getAxios = function getAxios() {
       baseURL: '/api'
     });
     var headers = {};
-    var token = tokenGetter();
+    var token = Network.tokenGetter();
     if (token) {
       headers['X-Authentication-Token'] = token;
     }

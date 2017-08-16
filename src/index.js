@@ -22,5 +22,6 @@ export {
   getErrorDescription,
   getFieldError,
   getFieldsError,
-  getNotificationDuration
-}
+  getNotificationDuration,
+};
+

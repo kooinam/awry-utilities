@@ -42,7 +42,7 @@ export const getAxios = () =>
       baseURL: '/api',
     });
     const headers = { };
-    const token = tokenGetter();
+    const token = Network.tokenGetter();
     if (token) {
       headers['X-Authentication-Token'] = token;
     }

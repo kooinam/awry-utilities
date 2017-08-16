@@ -58,7 +58,6 @@ var Actioner = function (_Object) {
 
           return null;
         }).then(function (response) {
-          console.log(response);
           var actioner2 = component.state[_this.key];
           actioner2.isLoading = false;
           actioner2.error = null;

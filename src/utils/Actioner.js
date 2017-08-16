@@ -42,7 +42,6 @@ class Actioner extends Object {
 
         return null;
       }).then((response) => {
-        console.log(response);
         const actioner2 = component.state[this.key];
         actioner2.isLoading = false;
         actioner2.error = null;
