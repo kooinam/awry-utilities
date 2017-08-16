@@ -5,13 +5,36 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.getNotificationDuration = exports.getFieldsError = exports.getFieldError = exports.getErrorDescription = exports.getAxios = exports.setupAxios = exports.ModalParams = exports.Actioner = undefined;
 
-var _utils = require('./utils');
+var _Actioner = require('./utils/Actioner');
 
-exports.Actioner = _utils.Actioner;
-exports.ModalParams = _utils.ModalParams;
-exports.setupAxios = _utils.setupAxios;
-exports.getAxios = _utils.getAxios;
-exports.getErrorDescription = _utils.getErrorDescription;
-exports.getFieldError = _utils.getFieldError;
-exports.getFieldsError = _utils.getFieldsError;
-exports.getNotificationDuration = _utils.getNotificationDuration;
+var _Actioner2 = _interopRequireDefault(_Actioner);
+
+var _ModalParams = require('./utils/ModalParams');
+
+var _ModalParams2 = _interopRequireDefault(_ModalParams);
+
+var _NetworkManager = require('./utils/NetworkManager');
+
+var _UIManager = require('./utils/UIManager');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// import {
+//   Actioner,
+//   ModalParams,
+//   setupAxios,
+//   getAxios,
+//   getErrorDescription,
+//   getFieldError,
+//   getFieldsError,
+//   getNotificationDuration
+// } from './utils'
+
+exports.Actioner = Actioner;
+exports.ModalParams = _ModalParams2.default;
+exports.setupAxios = _NetworkManager.setupAxios;
+exports.getAxios = _NetworkManager.getAxios;
+exports.getErrorDescription = _UIManager.getErrorDescription;
+exports.getFieldError = _UIManager.getFieldError;
+exports.getFieldsError = _UIManager.getFieldsError;
+exports.getNotificationDuration = _UIManager.getNotificationDuration;
