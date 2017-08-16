@@ -16,8 +16,9 @@ var Network = {
   tokenGetter: null
 };
 
-var setupAxios = exports.setupAxios = function setupAxios(component) {
+var setupAxios = exports.setupAxios = function setupAxios(component, tokenGetter) {
   Network.component = component;
+  Network.tokenGetter = tokenGetter;
 };
 
 var addInterceptors = function addInterceptors(instance) {
