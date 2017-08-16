@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.getNotificationDuration = exports.getFieldsError = exports.getFieldError = exports.getErrorDescription = exports.getAxios = exports.setupAxios = exports.ModalParams = exports.Actioner = undefined;
 
-var _utils = require('./src/utils');
+var _utils = require('./utils');
 
 exports.Actioner = _utils.Actioner;
 exports.ModalParams = _utils.ModalParams;
