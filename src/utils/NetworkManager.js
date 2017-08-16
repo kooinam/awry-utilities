@@ -1,8 +1,8 @@
 import axios from 'axios';
-import User from './models/User';
 
 const Network = {
   component: null,
+  tokenGetter: null,
 };
 
 export const setupAxios = (component) => {
@@ -41,7 +41,7 @@ export const getAxios = () =>
       baseURL: '/api',
     });
     const headers = { };
-    const token = User.getToken();
+    const token = tokenGetter();
     if (token) {
       headers['X-Authentication-Token'] = token;
     }
