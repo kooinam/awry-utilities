@@ -7,7 +7,7 @@ import {
   getFieldError,
   getFieldsError,
   getNotificationDuration
-} from './src/utils'
+} from './utils'
 
 export {
   Actioner,
