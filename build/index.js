@@ -30,7 +30,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //   getNotificationDuration
 // } from './utils'
 
-exports.Actioner = Actioner;
+exports.Actioner = _Actioner2.default;
 exports.ModalParams = _ModalParams2.default;
 exports.setupAxios = _NetworkManager.setupAxios;
 exports.getAxios = _NetworkManager.getAxios;
