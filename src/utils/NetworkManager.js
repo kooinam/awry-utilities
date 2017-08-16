@@ -5,8 +5,9 @@ const Network = {
   tokenGetter: null,
 };
 
-export const setupAxios = (component) => {
+export const setupAxios = (component, tokenGetter) => {
   Network.component = component;
+  Network.tokenGetter = tokenGetter;
 };
 
 const addInterceptors = (instance) => {

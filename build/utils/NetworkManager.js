@@ -9,14 +9,11 @@ var _axios = require('axios');
 
 var _axios2 = _interopRequireDefault(_axios);
 
-var _User = require('./models/User');
-
-var _User2 = _interopRequireDefault(_User);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Network = {
-  component: null
+  component: null,
+  tokenGetter: null
 };
 
 var setupAxios = exports.setupAxios = function setupAxios(component) {
@@ -55,7 +52,7 @@ var getAxios = exports.getAxios = function getAxios() {
       baseURL: '/api'
     });
     var headers = {};
-    var token = _User2.default.getToken();
+    var token = tokenGetter();
     if (token) {
       headers['X-Authentication-Token'] = token;
     }
