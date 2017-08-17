@@ -26,12 +26,10 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1"
   },
-  "peerDependencies": {
+  "dependencies": {
     "antd": "^2.12.3",
     "react": "^15.6.1",
-    "react-dom": "^15.6.1"
-  },
-  "dependencies": {
+    "react-dom": "^15.6.1",
     "axios": "^0.16.2",
     "babel-plugin-import": "^1.4.0",
     "prop-types": "^15.5.10",
