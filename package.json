@@ -1,6 +1,6 @@
 {
   "name": "awry-utilities",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "",
   "main": "build/index.js",
   "scripts": {
@@ -26,13 +26,15 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1"
   },
-  "dependencies": {
+  "peerDependencies": {
     "antd": "^2.12.3",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1"
+  },
+  "dependencies": {
     "axios": "^0.16.2",
     "babel-plugin-import": "^1.4.0",
     "prop-types": "^15.5.10",
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1",
     "uuid": "^3.1.0"
   }
 }
