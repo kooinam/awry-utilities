@@ -4,9 +4,13 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _antd = require('antd');
+var _notification = require('antd/lib/notification');
+
+var _notification2 = _interopRequireDefault(_notification);
 
 var _UIManager = require('./UIManager');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -69,7 +73,7 @@ var Actioner = function (_Object) {
             if (_this.successDescriptionGetter) {
               description = _this.successDescriptionGetter(item);
             }
-            _antd.notification.success({
+            _notification2.default.success({
               message: _this.successMessageGetter(item),
               description: description,
               duration: (0, _UIManager.getNotificationDuration)()
@@ -93,7 +97,7 @@ var Actioner = function (_Object) {
           });
           if (error && error.response) {
             if (_this.errorMessageGetter && _this.errorMessageGetter()) {
-              _antd.notification.error({
+              _notification2.default.error({
                 message: _this.errorMessageGetter(),
                 description: (0, _UIManager.getErrorDescription)(error),
                 duration: (0, _UIManager.getNotificationDuration)()

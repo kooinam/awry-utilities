@@ -13,6 +13,7 @@ import Actioner from './utils/Actioner';
 import ModalParams from './utils/ModalParams';
 import { setupAxios, getAxios } from './utils/NetworkManager';
 import { getErrorDescription, getFieldError, getFieldsError, getNotificationDuration } from './utils/UIManager';
+import BaseModel from './models/BaseModel';
 
 export {
   Actioner,
@@ -23,5 +24,6 @@ export {
   getFieldError,
   getFieldsError,
   getNotificationDuration,
+  BaseModel,
 };
 

@@ -1,6 +1,6 @@
 {
   "name": "awry-utilities",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "",
   "main": "build/index.js",
   "scripts": {
@@ -29,6 +29,7 @@
   "dependencies": {
     "antd": "^2.12.3",
     "axios": "^0.16.2",
+    "babel-plugin-import": "^1.4.0",
     "prop-types": "^15.5.10",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",

@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getNotificationDuration = exports.getFieldsError = exports.getFieldError = exports.getErrorDescription = exports.getAxios = exports.setupAxios = exports.ModalParams = exports.Actioner = undefined;
+exports.BaseModel = exports.getNotificationDuration = exports.getFieldsError = exports.getFieldError = exports.getErrorDescription = exports.getAxios = exports.setupAxios = exports.ModalParams = exports.Actioner = undefined;
 
 var _Actioner = require('./utils/Actioner');
 
@@ -17,18 +17,11 @@ var _NetworkManager = require('./utils/NetworkManager');
 
 var _UIManager = require('./utils/UIManager');
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _BaseModel = require('./models/BaseModel');
 
-// import {
-//   Actioner,
-//   ModalParams,
-//   setupAxios,
-//   getAxios,
-//   getErrorDescription,
-//   getFieldError,
-//   getFieldsError,
-//   getNotificationDuration
-// } from './utils'
+var _BaseModel2 = _interopRequireDefault(_BaseModel);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.Actioner = _Actioner2.default;
 exports.ModalParams = _ModalParams2.default;
@@ -38,3 +31,13 @@ exports.getErrorDescription = _UIManager.getErrorDescription;
 exports.getFieldError = _UIManager.getFieldError;
 exports.getFieldsError = _UIManager.getFieldsError;
 exports.getNotificationDuration = _UIManager.getNotificationDuration;
+exports.BaseModel = _BaseModel2.default; // import {
+//   Actioner,
+//   ModalParams,
+//   setupAxios,
+//   getAxios,
+//   getErrorDescription,
+//   getFieldError,
+//   getFieldsError,
+//   getNotificationDuration
+// } from './utils'
