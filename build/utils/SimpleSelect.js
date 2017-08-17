@@ -72,8 +72,6 @@ var SimpleSelect = function (_Component) {
   _createClass(SimpleSelect, [{
     key: 'render',
     value: function render() {
-      var _this2 = this;
-
       var initialValue = undefined;
       if (this.props.initialValue) {
         initialValue = this.props.initialValue;
@@ -81,12 +79,14 @@ var SimpleSelect = function (_Component) {
       var rules = [];
       if (this.props.required) {
         rules = [{
-          validator: function validator(rule, value, callback) {
-            if (!value || !value.key) {
-              callback(_this2.props.name + ' is required');
-            }
-            callback();
-          }
+          // validator: (rule, value, callback) => {
+          //   if (!value || !value.key) {
+          //     callback(`${this.props.name} is required`);
+          //   }
+          //   callback();
+          // },
+          required: true,
+          message: this.props.name + ' is required'
         }];
       }
 

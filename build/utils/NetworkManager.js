@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getAxios = exports.setupAxios = undefined;
+exports.getAxios = exports.addAxiosPreferences = exports.setupAxios = undefined;
 
 var _axios = require('axios');
 
@@ -13,12 +13,17 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var Network = {
   component: null,
-  tokenGetter: null
+  tokenGetter: null,
+  preferences: {}
 };
 
 var setupAxios = exports.setupAxios = function setupAxios(component, tokenGetter) {
   Network.component = component;
   Network.tokenGetter = tokenGetter;
+};
+
+var addAxiosPreferences = exports.addAxiosPreferences = function addAxiosPreferences(key, preferences) {
+  Network.preferences[key] = preferences;
 };
 
 var addInterceptors = function addInterceptors(instance) {
@@ -47,10 +52,15 @@ var addInterceptors = function addInterceptors(instance) {
   });
 };
 
-var getAxios = exports.getAxios = function getAxios() {
+var getAxios = exports.getAxios = function getAxios(key) {
   return new Promise(function (resolve) {
+    var baseURL = '/api';
+    if (key) {
+      var preferences = Network.preferences[key];
+      baseURL = preferences.baseURL;
+    }
     var instance = _axios2.default.create({
-      baseURL: '/api'
+      baseURL: baseURL
     });
     var headers = {};
     var token = Network.tokenGetter();

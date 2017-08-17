@@ -27,12 +27,12 @@ export const getFieldError = (error, field) => {
   if (error && error.response && error.response.data.errors && error.response.data.errors[field]) {
     message = '';
     const fieldError = error.response.data.errors[field];
-    if (typeof (fieldError) === 'object') {
+    if (fieldError instanceof Array === false) {
       message = `${capitalize(field)} ${fieldError.message}`;
     } else {
-      fieldError.each((errorMessage) => {
+      for(let errorMessage of fieldError) {
         message = `${message} ${capitalize(field)} ${errorMessage}`;
-      });
+      }
     }
   }
 

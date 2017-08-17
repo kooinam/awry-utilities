@@ -3,9 +3,6 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 function capitalize(str) {
   // let strVal = '';
   var newStr = str.replace(/_/g, ' ');
@@ -33,12 +30,33 @@ var getFieldError = exports.getFieldError = function getFieldError(error, field)
   if (error && error.response && error.response.data.errors && error.response.data.errors[field]) {
     message = '';
     var fieldError = error.response.data.errors[field];
-    if ((typeof fieldError === 'undefined' ? 'undefined' : _typeof(fieldError)) === 'object') {
+    if (fieldError instanceof Array === false) {
       message = capitalize(field) + ' ' + fieldError.message;
     } else {
-      fieldError.each(function (errorMessage) {
-        message = message + ' ' + capitalize(field) + ' ' + errorMessage;
-      });
+      var _iteratorNormalCompletion = true;
+      var _didIteratorError = false;
+      var _iteratorError = undefined;
+
+      try {
+        for (var _iterator = fieldError[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+          var errorMessage = _step.value;
+
+          message = message + ' ' + capitalize(field) + ' ' + errorMessage;
+        }
+      } catch (err) {
+        _didIteratorError = true;
+        _iteratorError = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion && _iterator.return) {
+            _iterator.return();
+          }
+        } finally {
+          if (_didIteratorError) {
+            throw _iteratorError;
+          }
+        }
+      }
     }
   }
 
@@ -54,13 +72,13 @@ var getFieldError = exports.getFieldError = function getFieldError(error, field)
 
 var getFieldsError = exports.getFieldsError = function getFieldsError(error, fields) {
   var message = '';
-  var _iteratorNormalCompletion = true;
-  var _didIteratorError = false;
-  var _iteratorError = undefined;
+  var _iteratorNormalCompletion2 = true;
+  var _didIteratorError2 = false;
+  var _iteratorError2 = undefined;
 
   try {
     var _loop = function _loop() {
-      var field = _step.value;
+      var field = _step2.value;
 
       if (error && error.response && error.response.data.errors && error.response.data.errors[field]) {
         error.response.data.errors[field].each(function (errorMessage) {
@@ -69,20 +87,20 @@ var getFieldsError = exports.getFieldsError = function getFieldsError(error, fie
       }
     };
 
-    for (var _iterator = fields[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+    for (var _iterator2 = fields[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
       _loop();
     }
   } catch (err) {
-    _didIteratorError = true;
-    _iteratorError = err;
+    _didIteratorError2 = true;
+    _iteratorError2 = err;
   } finally {
     try {
-      if (!_iteratorNormalCompletion && _iterator.return) {
-        _iterator.return();
+      if (!_iteratorNormalCompletion2 && _iterator2.return) {
+        _iterator2.return();
       }
     } finally {
-      if (_didIteratorError) {
-        throw _iteratorError;
+      if (_didIteratorError2) {
+        throw _iteratorError2;
       }
     }
   }

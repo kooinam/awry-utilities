@@ -41,12 +41,14 @@ class SimpleSelect extends Component {
     if (this.props.required) {
       rules = [
         {
-          validator: (rule, value, callback) => {
-            if (!value || !value.key) {
-              callback(`${this.props.name} is required`);
-            }
-            callback();
-          },
+          // validator: (rule, value, callback) => {
+          //   if (!value || !value.key) {
+          //     callback(`${this.props.name} is required`);
+          //   }
+          //   callback();
+          // },
+          required: true,
+          message: `${this.props.name} is required`,
         }
       ];
     }

@@ -3,11 +3,16 @@ import axios from 'axios';
 const Network = {
   component: null,
   tokenGetter: null,
+  preferences: {},
 };
 
 export const setupAxios = (component, tokenGetter) => {
   Network.component = component;
   Network.tokenGetter = tokenGetter;
+};
+
+export const addAxiosPreferences = (key, preferences) => {
+  Network.preferences[key] = preferences;
 };
 
 const addInterceptors = (instance) => {
@@ -36,10 +41,15 @@ const addInterceptors = (instance) => {
   });
 };
 
-export const getAxios = () =>
+export const getAxios = (key) =>
   new Promise((resolve) => {
+    let baseURL = '/api';
+    if(key) {
+      const preferences = Network.preferences[key];
+      baseURL = preferences.baseURL
+    }
     const instance = axios.create({
-      baseURL: '/api',
+      baseURL: baseURL,
     });
     const headers = {};
     const token = Network.tokenGetter();
