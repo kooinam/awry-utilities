@@ -14,6 +14,9 @@ import ModalParams from './utils/ModalParams';
 import { setupAxios, getAxios } from './utils/NetworkManager';
 import { getErrorDescription, getFieldError, getFieldsError, getNotificationDuration } from './utils/UIManager';
 import BaseModel from './models/BaseModel';
+import FilterSelect from './utils/FilterSelect';
+import SimpleSelect from './utils/SimpleSelect';
+import TableParams from './utils/TableParams';
 
 export {
   Actioner,
@@ -25,5 +28,8 @@ export {
   getFieldsError,
   getNotificationDuration,
   BaseModel,
+  FilterSelect,
+  SimpleSelect,
+  TableParams,
 };
 

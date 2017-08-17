@@ -41,7 +41,7 @@ export const getAxios = () =>
     const instance = axios.create({
       baseURL: '/api',
     });
-    const headers = { };
+    const headers = {};
     const token = Network.tokenGetter();
     if (token) {
       headers['X-Authentication-Token'] = token;

@@ -1,6 +1,23 @@
 import { notification } from 'antd';
 import { getErrorDescription, getNotificationDuration } from './UIManager';
 
+// new Actioner({
+//   component: this,
+//   key: 'actioner',
+//   axiosGetter: getAxios,
+//   method: 'post',
+//   itemName: 'item',
+//   ItemKlass: Item,
+//   /* eslint-disable no-unused-vars */
+//   successMessageGetter: item =>
+//     'Success',
+//   successDescriptionGetter: item =>
+//     '',
+//   errorMessageGetter: error =>
+//     'Error',
+//   /* eslint-enable no-unused-vars */
+// })
+
 class Actioner extends Object {
   constructor(attributes) {
     const newAttributes = Object.assign({
@@ -15,7 +32,7 @@ class Actioner extends Object {
       successCallback: null,
       errorMessageGetter: null,
       isLoading: false,
-      error: { },
+      error: {},
     }, attributes);
 
     super(newAttributes);
@@ -25,7 +42,7 @@ class Actioner extends Object {
     const component = this.component;
     const actioner = component.state[this.key];
     actioner.isLoading = true;
-    const state = { };
+    const state = {};
     state[this.key] = actioner;
     component.setState(state, () => {
       const axiosGetter = this.axiosGetter;
@@ -45,7 +62,7 @@ class Actioner extends Object {
         const actioner2 = component.state[this.key];
         actioner2.isLoading = false;
         actioner2.error = null;
-        const state2 = { };
+        const state2 = {};
         state2[this.key] = actioner2;
         const item = new this.ItemKlass(response.data[this.itemName]);
         if (this.successMessageGetter && this.successMessageGetter(item)) {
@@ -68,7 +85,7 @@ class Actioner extends Object {
         const actioner2 = component.state[this.key];
         actioner2.isLoading = false;
         actioner2.error = error;
-        const state2 = { };
+        const state2 = {};
         state2[this.key] = actioner2;
         component.setState(state2, () => {
           if (this.errorCallback) {

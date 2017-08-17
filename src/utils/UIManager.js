@@ -43,19 +43,19 @@ export const getFieldError = (error, field) => {
     };
   }
 
-  return { };
+  return {};
 };
 
 export const getFieldsError = (error, fields) => {
   let message = '';
-  fields.each((field) => {
+  for(let field of fields) {
     if (error && error.response && error.response.data.errors
       && error.response.data.errors[field]) {
       error.response.data.errors[field].each((errorMessage) => {
         message = `${message} ${capitalize(field)} ${errorMessage}`;
       });
     }
-  });
+  };
 
   if (message.length > 0) {
     return {
@@ -64,7 +64,7 @@ export const getFieldsError = (error, fields) => {
     };
   }
 
-  return { };
+  return {};
 };
 
 export const getNotificationDuration = () =>

@@ -54,13 +54,40 @@ var getFieldError = exports.getFieldError = function getFieldError(error, field)
 
 var getFieldsError = exports.getFieldsError = function getFieldsError(error, fields) {
   var message = '';
-  fields.each(function (field) {
-    if (error && error.response && error.response.data.errors && error.response.data.errors[field]) {
-      error.response.data.errors[field].each(function (errorMessage) {
-        message = message + ' ' + capitalize(field) + ' ' + errorMessage;
-      });
+  var _iteratorNormalCompletion = true;
+  var _didIteratorError = false;
+  var _iteratorError = undefined;
+
+  try {
+    var _loop = function _loop() {
+      var field = _step.value;
+
+      if (error && error.response && error.response.data.errors && error.response.data.errors[field]) {
+        error.response.data.errors[field].each(function (errorMessage) {
+          message = message + ' ' + capitalize(field) + ' ' + errorMessage;
+        });
+      }
+    };
+
+    for (var _iterator = fields[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+      _loop();
     }
-  });
+  } catch (err) {
+    _didIteratorError = true;
+    _iteratorError = err;
+  } finally {
+    try {
+      if (!_iteratorNormalCompletion && _iterator.return) {
+        _iterator.return();
+      }
+    } finally {
+      if (_didIteratorError) {
+        throw _iteratorError;
+      }
+    }
+  }
+
+  ;
 
   if (message.length > 0) {
     return {

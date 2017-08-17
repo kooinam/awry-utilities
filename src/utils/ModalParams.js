@@ -2,12 +2,17 @@
 
 import uuidV4 from 'uuid/v4';
 
+// new ModalParams({
+//   component: this,
+//   key: 'modalParams',
+// })
+
 class ModalParams extends Object {
   constructor(attributes) {
     const newAttributes = Object.assign({
       component: null,
-      visible: false,
       key: null,
+      visible: false,
       doneCallback: null,
     }, attributes);
 
@@ -24,7 +29,7 @@ class ModalParams extends Object {
     const modalParams = this.component.state[this.key];
     modalParams.visible = true;
     modalParams.rotateUuid();
-    const state = { };
+    const state = {};
     state[this.key] = modalParams;
     this.component.setState(state);
     this.doneCallback = doneCallback;
@@ -34,7 +39,7 @@ class ModalParams extends Object {
     const modalParams = this.component.state[this.key];
     modalParams.visible = false;
     modalParams.rotateUuid();
-    const state = { };
+    const state = {};
     state[this.key] = modalParams;
     this.component.setState(state);
   }
@@ -43,7 +48,7 @@ class ModalParams extends Object {
     const modalParams = this.component.state[this.key];
     modalParams.visible = false;
     modalParams.rotateUuid();
-    const state = { };
+    const state = {};
     state[this.key] = modalParams;
     this.component.setState(state);
     if (this.doneCallback) {
