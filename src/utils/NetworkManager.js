@@ -44,7 +44,7 @@ const addInterceptors = (instance) => {
 export const getAxios = (key) =>
   new Promise((resolve) => {
     let baseURL = '/api';
-    if(key) {
+    if (key && Network.preferences[key]) {
       const preferences = Network.preferences[key];
       baseURL = preferences.baseURL
     }

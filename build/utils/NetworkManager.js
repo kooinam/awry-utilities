@@ -55,7 +55,7 @@ var addInterceptors = function addInterceptors(instance) {
 var getAxios = exports.getAxios = function getAxios(key) {
   return new Promise(function (resolve) {
     var baseURL = '/api';
-    if (key) {
+    if (key && Network.preferences[key]) {
       var preferences = Network.preferences[key];
       baseURL = preferences.baseURL;
     }
