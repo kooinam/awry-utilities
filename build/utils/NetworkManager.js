@@ -13,13 +13,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var Network = {
   component: null,
-  tokenGetter: null,
   preferences: {}
 };
 
-var setupAxios = exports.setupAxios = function setupAxios(component, tokenGetter) {
+var setupAxios = exports.setupAxios = function setupAxios(component) {
   Network.component = component;
-  Network.tokenGetter = tokenGetter;
 };
 
 var addAxiosPreferences = exports.addAxiosPreferences = function addAxiosPreferences(key, preferences) {
@@ -55,17 +53,16 @@ var addInterceptors = function addInterceptors(instance) {
 var getAxios = exports.getAxios = function getAxios(key) {
   return new Promise(function (resolve) {
     var baseURL = '/api';
-    if (key && Network.preferences[key]) {
-      var preferences = Network.preferences[key];
+    var preferences = Network.preferences[key];
+    if (preferences) {
       baseURL = preferences.baseURL;
     }
     var instance = _axios2.default.create({
       baseURL: baseURL
     });
     var headers = {};
-    var token = Network.tokenGetter();
-    if (token) {
-      headers['X-Authentication-Token'] = token;
+    if (preferences) {
+      headers = Object.assign(headers, preferences.headersSetter());
     }
     Object.assign(instance.defaults, {
       headers: headers
