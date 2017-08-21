@@ -1,3 +1,6 @@
+import { getSymbolFromCurrency } from 'currency-symbol-map';
+import formatCurrency from 'format-currency';
+
 function capitalize(str) {
   // let strVal = '';
   let newStr = str.replace(/_/g, ' ');
@@ -8,6 +11,40 @@ function capitalize(str) {
 
 
   return newStr;
+}
+
+export const formatMoney = (amount, currency, placeholder) => {
+  const newPlaceholder = placeholder || '$0.00';
+  let newAmount = amount;
+  if(amount < 0) {
+    newAmount = -amount;
+  }
+  const symbol = getSymbolFromCurrency(currency);
+  const opts = {
+    format: '%s%v',
+    symbol: symbol,
+  };
+  if(amount) {
+    return formatCurrency(amount, opts);
+  }
+
+  return newPlaceholder;
+}
+
+export const formatDate = (date) => {
+  if(date) {
+    return dateFormat(date, 'dd mmm yyyy');
+  }
+
+  return null;
+}
+
+export const formatTime = (date) => {
+  if(date) {
+    return dateFormat(date, 'h:MM:ss TT');
+  }
+
+  return null;
 }
 
 export const getErrorDescription = (error) => {

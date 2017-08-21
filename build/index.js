@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.TableParams = exports.SimpleSelect = exports.FilterSelect = exports.BaseModel = exports.getNotificationDuration = exports.getFieldsError = exports.getFieldError = exports.getErrorDescription = exports.addAxiosPreferences = exports.getAxios = exports.setupAxios = exports.ModalParams = exports.Actioner = undefined;
+exports.formatTime = exports.formatDate = exports.formatMoney = exports.TableParams = exports.SimpleSelect = exports.FilterSelect = exports.BaseModel = exports.getNotificationDuration = exports.getFieldsError = exports.getFieldError = exports.getErrorDescription = exports.addAxiosPreferences = exports.getAxios = exports.setupAxios = exports.ModalParams = exports.Actioner = undefined;
 
 var _Actioner = require('./utils/Actioner');
 
@@ -59,3 +59,6 @@ exports.BaseModel = _BaseModel2.default;
 exports.FilterSelect = _FilterSelect2.default;
 exports.SimpleSelect = _SimpleSelect2.default;
 exports.TableParams = _TableParams2.default;
+exports.formatMoney = _UIManager.formatMoney;
+exports.formatDate = _UIManager.formatDate;
+exports.formatTime = _UIManager.formatTime;

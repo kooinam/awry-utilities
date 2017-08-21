@@ -3,6 +3,16 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.getNotificationDuration = exports.getFieldsError = exports.getFieldError = exports.getErrorDescription = exports.formatTime = exports.formatDate = exports.formatMoney = undefined;
+
+var _currencySymbolMap = require('currency-symbol-map');
+
+var _formatCurrency = require('format-currency');
+
+var _formatCurrency2 = _interopRequireDefault(_formatCurrency);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function capitalize(str) {
   // let strVal = '';
   var newStr = str.replace(/_/g, ' ');
@@ -13,6 +23,40 @@ function capitalize(str) {
 
   return newStr;
 }
+
+var formatMoney = exports.formatMoney = function formatMoney(amount, currency, placeholder) {
+  var newPlaceholder = placeholder || '$0.00';
+  var newAmount = amount;
+  if (amount < 0) {
+    newAmount = -amount;
+  }
+  var symbol = (0, _currencySymbolMap.getSymbolFromCurrency)(currency);
+  var opts = {
+    format: '%s%v',
+    symbol: symbol
+  };
+  if (amount) {
+    return (0, _formatCurrency2.default)(amount, opts);
+  }
+
+  return newPlaceholder;
+};
+
+var formatDate = exports.formatDate = function formatDate(date) {
+  if (date) {
+    return dateFormat(date, 'dd mmm yyyy');
+  }
+
+  return null;
+};
+
+var formatTime = exports.formatTime = function formatTime(date) {
+  if (date) {
+    return dateFormat(date, 'h:MM:ss TT');
+  }
+
+  return null;
+};
 
 var getErrorDescription = exports.getErrorDescription = function getErrorDescription(error) {
   var message = 'Something went wrong. Please try again later.';
