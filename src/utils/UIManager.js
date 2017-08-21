@@ -1,4 +1,4 @@
-import { getSymbolFromCurrency } from 'currency-symbol-map';
+import getSymbolFromCurrency from 'currency-symbol-map';
 import formatCurrency from 'format-currency';
 
 function capitalize(str) {
