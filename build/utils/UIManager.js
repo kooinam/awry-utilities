@@ -7,6 +7,8 @@ exports.getNotificationDuration = exports.getFieldsError = exports.getFieldError
 
 var _currencySymbolMap = require('currency-symbol-map');
 
+var _currencySymbolMap2 = _interopRequireDefault(_currencySymbolMap);
+
 var _formatCurrency = require('format-currency');
 
 var _formatCurrency2 = _interopRequireDefault(_formatCurrency);
@@ -30,7 +32,7 @@ var formatMoney = exports.formatMoney = function formatMoney(amount, currency, p
   if (amount < 0) {
     newAmount = -amount;
   }
-  var symbol = (0, _currencySymbolMap.getSymbolFromCurrency)(currency);
+  var symbol = (0, _currencySymbolMap2.default)(currency);
   var opts = {
     format: '%s%v',
     symbol: symbol
