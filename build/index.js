@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.formatTime = exports.formatDate = exports.formatMoney = exports.TableParams = exports.SimpleSelect = exports.FilterSelect = exports.BaseModel = exports.getNotificationDuration = exports.getFieldsError = exports.getFieldError = exports.getErrorDescription = exports.addAxiosPreferences = exports.getAxios = exports.setupAxios = exports.ModalParams = exports.Actioner = undefined;
+exports.formatTime = exports.formatDate = exports.formatMoney = exports.TableParams = exports.SimpleSelect = exports.FilterSelect = exports.BaseModel = exports.getMessageDuration = exports.getNotificationDuration = exports.getFieldsError = exports.getFieldError = exports.getErrorDescription = exports.addAxiosPreferences = exports.getAxios = exports.setupAxios = exports.ModalParams = exports.Actioner = undefined;
 
 var _Actioner = require('./utils/Actioner');
 
@@ -35,17 +35,6 @@ var _TableParams2 = _interopRequireDefault(_TableParams);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// import {
-//   Actioner,
-//   ModalParams,
-//   setupAxios,
-//   getAxios,
-//   getErrorDescription,
-//   getFieldError,
-//   getFieldsError,
-//   getNotificationDuration
-// } from './utils'
-
 exports.Actioner = _Actioner2.default;
 exports.ModalParams = _ModalParams2.default;
 exports.setupAxios = _NetworkManager.setupAxios;
@@ -55,6 +44,7 @@ exports.getErrorDescription = _UIManager.getErrorDescription;
 exports.getFieldError = _UIManager.getFieldError;
 exports.getFieldsError = _UIManager.getFieldsError;
 exports.getNotificationDuration = _UIManager.getNotificationDuration;
+exports.getMessageDuration = _UIManager.getMessageDuration;
 exports.BaseModel = _BaseModel2.default;
 exports.FilterSelect = _FilterSelect2.default;
 exports.SimpleSelect = _SimpleSelect2.default;

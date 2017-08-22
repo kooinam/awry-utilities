@@ -1,6 +1,6 @@
 import uuidV4 from 'uuid/v4'
-import { notification } from 'antd';
-import { getErrorDescription, getNotificationDuration } from '../utils/UIManager';
+import { message } from 'antd';
+import { getErrorDescription, getMessageDuration } from '../utils/UIManager';
 
 // new TableParams({
 //   component: this,
@@ -96,11 +96,7 @@ class TableParams extends Object {
           component.setState(state);
           if (error && error.response) {
             if (this.errorMessage) {
-              notification['error']({
-                message: this.errorMessage,
-                description: getErrorDescription(error),
-                duration: getNotificationDuration(),
-              })
+              message.error(this.errorMessage, getMessageDuration());
             }
           }
           else {

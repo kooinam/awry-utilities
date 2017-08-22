@@ -1,6 +1,6 @@
 {
   "name": "awry-utilities",
-  "version": "1.0.27",
+  "version": "1.0.28",
   "description": "",
   "main": "build/index.js",
   "scripts": {
@@ -12,7 +12,7 @@
     "type": "git",
     "url": "git+https://github.com/kooinam/awry-utilities.git"
   },
-  "author": "“Kooi <“ngkooinam@gmail.com”>",
+  "author": "kooinam <“ngkooinam@gmail.com”>",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/kooinam/awry-utilities/issues"

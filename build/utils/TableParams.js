@@ -4,11 +4,11 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _css = require('antd/lib/notification/style/css');
+var _css = require('antd/lib/message/style/css');
 
-var _notification = require('antd/lib/notification');
+var _message = require('antd/lib/message');
 
-var _notification2 = _interopRequireDefault(_notification);
+var _message2 = _interopRequireDefault(_message);
 
 var _v = require('uuid/v4');
 
@@ -118,11 +118,7 @@ var TableParams = function (_Object) {
             component.setState(_state2);
             if (error && error.response) {
               if (_this.errorMessage) {
-                _notification2.default['error']({
-                  message: _this.errorMessage,
-                  description: (0, _UIManager.getErrorDescription)(error),
-                  duration: (0, _UIManager.getNotificationDuration)()
-                });
+                _message2.default.error(_this.errorMessage, (0, _UIManager.getMessageDuration)());
               }
             } else {
               console.log(error);

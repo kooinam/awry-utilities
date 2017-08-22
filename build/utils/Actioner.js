@@ -4,11 +4,11 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _css = require('antd/lib/notification/style/css');
+var _css = require('antd/lib/message/style/css');
 
-var _notification = require('antd/lib/notification');
+var _message = require('antd/lib/message');
 
-var _notification2 = _interopRequireDefault(_notification);
+var _message2 = _interopRequireDefault(_message);
 
 var _UIManager = require('./UIManager');
 
@@ -30,8 +30,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 //   /* eslint-disable no-unused-vars */
 //   successMessageGetter: item =>
 //     'Success',
-//   successDescriptionGetter: item =>
-//     '',
 //   errorMessageGetter: error =>
 //     'Error',
 //   /* eslint-enable no-unused-vars */
@@ -51,9 +49,9 @@ var Actioner = function (_Object) {
       itemName: null,
       ItemKlass: null,
       successMessageGetter: null,
-      successDescriptionGetter: null,
       successCallback: null,
       errorMessageGetter: null,
+      errorCallback: null,
       isLoading: false,
       error: {}
     }, attributes);
@@ -88,15 +86,7 @@ var Actioner = function (_Object) {
           state2[_this.key] = actioner2;
           var item = new _this.ItemKlass(response.data[_this.itemName]);
           if (_this.successMessageGetter && _this.successMessageGetter(item)) {
-            var description = null;
-            if (_this.successDescriptionGetter) {
-              description = _this.successDescriptionGetter(item);
-            }
-            _notification2.default.success({
-              message: _this.successMessageGetter(item),
-              description: description,
-              duration: (0, _UIManager.getNotificationDuration)()
-            });
+            _message2.default.success(_this.successMessageGetter(item), getNotificationDuration());
           }
           component.setState(state2, function () {
             if (_this.successCallback) {
@@ -115,12 +105,8 @@ var Actioner = function (_Object) {
             }
           });
           if (error && error.response) {
-            if (_this.errorMessageGetter && _this.errorMessageGetter()) {
-              _notification2.default.error({
-                message: _this.errorMessageGetter(),
-                description: (0, _UIManager.getErrorDescription)(error),
-                duration: (0, _UIManager.getNotificationDuration)()
-              });
+            if (_this.errorMessageGetter && _this.errorMessageGetter(error)) {
+              _message2.default.error(_this.errorMessageGetter(error), getNotificationDuration());
             }
           } else {
             console.log('error', error);

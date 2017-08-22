@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getNotificationDuration = exports.getFieldsError = exports.getFieldError = exports.getErrorDescription = exports.formatTime = exports.formatDate = exports.formatMoney = undefined;
+exports.getMessageDuration = exports.getNotificationDuration = exports.getFieldsError = exports.getFieldError = exports.getErrorDescription = exports.formatTime = exports.formatDate = exports.formatMoney = undefined;
 
 var _currencySymbolMap = require('currency-symbol-map');
 
@@ -164,5 +164,9 @@ var getFieldsError = exports.getFieldsError = function getFieldsError(error, fie
 };
 
 var getNotificationDuration = exports.getNotificationDuration = function getNotificationDuration() {
+  return 3;
+};
+
+var getMessageDuration = exports.getMessageDuration = function getMessageDuration() {
   return 3;
 };

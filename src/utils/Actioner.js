@@ -1,5 +1,5 @@
-import { notification } from 'antd';
-import { getErrorDescription, getNotificationDuration } from './UIManager';
+import { message } from 'antd';
+import { getMessageDuration } from './UIManager';
 
 // new Actioner({
 //   component: this,
@@ -11,8 +11,6 @@ import { getErrorDescription, getNotificationDuration } from './UIManager';
 //   /* eslint-disable no-unused-vars */
 //   successMessageGetter: item =>
 //     'Success',
-//   successDescriptionGetter: item =>
-//     '',
 //   errorMessageGetter: error =>
 //     'Error',
 //   /* eslint-enable no-unused-vars */
@@ -28,9 +26,9 @@ class Actioner extends Object {
       itemName: null,
       ItemKlass: null,
       successMessageGetter: null,
-      successDescriptionGetter: null,
       successCallback: null,
       errorMessageGetter: null,
+      errorCallback: null,
       isLoading: false,
       error: {},
     }, attributes);
@@ -66,15 +64,7 @@ class Actioner extends Object {
         state2[this.key] = actioner2;
         const item = new this.ItemKlass(response.data[this.itemName]);
         if (this.successMessageGetter && this.successMessageGetter(item)) {
-          let description = null;
-          if (this.successDescriptionGetter) {
-            description = this.successDescriptionGetter(item);
-          }
-          notification.success({
-            message: this.successMessageGetter(item),
-            description,
-            duration: getNotificationDuration(),
-          });
+          message.success(this.successMessageGetter(item), getNotificationDuration());
         }
         component.setState(state2, () => {
           if (this.successCallback) {
@@ -93,12 +83,8 @@ class Actioner extends Object {
           }
         });
         if (error && error.response) {
-          if (this.errorMessageGetter && this.errorMessageGetter()) {
-            notification.error({
-              message: this.errorMessageGetter(),
-              description: getErrorDescription(error),
-              duration: getNotificationDuration(),
-            });
+          if (this.errorMessageGetter && this.errorMessageGetter(error)) {
+            message.error(this.errorMessageGetter(error), getNotificationDuration());
           }
         } else {
           console.log('error', error);

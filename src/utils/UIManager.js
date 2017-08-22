@@ -107,3 +107,5 @@ export const getFieldsError = (error, fields) => {
 export const getNotificationDuration = () =>
   3;
 
+export const getMessageDuration = () =>
+  3;
