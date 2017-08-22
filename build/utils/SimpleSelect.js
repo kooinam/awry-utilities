@@ -92,14 +92,14 @@ var SimpleSelect = function (_Component) {
 
       var select = _react2.default.createElement(
         _select2.default,
-        {
+        _extends({
           style: {
             width: this.props.width
           },
           labelInValue: true,
           placeholder: 'Select a ' + this.props.name,
           disabled: this.props.disabled
-        },
+        }, this.props),
         this.props.items.map(function (item) {
           return _react2.default.createElement(
             _select2.default.Option,

@@ -61,6 +61,7 @@ class SimpleSelect extends Component {
         labelInValue
         placeholder={`Select a ${this.props.name}`}
         disabled={this.props.disabled}
+        {...this.props}
       >
         {
           this.props.items.map((item) => {
