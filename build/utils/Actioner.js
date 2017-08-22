@@ -86,7 +86,7 @@ var Actioner = function (_Object) {
           state2[_this.key] = actioner2;
           var item = new _this.ItemKlass(response.data[_this.itemName]);
           if (_this.successMessageGetter && _this.successMessageGetter(item)) {
-            _message2.default.success(_this.successMessageGetter(item), getNotificationDuration());
+            _message2.default.success(_this.successMessageGetter(item), (0, _UIManager.getMessageDuration)());
           }
           component.setState(state2, function () {
             if (_this.successCallback) {
@@ -106,7 +106,7 @@ var Actioner = function (_Object) {
           });
           if (error && error.response) {
             if (_this.errorMessageGetter && _this.errorMessageGetter(error)) {
-              _message2.default.error(_this.errorMessageGetter(error), getNotificationDuration());
+              _message2.default.error(_this.errorMessageGetter(error), (0, _UIManager.getMessageDuration)());
             }
           } else {
             console.log('error', error);

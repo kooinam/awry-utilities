@@ -64,7 +64,7 @@ class Actioner extends Object {
         state2[this.key] = actioner2;
         const item = new this.ItemKlass(response.data[this.itemName]);
         if (this.successMessageGetter && this.successMessageGetter(item)) {
-          message.success(this.successMessageGetter(item), getNotificationDuration());
+          message.success(this.successMessageGetter(item), getMessageDuration());
         }
         component.setState(state2, () => {
           if (this.successCallback) {
@@ -84,7 +84,7 @@ class Actioner extends Object {
         });
         if (error && error.response) {
           if (this.errorMessageGetter && this.errorMessageGetter(error)) {
-            message.error(this.errorMessageGetter(error), getNotificationDuration());
+            message.error(this.errorMessageGetter(error), getMessageDuration());
           }
         } else {
           console.log('error', error);
