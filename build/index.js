@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.formatTime = exports.formatDate = exports.formatMoney = exports.TableParams = exports.SimpleSelect = exports.FilterSelect = exports.BaseModel = exports.getMessageDuration = exports.getNotificationDuration = exports.getFieldsError = exports.getFieldError = exports.getErrorDescription = exports.addAxiosPreferences = exports.getAxios = exports.setupAxios = exports.ModalParams = exports.Actioner = undefined;
+exports.matchBreadcrumbs = exports.matchRoutes = exports.expandRoutes = exports.setupBreadcrumbIdentifiers = exports.BreadcrumbsReducer = exports.BreadcrumbsNavigator = exports.formatTime = exports.formatDate = exports.formatMoney = exports.TableParams = exports.SimpleSelect = exports.FilterSelect = exports.BaseModel = exports.getMessageDuration = exports.getNotificationDuration = exports.getFieldsError = exports.getFieldError = exports.getErrorDescription = exports.addAxiosPreferences = exports.getAxios = exports.setupAxios = exports.ModalParams = exports.Actioner = undefined;
 
 var _Actioner = require('./utils/Actioner');
 
@@ -17,10 +17,6 @@ var _NetworkManager = require('./utils/NetworkManager');
 
 var _UIManager = require('./utils/UIManager');
 
-var _BaseModel = require('./models/BaseModel');
-
-var _BaseModel2 = _interopRequireDefault(_BaseModel);
-
 var _FilterSelect = require('./utils/FilterSelect');
 
 var _FilterSelect2 = _interopRequireDefault(_FilterSelect);
@@ -32,6 +28,20 @@ var _SimpleSelect2 = _interopRequireDefault(_SimpleSelect);
 var _TableParams = require('./utils/TableParams');
 
 var _TableParams2 = _interopRequireDefault(_TableParams);
+
+var _BaseModel = require('./models/BaseModel');
+
+var _BaseModel2 = _interopRequireDefault(_BaseModel);
+
+var _BreadcrumbsNavigator = require('./components/BreadcrumbsNavigator');
+
+var _BreadcrumbsNavigator2 = _interopRequireDefault(_BreadcrumbsNavigator);
+
+var _breadcrumbs = require('./reducers/breadcrumbs');
+
+var _breadcrumbs2 = _interopRequireDefault(_breadcrumbs);
+
+var _breadcrumbs3 = require('./actions/breadcrumbs');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -52,3 +62,9 @@ exports.TableParams = _TableParams2.default;
 exports.formatMoney = _UIManager.formatMoney;
 exports.formatDate = _UIManager.formatDate;
 exports.formatTime = _UIManager.formatTime;
+exports.BreadcrumbsNavigator = _BreadcrumbsNavigator2.default;
+exports.BreadcrumbsReducer = _breadcrumbs2.default;
+exports.setupBreadcrumbIdentifiers = _breadcrumbs3.setupBreadcrumbIdentifiers;
+exports.expandRoutes = _BreadcrumbsNavigator.expandRoutes;
+exports.matchRoutes = _BreadcrumbsNavigator.matchRoutes;
+exports.matchBreadcrumbs = _BreadcrumbsNavigator.matchBreadcrumbs;
