@@ -62,7 +62,7 @@ class TableParams extends Object {
     state[this.key] = tableParams;
     component.setState(state, () => {
       const axiosGetter = this.axiosGetter;
-      axiosGetter.then((instance) => {
+      axiosGetter().then((instance) => {
         params = params || {
           params: {},
         };

@@ -84,7 +84,7 @@ var TableParams = function (_Object) {
       state[_this.key] = tableParams;
       component.setState(state, function () {
         var axiosGetter = _this.axiosGetter;
-        axiosGetter.then(function (instance) {
+        axiosGetter().then(function (instance) {
           params = params || {
             params: {}
           };
