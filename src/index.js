@@ -15,11 +15,18 @@ import {
 import FilterSelect from './utils/FilterSelect';
 import SimpleSelect from './utils/SimpleSelect';
 import TableParams from './utils/TableParams';
+import ItemLoader from './utils/ItemLoader';
 
 import BaseModel from './models/BaseModel';
 
 import BreadcrumbsNavigator from './components/BreadcrumbsNavigator';
 import { expandRoutes, matchRoutes, matchBreadcrumbs } from './components/BreadcrumbsNavigator';
+import CustomPagination from './components/CustomPagination';
+import ErrorContainer from './components/ErrorContainer';
+import TabContainer from './components/TabContainer';
+import BaseRouteComponent from './components/BaseRouteComponent';
+import DetailsContainer from './components/DetailsContainer';
+import FiltersContainer from './components/FiltersContainer';
 
 import BreadcrumbsReducer from './reducers/breadcrumbs';
 
@@ -49,5 +56,12 @@ export {
   expandRoutes,
   matchRoutes,
   matchBreadcrumbs,
+  CustomPagination,
+  ItemLoader,
+  ErrorContainer,
+  BaseRouteComponent,
+  TabContainer,
+  DetailsContainer,
+  FiltersContainer,
 };
 

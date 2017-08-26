@@ -63,11 +63,11 @@ export const matchRoutes = (routes, pathname) => {
 
 export const matchBreadcrumbs = (matchedRoutes, breadcrumbIdentifiers) => {
   const matchedBreadcrumbs = matchedRoutes.map((route) => {
-    let breadcrumbName = route.breadcrumbName || '';
+    let breadcrumbName = (route.routeProps && route.routeProps.breadcrumbName)? route.routeProps.breadcrumbName : '';
     const keys = Object.keys(breadcrumbIdentifiers);
     for(const key of keys) {
       const re = new RegExp(`\%\{${key}\}`, "g");
-      breadcrumbName = breadcrumbName.replace(re, breadcrumbIdentifiers[key]);
+      breadcrumbName = breadcrumbName.replace(re, breadcrumbIdentifiers[key] || ' ');
     };
 
     const re = new RegExp(`\%\{[a-zA-Z0-9]*\}`, "g");

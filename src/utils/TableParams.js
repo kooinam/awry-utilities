@@ -6,7 +6,8 @@ import { getErrorDescription, getMessageDuration } from '../utils/UIManager';
 //   component: this,
 //   key: 'tableParams',
 //   axiosGetter: getAxios,
-//   itemName: 'item',
+//   itemsName: 'items',
+//   ItemKlass: Item,
 //   errorMessage: 'Error',
 //   scope: null,
 // })
@@ -35,6 +36,11 @@ class TableParams extends Object {
 
     this.lastSearchId = 0;
     this.rotateUuid();
+  }
+
+
+  isFirstLoading = () => {
+    return this.lastSearchId === 1 && this.isLoading;
   }
 
   rotateUuid = () => {
@@ -69,7 +75,7 @@ class TableParams extends Object {
         params.params.scope = this.scope;
         return instance.get(url, params);
       }).then((response) => {
-        if (searchId == this.lastSearchId) {
+        if (searchId === this.lastSearchId) {
           let tableParams = component.state[this.key];
           tableParams.isLoading = false;
           tableParams.isError = false;
@@ -86,7 +92,7 @@ class TableParams extends Object {
           }
         }
       }).catch((error) => {
-        if (searchId == this.lastSearchId) {
+        if (searchId === this.lastSearchId) {
           let tableParams = component.state[this.key];
           tableParams.isLoading = false;
           tableParams.isError = true;

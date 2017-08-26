@@ -110,7 +110,7 @@ var matchRoutes = exports.matchRoutes = function matchRoutes(routes, pathname) {
 
 var matchBreadcrumbs = exports.matchBreadcrumbs = function matchBreadcrumbs(matchedRoutes, breadcrumbIdentifiers) {
   var matchedBreadcrumbs = matchedRoutes.map(function (route) {
-    var breadcrumbName = route.breadcrumbName || '';
+    var breadcrumbName = route.routeProps && route.routeProps.breadcrumbName ? route.routeProps.breadcrumbName : '';
     var keys = Object.keys(breadcrumbIdentifiers);
     var _iteratorNormalCompletion2 = true;
     var _didIteratorError2 = false;
@@ -121,7 +121,7 @@ var matchBreadcrumbs = exports.matchBreadcrumbs = function matchBreadcrumbs(matc
         var key = _step2.value;
 
         var _re = new RegExp('%{' + key + '}', "g");
-        breadcrumbName = breadcrumbName.replace(_re, breadcrumbIdentifiers[key]);
+        breadcrumbName = breadcrumbName.replace(_re, breadcrumbIdentifiers[key] || ' ');
       }
     } catch (err) {
       _didIteratorError2 = true;

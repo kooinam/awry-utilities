@@ -14,7 +14,7 @@ var _v = require('uuid/v4');
 
 var _v2 = _interopRequireDefault(_v);
 
-var _UIManager = require('../utils/UIManager');
+var _UIManager = require('./UIManager');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -24,45 +24,35 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-// new TableParams({
+// new ItemLoader({
 //   component: this,
-//   key: 'tableParams',
+//   key: 'itemLoader',
 //   axiosGetter: getAxios,
-//   itemsName: 'items',
+//   itemsName: 'item',
 //   ItemKlass: Item,
 //   errorMessage: 'Error',
-//   scope: null,
 // })
 
-var TableParams = function (_Object) {
-  _inherits(TableParams, _Object);
+var ItemLoader = function (_Object) {
+  _inherits(ItemLoader, _Object);
 
-  function TableParams(attributes) {
-    _classCallCheck(this, TableParams);
+  function ItemLoader(attributes) {
+    _classCallCheck(this, ItemLoader);
 
     var newAttributes = Object.assign({
       component: null,
       key: null,
       axiosGetter: null,
-      itemsName: null,
+      itemName: null,
       ItemKlass: null,
       errorMessage: null,
       isError: false,
-      scope: null,
       isLoading: false,
-      pagination: {
-        total: 0,
-        current: 1,
-        per_page: 10
-      },
-      items: []
+      item: null,
+      callback: null
     }, attributes);
 
-    var _this = _possibleConstructorReturn(this, (TableParams.__proto__ || Object.getPrototypeOf(TableParams)).call(this, newAttributes));
-
-    _this.isFirstLoading = function () {
-      return _this.lastSearchId === 1 && _this.isLoading;
-    };
+    var _this = _possibleConstructorReturn(this, (ItemLoader.__proto__ || Object.getPrototypeOf(ItemLoader)).call(this, attributes));
 
     _this.rotateUuid = function () {
       _this.uuid = (0, _v2.default)();
@@ -70,64 +60,56 @@ var TableParams = function (_Object) {
       return _this;
     };
 
-    _this.reload = function () {
-      var tableParams = _this.rotateUuid();
-      var state = {};
-      state[_this.key] = tableParams;
-      _this.component.setState(state);
+    _this.isFirstLoading = function () {
+      return _this.lastSearchId === 1 && _this.isLoading;
     };
 
-    _this.loadItems = function (url, params) {
+    _this.loadItem = function (url, params) {
       _this.lastSearchId += 1;
       var searchId = _this.lastSearchId;
 
       var component = _this.component;
-      var tableParams = component.state[_this.key];
-      tableParams.isLoading = true;
-      tableParams.rotateUuid();
+      var itemLoader = component.state[_this.key];
+      itemLoader.isLoading = true;
+      itemLoader.rotateUuid();
       var state = {};
-      state[_this.key] = tableParams;
+      state[_this.key] = itemLoader;
       component.setState(state, function () {
         var axiosGetter = _this.axiosGetter;
         axiosGetter().then(function (instance) {
-          params = params || {
-            params: {}
-          };
-          params.params.scope = _this.scope;
           return instance.get(url, params);
         }).then(function (response) {
           if (searchId === _this.lastSearchId) {
-            var _tableParams = component.state[_this.key];
-            _tableParams.isLoading = false;
-            _tableParams.isError = false;
-            _tableParams.items = response.data[_this.itemsName].map(function (item) {
-              return new _this.ItemKlass(item);
-            });
-            _tableParams.pagination.total = response.data.total_count;
-            _tableParams.rotateUuid();
+            var _itemLoader = component.state[_this.key];
+            _itemLoader.isLoading = false;
+            _itemLoader.isError = false;
+            _itemLoader.item = new _this.ItemKlass(response.data[_this.itemName]);
+            _itemLoader.rotateUuid();
             var _state = {};
-            _state[_this.key] = _tableParams;
-            component.setState(_state);
-            if (_this.callback) {
-              _this.callback();
-            }
+            _state[_this.key] = _itemLoader;
+            component.setState(_state, function () {
+              if (_this.callback) {
+                _this.callback();
+              }
+            });
           }
         }).catch(function (error) {
           if (searchId === _this.lastSearchId) {
-            var _tableParams2 = component.state[_this.key];
-            _tableParams2.isLoading = false;
-            _tableParams2.isError = true;
+            var _itemLoader2 = component.state[_this.key];
+            _itemLoader2.isLoading = false;
+            _itemLoader2.isError = true;
+            _itemLoader2.rotateUuid();
             var _state2 = {};
-            _state2[_this.key] = _tableParams2;
-            _this.rotateUuid();
-            component.setState(_state2);
-            if (error && error.response) {
-              if (_this.errorMessage) {
-                _message2.default.error(_this.errorMessage, (0, _UIManager.getMessageDuration)());
+            _state2[_this.key] = _itemLoader2;
+            component.setState(_state2, function () {
+              if (error && error.response) {
+                if (_this.errorMessage) {
+                  _message2.default.error(_this.errorMessage, (0, _UIManager.getMessageDuration)());
+                }
+              } else {
+                console.log(error);
               }
-            } else {
-              console.log(error);
-            }
+            });
           }
         });
       });
@@ -138,7 +120,7 @@ var TableParams = function (_Object) {
     return _this;
   }
 
-  return TableParams;
+  return ItemLoader;
 }(Object);
 
-exports.default = TableParams;
+exports.default = ItemLoader;
