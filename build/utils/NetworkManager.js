@@ -25,29 +25,31 @@ var addAxiosPreferences = exports.addAxiosPreferences = function addAxiosPrefere
 };
 
 var addInterceptors = function addInterceptors(instance) {
-  instance.interceptors.request.use(function (config) {
-    Network.component.showLoading();
-    return config;
-  }, function (error) {
-    return Promise.reject(error);
-  });
+  if (Network.component) {
+    instance.interceptors.request.use(function (config) {
+      Network.component.showLoading();
+      return config;
+    }, function (error) {
+      return Promise.reject(error);
+    });
 
-  instance.interceptors.response.use(function (response) {
-    Network.component.hideLoading();
-    return response;
-  }, function (error) {
-    Network.component.hideLoading();
-    if (error && error.response) {
-      if (error.response.status === 401) {
-        Network.component.unauthorized();
-        return Promise.reject(null);
+    instance.interceptors.response.use(function (response) {
+      Network.component.hideLoading();
+      return response;
+    }, function (error) {
+      Network.component.hideLoading();
+      if (error && error.response) {
+        if (error.response.status === 401) {
+          Network.component.unauthorized();
+          return Promise.reject(null);
+        }
+
+        return Promise.reject(error);
       }
 
-      return Promise.reject(error);
-    }
-
-    return Promise.reject(null);
-  });
+      return Promise.reject(null);
+    });
+  }
 };
 
 var getAxios = exports.getAxios = function getAxios(key) {

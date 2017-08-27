@@ -6,12 +6,12 @@ export default (state = {
       const keys = Object.keys(action.payload.breadcrumbIdentifiers);
       for (let key of keys) {
         if (state.breadcrumbIdentifiers[key] != action.payload.breadcrumbIdentifiers[key]) {
-          return Object.assign({}, state, {
-            breadcrumbIdentifiers: action.payload.breadcrumbIdentifiers,
-          });
+          state.breadcrumbIdentifiers[key] = action.payload.breadcrumbIdentifiers[key];
         }
       }
-      return state;
+      state.breadcrumbIdentifiers = Object.assign({}, state.breadcrumbIdentifiers);
+
+      return Object.assign({}, state);
     default:
       return state;
   }

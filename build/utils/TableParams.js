@@ -14,7 +14,9 @@ var _v = require('uuid/v4');
 
 var _v2 = _interopRequireDefault(_v);
 
-var _UIManager = require('../utils/UIManager');
+var _UIManager = require('./UIManager');
+
+var _ssr = require('../actions/ssr');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -46,16 +48,28 @@ var TableParams = function (_Object) {
       axiosGetter: null,
       itemsName: null,
       ItemKlass: null,
+      url: null,
+      paramsGetter: function paramsGetter() {
+        return {
+          params: {
+            q: _this.filter,
+            per_page: _this.pagination.per_page,
+            page: _this.pagination.current
+          }
+        };
+      },
       errorMessage: null,
-      isError: false,
-      scope: null,
-      isLoading: false,
+      filter: {},
       pagination: {
         total: 0,
         current: 1,
         per_page: 10
       },
-      items: []
+      scope: null,
+      isLoading: false,
+      isError: false,
+      items: [],
+      ssrKey: null
     }, attributes);
 
     var _this = _possibleConstructorReturn(this, (TableParams.__proto__ || Object.getPrototypeOf(TableParams)).call(this, newAttributes));
@@ -77,60 +91,90 @@ var TableParams = function (_Object) {
       _this.component.setState(state);
     };
 
-    _this.loadItems = function (url, params) {
-      _this.lastSearchId += 1;
-      var searchId = _this.lastSearchId;
-
+    _this.setComponent = function (setter, setterCallback) {
       var component = _this.component;
-      var tableParams = component.state[_this.key];
-      tableParams.isLoading = true;
-      tableParams.rotateUuid();
-      var state = {};
-      state[_this.key] = tableParams;
-      component.setState(state, function () {
-        var axiosGetter = _this.axiosGetter;
-        axiosGetter().then(function (instance) {
-          params = params || {
-            params: {}
-          };
-          params.params.scope = _this.scope;
-          return instance.get(url, params);
-        }).then(function (response) {
-          if (searchId === _this.lastSearchId) {
-            var _tableParams = component.state[_this.key];
-            _tableParams.isLoading = false;
-            _tableParams.isError = false;
-            _tableParams.items = response.data[_this.itemsName].map(function (item) {
-              return new _this.ItemKlass(item);
-            });
-            _tableParams.pagination.total = response.data.total_count;
-            _tableParams.rotateUuid();
-            var _state = {};
-            _state[_this.key] = _tableParams;
-            component.setState(_state);
+      if (component) {
+        var tableParams = component.state[_this.key];
+        tableParams.rotateUuid();
+        setter(tableParams);
+        var state = {};
+        state[_this.key] = tableParams;
+        component.setState(state, setterCallback);
+      } else {
+        setterCallback();
+      }
+    };
+
+    _this.loadItems = function () {
+      if (_this.ssrKey && _this.component && _this.component.props.SSRReducer && _this.component.props.SSRReducer.ssrItems && _this.component.props.SSRReducer.ssrItems[_this.ssrKey] && !_this.component.props.SSRReducer.ssrItems[_this.ssrKey].isServed) {
+        return new Promise(function (resolve) {
+          var items = _this.component.props.SSRReducer.ssrItems[_this.ssrKey].value;
+          _this.setComponent(function (tableParams) {
+            tableParams.items = items;
+          }, function () {
             if (_this.callback) {
-              _this.callback();
+              _this.callback(items);
             }
-          }
-        }).catch(function (error) {
-          if (searchId === _this.lastSearchId) {
-            var _tableParams2 = component.state[_this.key];
-            _tableParams2.isLoading = false;
-            _tableParams2.isError = true;
-            var _state2 = {};
-            _state2[_this.key] = _tableParams2;
-            _this.rotateUuid();
-            component.setState(_state2);
-            if (error && error.response) {
-              if (_this.errorMessage) {
-                _message2.default.error(_this.errorMessage, (0, _UIManager.getMessageDuration)());
-              }
-            } else {
-              console.log(error);
-            }
-          }
+            _this.component.props.dispatch((0, _ssr.invalidateSSRItems)(_this.ssrKey));
+            resolve();
+          });
         });
-      });
+      } else {
+        return new Promise(function (resolve, reject) {
+          _this.lastSearchId += 1;
+          var searchId = _this.lastSearchId;
+
+          _this.setComponent(function (tableParams) {
+            tableParams.isLoading = true;
+          }, function () {
+            var axiosGetter = _this.axiosGetter;
+            axiosGetter().then(function (instance) {
+              var params = _this.paramsGetter();
+              params.params.scope = _this.scope;
+
+              return instance.get(_this.url, params);
+            }).then(function (response) {
+              if (searchId === _this.lastSearchId) {
+                var items = response.data[_this.itemsName].map(function (item) {
+                  return new _this.ItemKlass(item);
+                });
+                _this.setComponent(function (tableParams) {
+                  tableParams.isLoading = false;
+                  tableParams.isError = false;
+                  tableParams.items = items;
+                  tableParams.pagination.total = response.data.total_count;
+                }, function () {
+                  if (_this.callback) {
+                    _this.callback(items);
+                  }
+                  resolve(items);
+                });
+              } else {
+                reject();
+              }
+            }).catch(function (error) {
+              if (searchId === _this.lastSearchId) {
+                _this.setComponent(function (tableParams) {
+                  tableParams.isLoading = false;
+                  tableParams.isError = true;
+                }, function () {
+                  if (error && error.response) {
+                    if (_this.errorMessage) {
+                      _message2.default.error(_this.errorMessage, (0, _UIManager.getMessageDuration)());
+                    }
+                  } else {
+                    console.log(error);
+                  }
+
+                  reject(error);
+                });
+              } else {
+                reject();
+              }
+            });
+          });
+        });
+      }
     };
 
     _this.lastSearchId = 0;

@@ -29,8 +29,10 @@ import DetailsContainer from './components/DetailsContainer';
 import FiltersContainer from './components/FiltersContainer';
 
 import BreadcrumbsReducer from './reducers/breadcrumbs';
+import SSRReducer from './reducers/ssr';
 
 import { setupBreadcrumbIdentifiers } from './actions/breadcrumbs';
+import { setupSSRItems } from './actions/ssr';
 
 export {
   Actioner,
@@ -63,5 +65,7 @@ export {
   TabContainer,
   DetailsContainer,
   FiltersContainer,
+  SSRReducer,
+  setupSSRItems,
 };
 

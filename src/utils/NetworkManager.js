@@ -14,29 +14,31 @@ export const addAxiosPreferences = (key, preferences) => {
 };
 
 const addInterceptors = (instance) => {
-  instance.interceptors.request.use((config) => {
-    Network.component.showLoading();
-    return config;
-  }, error =>
-    Promise.reject(error),
-  );
+  if (Network.component) {
+    instance.interceptors.request.use((config) => {
+      Network.component.showLoading();
+      return config;
+    }, error =>
+      Promise.reject(error),
+    );
 
-  instance.interceptors.response.use((response) => {
-    Network.component.hideLoading();
-    return response;
-  }, (error) => {
-    Network.component.hideLoading();
-    if (error && error.response) {
-      if (error.response.status === 401) {
-        Network.component.unauthorized();
-        return Promise.reject(null);
+    instance.interceptors.response.use((response) => {
+      Network.component.hideLoading();
+      return response;
+    }, (error) => {
+      Network.component.hideLoading();
+      if (error && error.response) {
+        if (error.response.status === 401) {
+          Network.component.unauthorized();
+          return Promise.reject(null);
+        }
+
+        return Promise.reject(error);
       }
 
-      return Promise.reject(error);
-    }
-
-    return Promise.reject(null);
-  });
+      return Promise.reject(null);
+    });
+  }
 };
 
 export const getAxios = (key) =>

@@ -6,13 +6,13 @@ Object.defineProperty(exports, "__esModule", {
 
 exports.default = function () {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
-    breadcrumbIdentifiers: {}
+    ssrItems: {}
   };
   var action = arguments[1];
 
   switch (action.type) {
-    case 'SETUP_BREADCRUMB_IDENTIFIERS':
-      var keys = Object.keys(action.payload.breadcrumbIdentifiers);
+    case 'SETUP_SSR_ITEMS':
+      var keys = Object.keys(action.payload.ssrItems);
       var _iteratorNormalCompletion = true;
       var _didIteratorError = false;
       var _iteratorError = undefined;
@@ -21,8 +21,8 @@ exports.default = function () {
         for (var _iterator = keys[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
           var key = _step.value;
 
-          if (state.breadcrumbIdentifiers[key] != action.payload.breadcrumbIdentifiers[key]) {
-            state.breadcrumbIdentifiers[key] = action.payload.breadcrumbIdentifiers[key];
+          if (state.ssrItems[key] != action.payload.ssrItems[key]) {
+            state.ssrItems[key] = action.payload.ssrItems[key];
           }
         }
       } catch (err) {
@@ -40,9 +40,14 @@ exports.default = function () {
         }
       }
 
-      state.breadcrumbIdentifiers = Object.assign({}, state.breadcrumbIdentifiers);
+      state.ssrItems = Object.assign({}, state.ssrItems);
 
-      return Object.assign({}, state);
+      return state;
+    case 'INVALIDATE_SSR_ITEMS':
+      state.ssrItems[action.payload.key].isServed = true;
+      state.ssrItems = Object.assign({}, state.ssrItems);
+
+      return state;
     default:
       return state;
   }
