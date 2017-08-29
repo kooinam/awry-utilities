@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Row, Col, Input } from 'antd';
+import { Row, Col, Input, Select } from 'antd';
 
 /*
   <FiltersContainer
@@ -20,12 +20,13 @@ class FiltersContainer extends Component {
     this.state = {};
 
     this.renderFilters = this.renderFilters.bind(this);
+    this.renderSorting = this.renderSorting.bind(this);
   }
 
   renderFilters = () => {
     const filters = this.props.filters.map((filter) => {
       const size = filter.size;
-      let col = 4;
+      let col = 6;
       if (size === 'md') {
         col = 8;
       } else if (size === 'lg') {
@@ -50,10 +51,48 @@ class FiltersContainer extends Component {
     return filters;
   }
 
+  renderSorting = () => {
+    if (this.props.sorting && this.props.sorting.length > 0)
+    return (
+      <Row className={'ant-sorting'}>
+        <Col span="6">
+          <label htmlFor="sorting">
+            Sorting:
+          </label>
+          <Select
+            labelInValue
+            defaultValue={this.props.sorting[0]}
+            onChange={(option) => {
+              this.props.onSearch('s', [option.key]);
+            }}
+          >
+            {
+              this.props.sorting.map((item) => {
+                return (
+                  <Select.Option key={item.key}>
+                    {item.label}
+                  </Select.Option>
+                )
+              })
+            }
+          </Select>
+        </Col>
+      </Row>
+    );
+  }
+
   render() {
     return (
-      <Row className="ant-filters">
-        {this.renderFilters()}
+      <Row>
+        <Col span="24">
+          <Row className="ant-filters">
+            {this.renderFilters()}
+          </Row>
+          {this.renderSorting()}
+        </Col>
+        <Col span="24">
+          <hr className="ant-hr" />
+        </Col>
       </Row>
     );
   }

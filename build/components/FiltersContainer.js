@@ -10,13 +10,19 @@ var _row = require('antd/lib/row');
 
 var _row2 = _interopRequireDefault(_row);
 
-var _css2 = require('antd/lib/col/style/css');
+var _css2 = require('antd/lib/select/style/css');
+
+var _select = require('antd/lib/select');
+
+var _select2 = _interopRequireDefault(_select);
+
+var _css3 = require('antd/lib/col/style/css');
 
 var _col = require('antd/lib/col');
 
 var _col2 = _interopRequireDefault(_col);
 
-var _css3 = require('antd/lib/input/style/css');
+var _css4 = require('antd/lib/input/style/css');
 
 var _input = require('antd/lib/input');
 
@@ -60,7 +66,7 @@ var FiltersContainer = function (_Component) {
     _this.renderFilters = function () {
       var filters = _this.props.filters.map(function (filter) {
         var size = filter.size;
-        var col = 4;
+        var col = 6;
         if (size === 'md') {
           col = 8;
         } else if (size === 'lg') {
@@ -88,9 +94,43 @@ var FiltersContainer = function (_Component) {
       return filters;
     };
 
+    _this.renderSorting = function () {
+      if (_this.props.sorting && _this.props.sorting.length > 0) return _react2.default.createElement(
+        _row2.default,
+        { className: 'ant-sorting' },
+        _react2.default.createElement(
+          _col2.default,
+          { span: '6' },
+          _react2.default.createElement(
+            'label',
+            { htmlFor: 'sorting' },
+            'Sorting:'
+          ),
+          _react2.default.createElement(
+            _select2.default,
+            {
+              labelInValue: true,
+              defaultValue: _this.props.sorting[0],
+              onChange: function onChange(option) {
+                _this.props.onSearch('s', [option.key]);
+              }
+            },
+            _this.props.sorting.map(function (item) {
+              return _react2.default.createElement(
+                _select2.default.Option,
+                { key: item.key },
+                item.label
+              );
+            })
+          )
+        )
+      );
+    };
+
     _this.state = {};
 
     _this.renderFilters = _this.renderFilters.bind(_this);
+    _this.renderSorting = _this.renderSorting.bind(_this);
     return _this;
   }
 
@@ -99,8 +139,22 @@ var FiltersContainer = function (_Component) {
     value: function render() {
       return _react2.default.createElement(
         _row2.default,
-        { className: 'ant-filters' },
-        this.renderFilters()
+        null,
+        _react2.default.createElement(
+          _col2.default,
+          { span: '24' },
+          _react2.default.createElement(
+            _row2.default,
+            { className: 'ant-filters' },
+            this.renderFilters()
+          ),
+          this.renderSorting()
+        ),
+        _react2.default.createElement(
+          _col2.default,
+          { span: '24' },
+          _react2.default.createElement('hr', { className: 'ant-hr' })
+        )
       );
     }
   }]);
