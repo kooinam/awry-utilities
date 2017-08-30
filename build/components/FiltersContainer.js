@@ -73,6 +73,26 @@ var FiltersContainer = function (_Component) {
           col = 12;
         }
 
+        if (filter.type == 'number') {
+          return _react2.default.createElement(
+            _col2.default,
+            { span: col, key: filter.field, className: 'ant-filter' },
+            _react2.default.createElement(
+              'label',
+              { htmlFor: filter.field },
+              filter.name,
+              ':'
+            ),
+            _react2.default.createElement(_input2.default, {
+              type: 'number',
+              onChange: function onChange(event) {
+                _this.props.onSearch(filter.field + '_eq', event.target.value);
+              },
+              placeholder: filter.name
+            })
+          );
+        }
+
         return _react2.default.createElement(
           _col2.default,
           { span: col, key: filter.field, className: 'ant-filter' },

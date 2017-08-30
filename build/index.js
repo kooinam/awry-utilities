@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.setupSSRItems = exports.SSRReducer = exports.FiltersContainer = exports.DetailsContainer = exports.TabContainer = exports.BaseRouteComponent = exports.ErrorContainer = exports.ItemLoader = exports.CustomPagination = exports.matchBreadcrumbs = exports.matchRoutes = exports.expandRoutes = exports.setupBreadcrumbIdentifiers = exports.BreadcrumbsReducer = exports.BreadcrumbsNavigator = exports.formatTime = exports.formatDate = exports.formatMoney = exports.TableParams = exports.SimpleSelect = exports.FilterSelect = exports.BaseModel = exports.getMessageDuration = exports.getNotificationDuration = exports.getFieldsError = exports.getFieldError = exports.getErrorDescription = exports.addAxiosPreferences = exports.getAxios = exports.setupAxios = exports.ModalParams = exports.Actioner = undefined;
+exports.setupSSRItems = exports.SSRReducer = exports.FiltersContainer = exports.DetailsContainer = exports.TabContainer = exports.BaseRouteComponent = exports.ErrorContainer = exports.ItemLoader = exports.CustomPagination = exports.matchRouteProperty = exports.matchRouteParams = exports.matchBreadcrumbs = exports.matchRoutes = exports.expandRoutes = exports.setupBreadcrumbIdentifiers = exports.BreadcrumbsReducer = exports.BreadcrumbsNavigator = exports.formatTime = exports.formatDate = exports.formatMoney = exports.TableParams = exports.SimpleSelect = exports.FilterSelect = exports.BaseModel = exports.getMessageDuration = exports.getNotificationDuration = exports.getFieldsError = exports.getFieldError = exports.getErrorDescription = exports.addAxiosPreferences = exports.getAxios = exports.setupAxios = exports.ModalParams = exports.Actioner = undefined;
 
 var _Actioner = require('./utils/Actioner');
 
@@ -102,6 +102,8 @@ exports.setupBreadcrumbIdentifiers = _breadcrumbs3.setupBreadcrumbIdentifiers;
 exports.expandRoutes = _BreadcrumbsNavigator.expandRoutes;
 exports.matchRoutes = _BreadcrumbsNavigator.matchRoutes;
 exports.matchBreadcrumbs = _BreadcrumbsNavigator.matchBreadcrumbs;
+exports.matchRouteParams = _BreadcrumbsNavigator.matchRouteParams;
+exports.matchRouteProperty = _BreadcrumbsNavigator.matchRouteProperty;
 exports.CustomPagination = _CustomPagination2.default;
 exports.ItemLoader = _ItemLoader2.default;
 exports.ErrorContainer = _ErrorContainer2.default;

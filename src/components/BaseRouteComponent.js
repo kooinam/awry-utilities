@@ -15,7 +15,7 @@ const BaseRouteComponent = (props) => {
       path={`${url}${route.path}`}
       render={childProps => (
         // Pass the sub-routes down to keep nesting
-        <route.component {...childProps} routes={route.routes} routeProps={route.routeProps} onMount={props.onMount} />
+        <route.component {...childProps} routes={route.routes || []} routeProps={route.routeProps} onMount={props.onMount} matchedRoutes={props.matchedRoutes} />
       )}
     />
   );

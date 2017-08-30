@@ -58,7 +58,7 @@ var Actioner = function (_Object) {
 
     var _this = _possibleConstructorReturn(this, (Actioner.__proto__ || Object.getPrototypeOf(Actioner)).call(this, newAttributes));
 
-    _this.do = function (url, params) {
+    _this.do = function (url, params, key) {
       var component = _this.component;
       var actioner = component.state[_this.key];
       actioner.isLoading = true;
@@ -85,12 +85,12 @@ var Actioner = function (_Object) {
           var state2 = {};
           state2[_this.key] = actioner2;
           var item = new _this.ItemKlass(response.data[_this.itemName]);
-          if (_this.successMessageGetter && _this.successMessageGetter(item)) {
-            _message2.default.success(_this.successMessageGetter(item), (0, _UIManager.getMessageDuration)());
+          if (_this.successMessageGetter && _this.successMessageGetter(item, key)) {
+            _message2.default.success(_this.successMessageGetter(item, key), (0, _UIManager.getMessageDuration)());
           }
           component.setState(state2, function () {
             if (_this.successCallback) {
-              _this.successCallback(item);
+              _this.successCallback(item, key);
             }
           });
         }).catch(function (error) {
@@ -101,12 +101,12 @@ var Actioner = function (_Object) {
           state2[_this.key] = actioner2;
           component.setState(state2, function () {
             if (_this.errorCallback) {
-              _this.errorCallback(error);
+              _this.errorCallback(error, key);
             }
           });
           if (error && error.response) {
-            if (_this.errorMessageGetter && _this.errorMessageGetter(error)) {
-              _message2.default.error(_this.errorMessageGetter(error), (0, _UIManager.getMessageDuration)());
+            if (_this.errorMessageGetter && _this.errorMessageGetter(error, key)) {
+              _message2.default.error(_this.errorMessageGetter(error, key), (0, _UIManager.getMessageDuration)());
             }
           } else {
             console.log('error', error);

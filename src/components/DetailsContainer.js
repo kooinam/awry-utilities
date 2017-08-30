@@ -26,19 +26,19 @@ class DetailsContainer extends Component {
     const details = this.props.details.map((detail) => {
       const size = detail.size;
       let col = 12;
-      if (size === 'sm') {
-        col = 6;
-      } else if (size === 'lg') {
+      let titleCol = 8;
+      if (size === 'lg') {
+        titleCol = 4;
         col = 24;
       }
 
       return (
         <Col span={col} className="ant-details" key={uuidV4()}>
           <Row>
-            <Col span={8} className="ant-details-title">
+            <Col span={titleCol} className="ant-details-title">
               {detail.title}
             </Col>
-            <Col span={16} className="ant-details-value">
+            <Col span={24 - titleCol} className="ant-details-value">
               {detail.value}
             </Col>
           </Row>

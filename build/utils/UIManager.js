@@ -123,18 +123,35 @@ var getFieldsError = exports.getFieldsError = function getFieldsError(error, fie
   var _iteratorError2 = undefined;
 
   try {
-    var _loop = function _loop() {
+    for (var _iterator2 = fields[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
       var field = _step2.value;
 
       if (error && error.response && error.response.data.errors && error.response.data.errors[field]) {
-        error.response.data.errors[field].each(function (errorMessage) {
-          message = message + ' ' + capitalize(field) + ' ' + errorMessage;
-        });
-      }
-    };
+        var _iteratorNormalCompletion3 = true;
+        var _didIteratorError3 = false;
+        var _iteratorError3 = undefined;
 
-    for (var _iterator2 = fields[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-      _loop();
+        try {
+          for (var _iterator3 = error.response.data.errors[field][Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+            var errorMessage = _step3.value;
+
+            message = message + ' ' + capitalize(field) + ' ' + errorMessage;
+          }
+        } catch (err) {
+          _didIteratorError3 = true;
+          _iteratorError3 = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion3 && _iterator3.return) {
+              _iterator3.return();
+            }
+          } finally {
+            if (_didIteratorError3) {
+              throw _iteratorError3;
+            }
+          }
+        }
+      }
     }
   } catch (err) {
     _didIteratorError2 = true;

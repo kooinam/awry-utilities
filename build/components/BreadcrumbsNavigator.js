@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.matchBreadcrumbs = exports.matchRoutes = exports.expandRoutes = undefined;
+exports.matchRouteProperty = exports.matchRouteParams = exports.matchBreadcrumbs = exports.matchRoutes = exports.expandRoutes = undefined;
 
 var _css = require('antd/lib/breadcrumb/style/css');
 
@@ -101,6 +101,7 @@ var matchRoutes = exports.matchRoutes = function matchRoutes(routes, pathname) {
       }
 
       matchedRoutes.push(tempRoute);
+      tempRoute.match = match;
       tempRoute = tempRoute.parentRoute;
     }
   }
@@ -156,6 +157,26 @@ var matchBreadcrumbs = exports.matchBreadcrumbs = function matchBreadcrumbs(matc
   });
 
   return matchedBreadcrumbs;
+};
+
+var matchRouteParams = exports.matchRouteParams = function matchRouteParams(matchedRoutes, key) {
+  var matchedRoute = matchedRoutes.reverse().find(function (route) {
+    return route.match.params[key];
+  });
+
+  if (matchedRoute) {
+    return matchedRoute.match.params[key];
+  }
+};
+
+var matchRouteProperty = exports.matchRouteProperty = function matchRouteProperty(matchedRoutes, key) {
+  var matchedRoute = matchedRoutes.reverse().find(function (route) {
+    return route.routeProps && route.routeProps[key];
+  });
+
+  if (matchedRoute) {
+    return matchedRoute.routeProps[key];
+  }
 };
 
 var BreadcrumbsNavigator = function (_Component) {

@@ -32,7 +32,7 @@ var BaseRouteComponent = function BaseRouteComponent(props) {
       render: function render(childProps) {
         return (
           // Pass the sub-routes down to keep nesting
-          _react2.default.createElement(route.component, _extends({}, childProps, { routes: route.routes, routeProps: route.routeProps, onMount: props.onMount }))
+          _react2.default.createElement(route.component, _extends({}, childProps, { routes: route.routes || [], routeProps: route.routeProps, onMount: props.onMount, matchedRoutes: props.matchedRoutes }))
         );
       }
     });

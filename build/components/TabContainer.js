@@ -12,6 +12,10 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = require('react-redux');
 
+var _BaseRouteComponent = require('./BaseRouteComponent');
+
+var _BaseRouteComponent2 = _interopRequireDefault(_BaseRouteComponent);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -47,7 +51,7 @@ var TabContainer = function (_Component) {
   _createClass(TabContainer, [{
     key: 'render',
     value: function render() {
-      return _react2.default.createElement('div', null);
+      return _react2.default.createElement(_BaseRouteComponent2.default, this.props);
     }
   }]);
 

@@ -88,9 +88,9 @@ export const getFieldsError = (error, fields) => {
   for(let field of fields) {
     if (error && error.response && error.response.data.errors
       && error.response.data.errors[field]) {
-      error.response.data.errors[field].each((errorMessage) => {
+      for (let errorMessage of error.response.data.errors[field]) {
         message = `${message} ${capitalize(field)} ${errorMessage}`;
-      });
+      }
     }
   };
 

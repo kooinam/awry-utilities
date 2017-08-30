@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import BaseRouteComponent from './BaseRouteComponent';
+
 /*
   <TabContainer
     onMount={this.handleMount}
@@ -22,7 +24,7 @@ class TabContainer extends Component {
 
   render() {
     return (
-      <div />
+      <BaseRouteComponent {...this.props} />
     );
   }
 }

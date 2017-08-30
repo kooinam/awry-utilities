@@ -54,6 +54,7 @@ export const matchRoutes = (routes, pathname) => {
         tempRoute.path = tempRoute.path.replace(re, match.params[key]);
       }
       matchedRoutes.push(tempRoute);
+      tempRoute.match = match;
       tempRoute = tempRoute.parentRoute;
     }
   }
@@ -86,6 +87,26 @@ export const matchBreadcrumbs = (matchedRoutes, breadcrumbIdentifiers) => {
   });
 
   return matchedBreadcrumbs;
+}
+
+export const matchRouteParams = (matchedRoutes, key) => {
+  const matchedRoute = matchedRoutes.reverse().find(route =>
+    route.match.params[key],
+  );
+
+  if (matchedRoute) {
+    return matchedRoute.match.params[key];
+  }
+}
+
+export const matchRouteProperty = (matchedRoutes, key) => {
+  const matchedRoute = matchedRoutes.reverse().find(route =>
+    route.routeProps && route.routeProps[key],
+  );
+
+  if (matchedRoute) {
+    return matchedRoute.routeProps[key];
+  }
 }
 
 class BreadcrumbsNavigator extends Component {

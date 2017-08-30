@@ -20,7 +20,7 @@ import ItemLoader from './utils/ItemLoader';
 import BaseModel from './models/BaseModel';
 
 import BreadcrumbsNavigator from './components/BreadcrumbsNavigator';
-import { expandRoutes, matchRoutes, matchBreadcrumbs } from './components/BreadcrumbsNavigator';
+import { expandRoutes, matchRoutes, matchBreadcrumbs, matchRouteParams, matchRouteProperty } from './components/BreadcrumbsNavigator';
 import CustomPagination from './components/CustomPagination';
 import ErrorContainer from './components/ErrorContainer';
 import TabContainer from './components/TabContainer';
@@ -58,6 +58,8 @@ export {
   expandRoutes,
   matchRoutes,
   matchBreadcrumbs,
+  matchRouteParams,
+  matchRouteProperty,
   CustomPagination,
   ItemLoader,
   ErrorContainer,

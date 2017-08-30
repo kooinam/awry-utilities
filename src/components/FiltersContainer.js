@@ -33,6 +33,23 @@ class FiltersContainer extends Component {
         col = 12;
       }
 
+      if (filter.type == 'number') {
+        return (
+          <Col span={col} key={filter.field} className={'ant-filter'}>
+            <label htmlFor={filter.field}>
+              {filter.name}:
+            </label>
+            <Input
+              type="number"
+              onChange={(event) => {
+                this.props.onSearch(`${filter.field}_eq`, event.target.value);
+              }}
+              placeholder={filter.name}
+            />
+          </Col>
+        );
+      }
+
       return (
         <Col span={col} key={filter.field} className={'ant-filter'}>
           <label htmlFor={filter.field}>

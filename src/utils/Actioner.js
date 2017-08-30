@@ -36,7 +36,7 @@ class Actioner extends Object {
     super(newAttributes);
   }
 
-  do = (url, params) => {
+  do = (url, params, key) => {
     const component = this.component;
     const actioner = component.state[this.key];
     actioner.isLoading = true;
@@ -63,12 +63,12 @@ class Actioner extends Object {
         const state2 = {};
         state2[this.key] = actioner2;
         const item = new this.ItemKlass(response.data[this.itemName]);
-        if (this.successMessageGetter && this.successMessageGetter(item)) {
-          message.success(this.successMessageGetter(item), getMessageDuration());
+        if (this.successMessageGetter && this.successMessageGetter(item, key)) {
+          message.success(this.successMessageGetter(item, key), getMessageDuration());
         }
         component.setState(state2, () => {
           if (this.successCallback) {
-            this.successCallback(item);
+            this.successCallback(item, key);
           }
         });
       }).catch((error) => {
@@ -79,12 +79,12 @@ class Actioner extends Object {
         state2[this.key] = actioner2;
         component.setState(state2, () => {
           if (this.errorCallback) {
-            this.errorCallback(error);
+            this.errorCallback(error, key);
           }
         });
         if (error && error.response) {
-          if (this.errorMessageGetter && this.errorMessageGetter(error)) {
-            message.error(this.errorMessageGetter(error), getMessageDuration());
+          if (this.errorMessageGetter && this.errorMessageGetter(error, key)) {
+            message.error(this.errorMessageGetter(error, key), getMessageDuration());
           }
         } else {
           console.log('error', error);

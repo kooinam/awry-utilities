@@ -58,9 +58,9 @@ var DetailsContainer = function (_Component) {
       var details = _this.props.details.map(function (detail) {
         var size = detail.size;
         var col = 12;
-        if (size === 'sm') {
-          col = 6;
-        } else if (size === 'lg') {
+        var titleCol = 8;
+        if (size === 'lg') {
+          titleCol = 4;
           col = 24;
         }
 
@@ -72,12 +72,12 @@ var DetailsContainer = function (_Component) {
             null,
             _react2.default.createElement(
               _col2.default,
-              { span: 8, className: 'ant-details-title' },
+              { span: titleCol, className: 'ant-details-title' },
               detail.title
             ),
             _react2.default.createElement(
               _col2.default,
-              { span: 16, className: 'ant-details-value' },
+              { span: 24 - titleCol, className: 'ant-details-value' },
               detail.value
             )
           )
