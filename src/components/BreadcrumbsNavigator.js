@@ -8,7 +8,7 @@ import { matchPath, Link } from 'react-router-dom';
 import _ from 'lodash';
 
 import type { Reducer } from '../../types';
-import { setupBreadcrumbs} from '../actions/breadcrumbs';
+import { setupBreadcrumbs } from '../actions/breadcrumbs';
 
 export const expandRoutes = (routes, parentRoute) => {
   const newRoutes = [];
@@ -19,6 +19,7 @@ export const expandRoutes = (routes, parentRoute) => {
       newRoute.parentRoute = parentRoute;
       newRoute.path = `${parentRoute.path}/${newRoute.path}`;
     }
+    newRoute.originalPath = newRoute.path;
     if (route.routes) {
       expandRoutes(newRoute.routes, newRoute).forEach((childRoute) => {
         newRoutes.push(childRoute);
@@ -150,9 +151,7 @@ class BreadcrumbsNavigator extends Component {
 
 /* eslint-disable no-unused-vars */
 const connector: Connector<{}, Props> = connect(
-  ({ BreadcrumbsReducer }: Reducer) => ({
-    breadcrumbIdentifiers: BreadcrumbsReducer.breadcrumbIdentifiers,
-  }),
+  ({}: Reducer) => ({}),
 );
 /* eslint-enable no-unused-vars */
 

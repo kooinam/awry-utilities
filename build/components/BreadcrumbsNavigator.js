@@ -29,6 +29,8 @@ var _breadcrumbs = require('../actions/breadcrumbs');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _objectDestructuringEmpty(obj) { if (obj == null) throw new TypeError("Cannot destructure undefined"); }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -44,6 +46,7 @@ var expandRoutes = exports.expandRoutes = function expandRoutes(routes, parentRo
       newRoute.parentRoute = parentRoute;
       newRoute.path = parentRoute.path + '/' + newRoute.path;
     }
+    newRoute.originalPath = newRoute.path;
     if (route.routes) {
       expandRoutes(newRoute.routes, newRoute).forEach(function (childRoute) {
         newRoutes.push(childRoute);
@@ -235,10 +238,9 @@ var BreadcrumbsNavigator = function (_Component) {
 
 
 var connector = (0, _reactRedux.connect)(function (_ref) {
-  var BreadcrumbsReducer = _ref.BreadcrumbsReducer;
-  return {
-    breadcrumbIdentifiers: BreadcrumbsReducer.breadcrumbIdentifiers
-  };
+  _objectDestructuringEmpty(_ref);
+
+  return {};
 });
 /* eslint-enable no-unused-vars */
 

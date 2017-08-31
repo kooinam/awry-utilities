@@ -1,30 +1,58 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import _ from 'lodash';
+import { matchRouteParams } from './BreadcrumbsNavigator';
+import { connect } from 'react-redux';
+import type { Connector } from 'react-redux';
 
-const BaseRouteComponent = (props) => {
-  let url = '';
-  if (props.match) {
-    url = `${props.match.url}/`;
+class BaseRouteComponent extends Component {
+  render() {
+    const { match, matchedRoutes, onMount, routes } = this.props;
+    let url = '';
+    if (match) {
+      url = `${match.url}/`;
+    }
+
+    const routeWithSubRoutes = (route) => {
+      let key = `${url}${route.path}`
+
+      const matchedRoute = matchedRoutes.find((r) => {
+        return r.originalPath === key;
+      });
+
+      if (matchedRoute) {
+        key = matchedRoute.path;
+      }
+
+      return (
+        <Route
+          key={key}
+          exact={route.exact || false}
+          path={`${url}${route.path}`}
+          render={childProps => (
+            // Pass the sub-routes down to keep nesting
+            <route.component {...childProps} routes={route.routes || []} routeProps={route.routeProps} onMount={onMount} matchedRoutes={matchedRoutes} />
+          )}
+        />
+      );
+    }
+
+    return (
+      <Switch location={this.props.location}>
+        {routes.map(route => routeWithSubRoutes(route))}
+      </Switch>
+    );
   }
-
-  const routeWithSubRoutes = route => (
-    <Route
-      key={route.path}
-      exact={route.exact || false}
-      path={`${url}${route.path}`}
-      render={childProps => (
-        // Pass the sub-routes down to keep nesting
-        <route.component {...childProps} routes={route.routes || []} routeProps={route.routeProps} onMount={props.onMount} matchedRoutes={props.matchedRoutes} />
-      )}
-    />
-  );
-
-  return (
-    <Switch>
-      {props.routes.map(route => routeWithSubRoutes(route))}
-    </Switch>
-  );
 };
 
-export default BaseRouteComponent;
+/* eslint-disable no-unused-vars */
+const connector: Connector<{}, Props> = connect(
+  (state) => {
+    return {
+      location: state.router.location,
+    };
+  }
+);
+/* eslint-enable no-unused-vars */
+
+export default connector(BaseRouteComponent);
