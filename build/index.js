@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.Draggable = exports.setupSSRItems = exports.SSRReducer = exports.FiltersContainer = exports.DetailsContainer = exports.TabContainer = exports.BaseRouteComponent = exports.ErrorContainer = exports.ItemLoader = exports.CustomPagination = exports.matchRouteProperty = exports.matchRouteParams = exports.matchBreadcrumbs = exports.matchRoutes = exports.expandRoutes = exports.setupBreadcrumbIdentifiers = exports.BreadcrumbsReducer = exports.BreadcrumbsNavigator = exports.formatImageUrl = exports.formatTime = exports.formatDate = exports.formatMoney = exports.TableParams = exports.SimpleSelect = exports.FilterSelect = exports.BaseModel = exports.getMessageDuration = exports.getNotificationDuration = exports.getFieldsError = exports.getFieldError = exports.getErrorDescription = exports.getHeadersSetter = exports.getBaseUrl = exports.addAxiosPreferences = exports.getAxios = exports.setupAxios = exports.ModalParams = exports.Actioner = undefined;
+exports.LightboxContainer = exports.dismissLightbox = exports.openLightbox = exports.LightboxReducer = exports.Draggable = exports.setupSSRItems = exports.SSRReducer = exports.FiltersContainer = exports.DetailsContainer = exports.TabContainer = exports.BaseRouteComponent = exports.ErrorContainer = exports.ItemLoader = exports.CustomPagination = exports.matchRouteProperty = exports.matchRouteParams = exports.matchBreadcrumbs = exports.matchRoutes = exports.expandRoutes = exports.setupBreadcrumbIdentifiers = exports.BreadcrumbsReducer = exports.BreadcrumbsNavigator = exports.formatImageUrl = exports.formatTime = exports.formatDate = exports.formatMoney = exports.TableParams = exports.SimpleSelect = exports.FilterSelect = exports.BaseModel = exports.getMessageDuration = exports.getNotificationDuration = exports.getFieldsError = exports.getFieldError = exports.getErrorDescription = exports.getHeadersSetter = exports.getBaseUrl = exports.addAxiosPreferences = exports.getAxios = exports.setupAxios = exports.ModalParams = exports.Actioner = undefined;
 
 var _Actioner = require('./utils/Actioner');
 
@@ -69,6 +69,10 @@ var _FiltersContainer = require('./components/FiltersContainer');
 
 var _FiltersContainer2 = _interopRequireDefault(_FiltersContainer);
 
+var _LightboxContainer = require('./components/LightboxContainer');
+
+var _LightboxContainer2 = _interopRequireDefault(_LightboxContainer);
+
 var _breadcrumbs = require('./reducers/breadcrumbs');
 
 var _breadcrumbs2 = _interopRequireDefault(_breadcrumbs);
@@ -77,9 +81,15 @@ var _ssr = require('./reducers/ssr');
 
 var _ssr2 = _interopRequireDefault(_ssr);
 
+var _lightbox = require('./reducers/lightbox');
+
+var _lightbox2 = _interopRequireDefault(_lightbox);
+
 var _breadcrumbs3 = require('./actions/breadcrumbs');
 
 var _ssr3 = require('./actions/ssr');
+
+var _lightbox3 = require('./actions/lightbox');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -121,3 +131,7 @@ exports.FiltersContainer = _FiltersContainer2.default;
 exports.SSRReducer = _ssr2.default;
 exports.setupSSRItems = _ssr3.setupSSRItems;
 exports.Draggable = _Draggable2.default;
+exports.LightboxReducer = _lightbox2.default;
+exports.openLightbox = _lightbox3.openLightbox;
+exports.dismissLightbox = _lightbox3.dismissLightbox;
+exports.LightboxContainer = _LightboxContainer2.default;

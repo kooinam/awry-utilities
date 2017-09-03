@@ -28,12 +28,15 @@ import TabContainer from './components/TabContainer';
 import BaseRouteComponent from './components/BaseRouteComponent';
 import DetailsContainer from './components/DetailsContainer';
 import FiltersContainer from './components/FiltersContainer';
+import LightboxContainer from './components/LightboxContainer';
 
 import BreadcrumbsReducer from './reducers/breadcrumbs';
 import SSRReducer from './reducers/ssr';
+import LightboxReducer from './reducers/lightbox';
 
 import { setupBreadcrumbIdentifiers } from './actions/breadcrumbs';
 import { setupSSRItems } from './actions/ssr';
+import { openLightbox, dismissLightbox } from './actions/lightbox';
 
 export {
   Actioner,
@@ -74,5 +77,9 @@ export {
   SSRReducer,
   setupSSRItems,
   Draggable,
+  LightboxReducer,
+  openLightbox,
+  dismissLightbox,
+  LightboxContainer,
 };
 
