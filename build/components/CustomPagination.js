@@ -49,10 +49,11 @@ var CustomPagination = function (_Component) {
     _this.handleChangePagination = function (page, pageSize) {
       var tableParams = _this.props.tableParams;
       tableParams.pagination.current = page;
+      tableParams.pagination.per_page = pageSize;
       tableParams.rotateUuid();
       _this.props.loadItems();
 
-      if (_this.props.anchor) {
+      if (_this.props.anchor && document.getElementById(_this.props.anchor)) {
         window.scrollTo(0, document.getElementById(_this.props.anchor).getBoundingClientRect().top + window.scrollY);
       }
     };
@@ -96,7 +97,9 @@ var CustomPagination = function (_Component) {
         current: this.props.tableParams.pagination.current,
         total: this.props.tableParams.pagination.total,
         defaultPageSize: this.props.tableParams.pagination.per_page,
-        onChange: this.handleChangePagination
+        onChange: this.handleChangePagination,
+        showSizeChanger: true,
+        onShowSizeChange: this.handleChangePagination
       });
     }
   }]);

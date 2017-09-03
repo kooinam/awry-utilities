@@ -26,10 +26,11 @@ class CustomPagination extends Component {
   handleChangePagination = (page, pageSize) => {
     const tableParams = this.props.tableParams;
     tableParams.pagination.current = page;
+    tableParams.pagination.per_page = pageSize
     tableParams.rotateUuid();
     this.props.loadItems();
 
-    if (this.props.anchor) {
+    if (this.props.anchor && document.getElementById(this.props.anchor)) {
       window.scrollTo(0, document.getElementById(this.props.anchor).getBoundingClientRect().top + window.scrollY);
     }
   }
@@ -68,6 +69,8 @@ class CustomPagination extends Component {
         total={this.props.tableParams.pagination.total}
         defaultPageSize={this.props.tableParams.pagination.per_page}
         onChange={this.handleChangePagination}
+        showSizeChanger
+        onShowSizeChange={this.handleChangePagination}
       />
     );
   }

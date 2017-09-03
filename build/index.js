@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.setupSSRItems = exports.SSRReducer = exports.FiltersContainer = exports.DetailsContainer = exports.TabContainer = exports.BaseRouteComponent = exports.ErrorContainer = exports.ItemLoader = exports.CustomPagination = exports.matchRouteProperty = exports.matchRouteParams = exports.matchBreadcrumbs = exports.matchRoutes = exports.expandRoutes = exports.setupBreadcrumbIdentifiers = exports.BreadcrumbsReducer = exports.BreadcrumbsNavigator = exports.formatTime = exports.formatDate = exports.formatMoney = exports.TableParams = exports.SimpleSelect = exports.FilterSelect = exports.BaseModel = exports.getMessageDuration = exports.getNotificationDuration = exports.getFieldsError = exports.getFieldError = exports.getErrorDescription = exports.addAxiosPreferences = exports.getAxios = exports.setupAxios = exports.ModalParams = exports.Actioner = undefined;
+exports.Draggable = exports.setupSSRItems = exports.SSRReducer = exports.FiltersContainer = exports.DetailsContainer = exports.TabContainer = exports.BaseRouteComponent = exports.ErrorContainer = exports.ItemLoader = exports.CustomPagination = exports.matchRouteProperty = exports.matchRouteParams = exports.matchBreadcrumbs = exports.matchRoutes = exports.expandRoutes = exports.setupBreadcrumbIdentifiers = exports.BreadcrumbsReducer = exports.BreadcrumbsNavigator = exports.formatImageUrl = exports.formatTime = exports.formatDate = exports.formatMoney = exports.TableParams = exports.SimpleSelect = exports.FilterSelect = exports.BaseModel = exports.getMessageDuration = exports.getNotificationDuration = exports.getFieldsError = exports.getFieldError = exports.getErrorDescription = exports.getHeadersSetter = exports.getBaseUrl = exports.addAxiosPreferences = exports.getAxios = exports.setupAxios = exports.ModalParams = exports.Actioner = undefined;
 
 var _Actioner = require('./utils/Actioner');
 
@@ -32,6 +32,10 @@ var _TableParams2 = _interopRequireDefault(_TableParams);
 var _ItemLoader = require('./utils/ItemLoader');
 
 var _ItemLoader2 = _interopRequireDefault(_ItemLoader);
+
+var _Draggable = require('./utils/Draggable');
+
+var _Draggable2 = _interopRequireDefault(_Draggable);
 
 var _BaseModel = require('./models/BaseModel');
 
@@ -84,6 +88,8 @@ exports.ModalParams = _ModalParams2.default;
 exports.setupAxios = _NetworkManager.setupAxios;
 exports.getAxios = _NetworkManager.getAxios;
 exports.addAxiosPreferences = _NetworkManager.addAxiosPreferences;
+exports.getBaseUrl = _NetworkManager.getBaseUrl;
+exports.getHeadersSetter = _NetworkManager.getHeadersSetter;
 exports.getErrorDescription = _UIManager.getErrorDescription;
 exports.getFieldError = _UIManager.getFieldError;
 exports.getFieldsError = _UIManager.getFieldsError;
@@ -96,6 +102,7 @@ exports.TableParams = _TableParams2.default;
 exports.formatMoney = _UIManager.formatMoney;
 exports.formatDate = _UIManager.formatDate;
 exports.formatTime = _UIManager.formatTime;
+exports.formatImageUrl = _UIManager.formatImageUrl;
 exports.BreadcrumbsNavigator = _BreadcrumbsNavigator2.default;
 exports.BreadcrumbsReducer = _breadcrumbs2.default;
 exports.setupBreadcrumbIdentifiers = _breadcrumbs3.setupBreadcrumbIdentifiers;
@@ -113,3 +120,4 @@ exports.DetailsContainer = _DetailsContainer2.default;
 exports.FiltersContainer = _FiltersContainer2.default;
 exports.SSRReducer = _ssr2.default;
 exports.setupSSRItems = _ssr3.setupSSRItems;
+exports.Draggable = _Draggable2.default;

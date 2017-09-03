@@ -1,6 +1,8 @@
 import getSymbolFromCurrency from 'currency-symbol-map';
 import formatCurrency from 'format-currency';
 
+import { getBaseUrl } from './NetworkManager';
+
 function capitalize(str) {
   // let strVal = '';
   let newStr = str.replace(/_/g, ' ');
@@ -109,3 +111,14 @@ export const getNotificationDuration = () =>
 
 export const getMessageDuration = () =>
   3;
+
+export const formatImageUrl = (url) => {
+  if(url && url.length > 0) {
+    if(url[0] == '/') {
+      return `${getBaseUrl('resources')}/${url}`;
+    }
+    else {
+      return url;
+    }
+  }
+};

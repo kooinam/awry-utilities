@@ -1,7 +1,6 @@
-
 import Actioner from './utils/Actioner';
 import ModalParams from './utils/ModalParams';
-import { setupAxios, getAxios, addAxiosPreferences } from './utils/NetworkManager';
+import { setupAxios, getAxios, addAxiosPreferences, getBaseUrl, getHeadersSetter } from './utils/NetworkManager';
 import {
   getErrorDescription,
   getFieldError,
@@ -10,12 +9,14 @@ import {
   getMessageDuration,
   formatMoney,
   formatDate,
-  formatTime
+  formatTime,
+  formatImageUrl,
 } from './utils/UIManager';
 import FilterSelect from './utils/FilterSelect';
 import SimpleSelect from './utils/SimpleSelect';
 import TableParams from './utils/TableParams';
 import ItemLoader from './utils/ItemLoader';
+import Draggable from './utils/Draggable';
 
 import BaseModel from './models/BaseModel';
 
@@ -40,6 +41,8 @@ export {
   setupAxios,
   getAxios,
   addAxiosPreferences,
+  getBaseUrl,
+  getHeadersSetter,
   getErrorDescription,
   getFieldError,
   getFieldsError,
@@ -52,6 +55,7 @@ export {
   formatMoney,
   formatDate,
   formatTime,
+  formatImageUrl,
   BreadcrumbsNavigator,
   BreadcrumbsReducer,
   setupBreadcrumbIdentifiers,
@@ -69,5 +73,6 @@ export {
   FiltersContainer,
   SSRReducer,
   setupSSRItems,
+  Draggable,
 };
 

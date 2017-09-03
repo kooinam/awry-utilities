@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getAxios = exports.addAxiosPreferences = exports.setupAxios = undefined;
+exports.getAxios = exports.getHeadersSetter = exports.getBaseUrl = exports.addAxiosPreferences = exports.setupAxios = undefined;
 
 var _axios = require('axios');
 
@@ -52,22 +52,35 @@ var addInterceptors = function addInterceptors(instance) {
   }
 };
 
+var getBaseUrl = exports.getBaseUrl = function getBaseUrl(key) {
+  var baseURL = '/api';
+  var preferences = Network.preferences[key];
+  if (preferences) {
+    baseURL = preferences.baseURL;
+  }
+
+  return baseURL;
+};
+
+var getHeadersSetter = exports.getHeadersSetter = function getHeadersSetter(key) {
+  var headersSetter = function headersSetter() {
+    return {};
+  };
+  var preferences = Network.preferences[key];
+  if (preferences) {
+    headersSetter = preferences.headersSetter;
+  }
+
+  return headersSetter;
+};
+
 var getAxios = exports.getAxios = function getAxios(key) {
   return new Promise(function (resolve) {
-    var baseURL = '/api';
-    var preferences = Network.preferences[key];
-    if (preferences) {
-      baseURL = preferences.baseURL;
-    }
     var instance = _axios2.default.create({
-      baseURL: baseURL
+      baseURL: getBaseUrl(key)
     });
-    var headers = {};
-    if (preferences) {
-      headers = Object.assign(headers, preferences.headersSetter());
-    }
     Object.assign(instance.defaults, {
-      headers: headers
+      headers: getHeadersSetter(key)()
     });
     addInterceptors(instance);
     resolve(instance);

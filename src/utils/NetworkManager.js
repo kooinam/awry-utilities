@@ -41,24 +41,36 @@ const addInterceptors = (instance) => {
   }
 };
 
+export const getBaseUrl = (key) => {
+  let baseURL = '/api';
+  const preferences = Network.preferences[key];
+  if (preferences) {
+    baseURL = preferences.baseURL;
+  }
+
+  return baseURL;
+};
+
+export const getHeadersSetter = (key) => {
+  let headersSetter = () => {
+    return {};
+  };
+  const preferences = Network.preferences[key];
+  if (preferences) {
+    headersSetter = preferences.headersSetter;
+  }
+
+  return headersSetter;
+};
+
 export const getAxios = (key) =>
   new Promise((resolve) => {
-    let baseURL = '/api';
-    const preferences = Network.preferences[key];
-    if (preferences) {
-      baseURL = preferences.baseURL;
-    }
     const instance = axios.create({
-      baseURL: baseURL,
+      baseURL: getBaseUrl(key),
     });
-    let headers = {};
-    if (preferences) {
-      headers = Object.assign(headers, preferences.headersSetter());
-    }
     Object.assign(instance.defaults, {
-      headers,
+      headers: getHeadersSetter(key)(),
     });
     addInterceptors(instance);
     resolve(instance);
   });
-

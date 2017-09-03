@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getMessageDuration = exports.getNotificationDuration = exports.getFieldsError = exports.getFieldError = exports.getErrorDescription = exports.formatTime = exports.formatDate = exports.formatMoney = undefined;
+exports.formatImageUrl = exports.getMessageDuration = exports.getNotificationDuration = exports.getFieldsError = exports.getFieldError = exports.getErrorDescription = exports.formatTime = exports.formatDate = exports.formatMoney = undefined;
 
 var _currencySymbolMap = require('currency-symbol-map');
 
@@ -12,6 +12,8 @@ var _currencySymbolMap2 = _interopRequireDefault(_currencySymbolMap);
 var _formatCurrency = require('format-currency');
 
 var _formatCurrency2 = _interopRequireDefault(_formatCurrency);
+
+var _NetworkManager = require('./NetworkManager');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -186,4 +188,14 @@ var getNotificationDuration = exports.getNotificationDuration = function getNoti
 
 var getMessageDuration = exports.getMessageDuration = function getMessageDuration() {
   return 3;
+};
+
+var formatImageUrl = exports.formatImageUrl = function formatImageUrl(url) {
+  if (url && url.length > 0) {
+    if (url[0] == '/') {
+      return (0, _NetworkManager.getBaseUrl)('resources') + '/' + url;
+    } else {
+      return url;
+    }
+  }
 };
