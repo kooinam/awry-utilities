@@ -174,7 +174,7 @@ var matchRouteParams = exports.matchRouteParams = function matchRouteParams(matc
 
 var matchRouteProperty = exports.matchRouteProperty = function matchRouteProperty(matchedRoutes, key) {
   var matchedRoute = matchedRoutes.reverse().find(function (route) {
-    return route.routeProps && route.routeProps[key];
+    return route.routeProps && route.routeProps[key] != undefined;
   });
 
   if (matchedRoute) {

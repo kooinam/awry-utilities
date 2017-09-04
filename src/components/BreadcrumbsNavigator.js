@@ -101,9 +101,9 @@ export const matchRouteParams = (matchedRoutes, key) => {
 }
 
 export const matchRouteProperty = (matchedRoutes, key) => {
-  const matchedRoute = matchedRoutes.reverse().find(route =>
-    route.routeProps && route.routeProps[key],
-  );
+  const matchedRoute = matchedRoutes.reverse().find((route) => {
+    return route.routeProps && route.routeProps[key] != undefined;
+  });
 
   if (matchedRoute) {
     return matchedRoute.routeProps[key];
