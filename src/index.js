@@ -11,6 +11,8 @@ import {
   formatDate,
   formatTime,
   formatImageUrl,
+  formatInteger,
+  formatBooleanSign,
 } from './utils/UIManager';
 import FilterSelect from './utils/FilterSelect';
 import SimpleSelect from './utils/SimpleSelect';
@@ -81,5 +83,7 @@ export {
   openLightbox,
   dismissLightbox,
   LightboxContainer,
+  formatInteger,
+  formatBooleanSign,
 };
 

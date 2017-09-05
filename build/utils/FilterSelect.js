@@ -130,14 +130,7 @@ var FilterSelect = function (_Component) {
       }
       var rules = [];
       if (this.props.required) {
-        rules = [{
-          validator: function validator(rule, value, callback) {
-            if (!value || !value.key) {
-              callback(_this2.props.name + ' is required');
-            }
-            callback();
-          }
-        }];
+        rules = [{ required: true, message: this.props.name + ' is required' }];
       }
 
       var select = _react2.default.createElement(

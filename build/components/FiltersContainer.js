@@ -91,6 +91,24 @@ var FiltersContainer = function (_Component) {
               placeholder: filter.name
             })
           );
+        } else if (filter.type == 'checkbox') {
+          return _react2.default.createElement(
+            _col2.default,
+            { span: col, key: filter.field, className: 'ant-filter' },
+            _react2.default.createElement(
+              'label',
+              { htmlFor: filter.field },
+              filter.name,
+              ':'
+            ),
+            _react2.default.createElement(_input2.default, {
+              type: 'checkbox',
+              onChange: function onChange(event) {
+                _this.props.onSearch('' + filter.field, event.target.checked);
+              },
+              placeholder: filter.name
+            })
+          );
         }
 
         return _react2.default.createElement(

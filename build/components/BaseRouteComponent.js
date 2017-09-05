@@ -42,6 +42,8 @@ var BaseRouteComponent = function (_Component) {
   _createClass(BaseRouteComponent, [{
     key: 'render',
     value: function render() {
+      var _this2 = this;
+
       var _props = this.props,
           match = _props.match,
           matchedRoutes = _props.matchedRoutes,
@@ -71,7 +73,7 @@ var BaseRouteComponent = function (_Component) {
           render: function render(childProps) {
             return (
               // Pass the sub-routes down to keep nesting
-              _react2.default.createElement(route.component, _extends({}, childProps, { routes: route.routes || [], routeProps: route.routeProps, onMount: onMount, matchedRoutes: matchedRoutes }))
+              _react2.default.createElement(route.component, _extends({}, _this2.props, childProps, { routes: route.routes || [], routeProps: route.routeProps, onMount: onMount, matchedRoutes: matchedRoutes }))
             );
           }
         });

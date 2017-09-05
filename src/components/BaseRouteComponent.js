@@ -31,7 +31,7 @@ class BaseRouteComponent extends Component {
           path={`${url}${route.path}`}
           render={childProps => (
             // Pass the sub-routes down to keep nesting
-            <route.component {...childProps} routes={route.routes || []} routeProps={route.routeProps} onMount={onMount} matchedRoutes={matchedRoutes} />
+            <route.component { ...this.props } {...childProps} routes={route.routes || []} routeProps={route.routeProps} onMount={onMount} matchedRoutes={matchedRoutes}  />
           )}
         />
       );

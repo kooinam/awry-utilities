@@ -48,6 +48,21 @@ class FiltersContainer extends Component {
             />
           </Col>
         );
+      } else if (filter.type == 'checkbox') {
+        return (
+          <Col span={col} key={filter.field} className={'ant-filter'}>
+            <label htmlFor={filter.field}>
+              {filter.name}:
+            </label>
+            <Input
+              type="checkbox"
+              onChange={(event) => {
+                this.props.onSearch(`${filter.field}`, event.target.checked);
+              }}
+              placeholder={filter.name}
+            />
+          </Col>
+        );
       }
 
       return (

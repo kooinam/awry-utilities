@@ -1,5 +1,8 @@
+import React, { Component } from 'react';
 import getSymbolFromCurrency from 'currency-symbol-map';
 import formatCurrency from 'format-currency';
+import dateFormat from 'dateformat';
+import { Icon } from 'antd';
 
 import { getBaseUrl } from './NetworkManager';
 
@@ -121,4 +124,24 @@ export const formatImageUrl = (url) => {
       return url;
     }
   }
+};
+
+export const formatInteger = (string) => {
+  if (string) {
+    return string.replace(/[^0-9\.]+/g,"");
+  }
+
+  return null;
+};
+
+export const formatBooleanSign = (value) => {
+  if(value) {
+    return (
+      <Icon type="check" className="ant-success-icon" />
+    );
+  }
+
+  return (
+    <Icon type="close" className="ant-danger-icon" />
+  );
 };

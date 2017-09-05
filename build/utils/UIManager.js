@@ -3,7 +3,17 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.formatImageUrl = exports.getMessageDuration = exports.getNotificationDuration = exports.getFieldsError = exports.getFieldError = exports.getErrorDescription = exports.formatTime = exports.formatDate = exports.formatMoney = undefined;
+exports.formatBooleanSign = exports.formatInteger = exports.formatImageUrl = exports.getMessageDuration = exports.getNotificationDuration = exports.getFieldsError = exports.getFieldError = exports.getErrorDescription = exports.formatTime = exports.formatDate = exports.formatMoney = undefined;
+
+var _css = require('antd/lib/icon/style/css');
+
+var _icon = require('antd/lib/icon');
+
+var _icon2 = _interopRequireDefault(_icon);
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
 
 var _currencySymbolMap = require('currency-symbol-map');
 
@@ -12,6 +22,10 @@ var _currencySymbolMap2 = _interopRequireDefault(_currencySymbolMap);
 var _formatCurrency = require('format-currency');
 
 var _formatCurrency2 = _interopRequireDefault(_formatCurrency);
+
+var _dateformat = require('dateformat');
+
+var _dateformat2 = _interopRequireDefault(_dateformat);
 
 var _NetworkManager = require('./NetworkManager');
 
@@ -48,7 +62,7 @@ var formatMoney = exports.formatMoney = function formatMoney(amount, currency, p
 
 var formatDate = exports.formatDate = function formatDate(date) {
   if (date) {
-    return dateFormat(date, 'dd mmm yyyy');
+    return (0, _dateformat2.default)(date, 'dd mmm yyyy');
   }
 
   return null;
@@ -56,7 +70,7 @@ var formatDate = exports.formatDate = function formatDate(date) {
 
 var formatTime = exports.formatTime = function formatTime(date) {
   if (date) {
-    return dateFormat(date, 'h:MM:ss TT');
+    return (0, _dateformat2.default)(date, 'h:MM:ss TT');
   }
 
   return null;
@@ -198,4 +212,20 @@ var formatImageUrl = exports.formatImageUrl = function formatImageUrl(url) {
       return url;
     }
   }
+};
+
+var formatInteger = exports.formatInteger = function formatInteger(string) {
+  if (string) {
+    return string.replace(/[^0-9\.]+/g, "");
+  }
+
+  return null;
+};
+
+var formatBooleanSign = exports.formatBooleanSign = function formatBooleanSign(value) {
+  if (value) {
+    return _react2.default.createElement(_icon2.default, { type: 'check', className: 'ant-success-icon' });
+  }
+
+  return _react2.default.createElement(_icon2.default, { type: 'close', className: 'ant-danger-icon' });
 };
