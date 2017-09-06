@@ -66,18 +66,18 @@ var DetailsContainer = function (_Component) {
 
         return _react2.default.createElement(
           _col2.default,
-          { span: col, className: 'ant-details', key: (0, _v2.default)() },
+          { md: col, className: 'ant-details', key: (0, _v2.default)() },
           _react2.default.createElement(
             _row2.default,
             null,
             _react2.default.createElement(
               _col2.default,
-              { span: titleCol, className: 'ant-details-title' },
+              { md: titleCol, className: 'ant-details-title' },
               detail.title
             ),
             _react2.default.createElement(
               _col2.default,
-              { span: 24 - titleCol, className: 'ant-details-value' },
+              { md: 24 - titleCol, className: 'ant-details-value' },
               detail.value
             )
           )

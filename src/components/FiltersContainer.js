@@ -35,7 +35,7 @@ class FiltersContainer extends Component {
 
       if (filter.type == 'number') {
         return (
-          <Col span={col} key={filter.field} className={'ant-filter'}>
+          <Col md={col} key={filter.field} className={'ant-filter'}>
             <label htmlFor={filter.field}>
               {filter.name}:
             </label>
@@ -50,7 +50,7 @@ class FiltersContainer extends Component {
         );
       } else if (filter.type == 'checkbox') {
         return (
-          <Col span={col} key={filter.field} className={'ant-filter'}>
+          <Col md={col} key={filter.field} className={'ant-filter'}>
             <label htmlFor={filter.field}>
               {filter.name}:
             </label>
@@ -66,7 +66,7 @@ class FiltersContainer extends Component {
       }
 
       return (
-        <Col span={col} key={filter.field} className={'ant-filter'}>
+        <Col md={col} key={filter.field} className={'ant-filter'}>
           <label htmlFor={filter.field}>
             {filter.name}:
           </label>
@@ -87,7 +87,7 @@ class FiltersContainer extends Component {
     if (this.props.sorting && this.props.sorting.length > 0)
     return (
       <Row className={'ant-sorting'}>
-        <Col span="6">
+        <Col md={6}>
           <label htmlFor="sorting">
             Sorting:
           </label>
@@ -116,13 +116,13 @@ class FiltersContainer extends Component {
   render() {
     return (
       <Row>
-        <Col span="24">
+        <Col md={24}>
           <Row className="ant-filters">
             {this.renderFilters()}
           </Row>
           {this.renderSorting()}
         </Col>
-        <Col span="24">
+        <Col md={24}>
           <hr className="ant-hr" />
         </Col>
       </Row>

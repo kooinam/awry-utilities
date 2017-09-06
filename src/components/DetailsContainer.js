@@ -33,12 +33,12 @@ class DetailsContainer extends Component {
       }
 
       return (
-        <Col span={col} className="ant-details" key={uuidV4()}>
+        <Col md={col} className="ant-details" key={uuidV4()}>
           <Row>
-            <Col span={titleCol} className="ant-details-title">
+            <Col md={titleCol} className="ant-details-title">
               {detail.title}
             </Col>
-            <Col span={24 - titleCol} className="ant-details-value">
+            <Col md={24 - titleCol} className="ant-details-value">
               {detail.value}
             </Col>
           </Row>

@@ -76,7 +76,7 @@ var FiltersContainer = function (_Component) {
         if (filter.type == 'number') {
           return _react2.default.createElement(
             _col2.default,
-            { span: col, key: filter.field, className: 'ant-filter' },
+            { md: col, key: filter.field, className: 'ant-filter' },
             _react2.default.createElement(
               'label',
               { htmlFor: filter.field },
@@ -94,7 +94,7 @@ var FiltersContainer = function (_Component) {
         } else if (filter.type == 'checkbox') {
           return _react2.default.createElement(
             _col2.default,
-            { span: col, key: filter.field, className: 'ant-filter' },
+            { md: col, key: filter.field, className: 'ant-filter' },
             _react2.default.createElement(
               'label',
               { htmlFor: filter.field },
@@ -113,7 +113,7 @@ var FiltersContainer = function (_Component) {
 
         return _react2.default.createElement(
           _col2.default,
-          { span: col, key: filter.field, className: 'ant-filter' },
+          { md: col, key: filter.field, className: 'ant-filter' },
           _react2.default.createElement(
             'label',
             { htmlFor: filter.field },
@@ -138,7 +138,7 @@ var FiltersContainer = function (_Component) {
         { className: 'ant-sorting' },
         _react2.default.createElement(
           _col2.default,
-          { span: '6' },
+          { md: 6 },
           _react2.default.createElement(
             'label',
             { htmlFor: 'sorting' },
@@ -180,7 +180,7 @@ var FiltersContainer = function (_Component) {
         null,
         _react2.default.createElement(
           _col2.default,
-          { span: '24' },
+          { md: 24 },
           _react2.default.createElement(
             _row2.default,
             { className: 'ant-filters' },
@@ -190,7 +190,7 @@ var FiltersContainer = function (_Component) {
         ),
         _react2.default.createElement(
           _col2.default,
-          { span: '24' },
+          { md: 24 },
           _react2.default.createElement('hr', { className: 'ant-hr' })
         )
       );
