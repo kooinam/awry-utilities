@@ -59,25 +59,22 @@ var CustomPagination = function (_Component) {
     };
 
     _this.renderPaginationPage = function (page, type) {
-      var inner = null;
-      if (type === 'next') {
-        inner = null;
-      } else if (type === 'prev') {
-        inner = null;
-      } else if (type === 'page') {
-        inner = page;
-      }
-
       var to = {
         search: '?page=' + page,
         pathname: _this.props.urlGetter(page)
       };
 
-      return _react2.default.createElement(
-        _reactRouterDom.Link,
-        { to: to, className: 'page-inner' },
-        inner
-      );
+      if (type === 'next') {
+        return _react2.default.createElement(_reactRouterDom.Link, { to: to, className: 'ant-pagination-item-link' });
+      } else if (type === 'prev') {
+        return _react2.default.createElement(_reactRouterDom.Link, { to: to, className: 'ant-pagination-item-link' });
+      } else if (type === 'page') {
+        return _react2.default.createElement(
+          _reactRouterDom.Link,
+          { to: to, className: 'page-inner' },
+          page
+        );
+      }
     };
 
     _this.state = {};

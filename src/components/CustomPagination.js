@@ -36,27 +36,30 @@ class CustomPagination extends Component {
   }
 
   renderPaginationPage = (page, type) => {
-    let inner = null;
-    if (type === 'next') {
-      inner = null;
-    }
-    else if (type === 'prev') {
-      inner = null;
-    }
-    else if (type === 'page') {
-      inner = page;
-    }
-
     const to = {
       search: `?page=${page}`,
       pathname: this.props.urlGetter(page),
     };
 
-    return (
-      <Link to={to} className="page-inner">
-        {inner}
-      </Link>
-    );
+    if (type === 'next') {
+      return (
+        <Link to={to} className="ant-pagination-item-link">
+        </Link>
+      );
+    }
+    else if (type === 'prev') {
+      return (
+        <Link to={to} className="ant-pagination-item-link">
+        </Link>
+      );
+    }
+    else if (type === 'page') {
+      return (
+        <Link to={to} className="page-inner">
+          {page}
+        </Link>
+      );
+    }
   }
 
   render() {
