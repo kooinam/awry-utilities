@@ -33,6 +33,7 @@ class ItemLoader extends Object {
     super(attributes);
 
     this.lastSearchId = 0;
+    this.item = this.item || new this.ItemKlass();
     this.rotateUuid();
   }
 

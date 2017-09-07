@@ -18,7 +18,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = require('react-redux');
 
-var _reactRouter = require('react-router');
+var _reactRouterDom = require('react-router-dom');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -69,14 +69,12 @@ var CustomPagination = function (_Component) {
       }
 
       var to = {
-        query: {
-          page: page
-        },
+        search: '?page=' + page,
         pathname: _this.props.urlGetter(page)
       };
 
       return _react2.default.createElement(
-        _reactRouter.Link,
+        _reactRouterDom.Link,
         { to: to, className: 'page-inner' },
         inner
       );
@@ -92,7 +90,8 @@ var CustomPagination = function (_Component) {
   _createClass(CustomPagination, [{
     key: 'render',
     value: function render() {
-      return _react2.default.createElement(_pagination2.default, {
+      var pagination = _react2.default.createElement(_pagination2.default, {
+        className: 'ant-pagination',
         itemRender: this.props.urlGetter ? this.renderPaginationPage : undefined,
         current: this.props.tableParams.pagination.current,
         total: this.props.tableParams.pagination.total,
@@ -101,6 +100,18 @@ var CustomPagination = function (_Component) {
         showSizeChanger: true,
         onShowSizeChange: this.handleChangePagination
       });
+      if (this.props.hideSizeChanger) {
+        pagination = _react2.default.createElement(_pagination2.default, {
+          className: 'ant-pagination',
+          itemRender: this.props.urlGetter ? this.renderPaginationPage : undefined,
+          current: this.props.tableParams.pagination.current,
+          total: this.props.tableParams.pagination.total,
+          defaultPageSize: this.props.tableParams.pagination.per_page,
+          onChange: this.handleChangePagination
+        });
+      }
+
+      return pagination;
     }
   }]);
 

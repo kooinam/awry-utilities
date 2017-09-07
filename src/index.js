@@ -31,6 +31,8 @@ import BaseRouteComponent from './components/BaseRouteComponent';
 import DetailsContainer from './components/DetailsContainer';
 import FiltersContainer from './components/FiltersContainer';
 import LightboxContainer from './components/LightboxContainer';
+import LoaderContent from './components/LoaderContent';
+import CustomReactQuill from './components/CustomReactQuill';
 
 import BreadcrumbsReducer from './reducers/breadcrumbs';
 import SSRReducer from './reducers/ssr';
@@ -85,5 +87,7 @@ export {
   LightboxContainer,
   formatInteger,
   formatBooleanSign,
+  LoaderContent,
+  CustomReactQuill,
 };
 

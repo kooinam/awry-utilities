@@ -149,6 +149,7 @@ var ItemLoader = function (_Object) {
     };
 
     _this.lastSearchId = 0;
+    _this.item = _this.item || new _this.ItemKlass();
     _this.rotateUuid();
     return _this;
   }

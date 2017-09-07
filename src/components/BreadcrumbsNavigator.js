@@ -60,7 +60,7 @@ export const matchRoutes = (routes, pathname) => {
     }
   }
 
-  return matchedRoutes.reverse();
+  return matchedRoutes.slice().reverse();
 }
 
 export const matchBreadcrumbs = (matchedRoutes, breadcrumbIdentifiers) => {
@@ -91,7 +91,7 @@ export const matchBreadcrumbs = (matchedRoutes, breadcrumbIdentifiers) => {
 }
 
 export const matchRouteParams = (matchedRoutes, key) => {
-  const matchedRoute = matchedRoutes.reverse().find(route =>
+  const matchedRoute = matchedRoutes.slice().reverse().find(route =>
     route.match.params[key],
   );
 
@@ -101,7 +101,7 @@ export const matchRouteParams = (matchedRoutes, key) => {
 }
 
 export const matchRouteProperty = (matchedRoutes, key) => {
-  const matchedRoute = matchedRoutes.reverse().find((route) => {
+  const matchedRoute = matchedRoutes.slice().reverse().find((route) => {
     return route.routeProps && route.routeProps[key] != undefined;
   });
 

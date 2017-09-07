@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.formatBooleanSign = exports.formatInteger = exports.LightboxContainer = exports.dismissLightbox = exports.openLightbox = exports.LightboxReducer = exports.Draggable = exports.setupSSRItems = exports.SSRReducer = exports.FiltersContainer = exports.DetailsContainer = exports.TabContainer = exports.BaseRouteComponent = exports.ErrorContainer = exports.ItemLoader = exports.CustomPagination = exports.matchRouteProperty = exports.matchRouteParams = exports.matchBreadcrumbs = exports.matchRoutes = exports.expandRoutes = exports.setupBreadcrumbIdentifiers = exports.BreadcrumbsReducer = exports.BreadcrumbsNavigator = exports.formatImageUrl = exports.formatTime = exports.formatDate = exports.formatMoney = exports.TableParams = exports.SimpleSelect = exports.FilterSelect = exports.BaseModel = exports.getMessageDuration = exports.getNotificationDuration = exports.getFieldsError = exports.getFieldError = exports.getErrorDescription = exports.getHeadersSetter = exports.getBaseUrl = exports.addAxiosPreferences = exports.getAxios = exports.setupAxios = exports.ModalParams = exports.Actioner = undefined;
+exports.CustomReactQuill = exports.LoaderContent = exports.formatBooleanSign = exports.formatInteger = exports.LightboxContainer = exports.dismissLightbox = exports.openLightbox = exports.LightboxReducer = exports.Draggable = exports.setupSSRItems = exports.SSRReducer = exports.FiltersContainer = exports.DetailsContainer = exports.TabContainer = exports.BaseRouteComponent = exports.ErrorContainer = exports.ItemLoader = exports.CustomPagination = exports.matchRouteProperty = exports.matchRouteParams = exports.matchBreadcrumbs = exports.matchRoutes = exports.expandRoutes = exports.setupBreadcrumbIdentifiers = exports.BreadcrumbsReducer = exports.BreadcrumbsNavigator = exports.formatImageUrl = exports.formatTime = exports.formatDate = exports.formatMoney = exports.TableParams = exports.SimpleSelect = exports.FilterSelect = exports.BaseModel = exports.getMessageDuration = exports.getNotificationDuration = exports.getFieldsError = exports.getFieldError = exports.getErrorDescription = exports.getHeadersSetter = exports.getBaseUrl = exports.addAxiosPreferences = exports.getAxios = exports.setupAxios = exports.ModalParams = exports.Actioner = undefined;
 
 var _Actioner = require('./utils/Actioner');
 
@@ -73,6 +73,14 @@ var _LightboxContainer = require('./components/LightboxContainer');
 
 var _LightboxContainer2 = _interopRequireDefault(_LightboxContainer);
 
+var _LoaderContent = require('./components/LoaderContent');
+
+var _LoaderContent2 = _interopRequireDefault(_LoaderContent);
+
+var _CustomReactQuill = require('./components/CustomReactQuill');
+
+var _CustomReactQuill2 = _interopRequireDefault(_CustomReactQuill);
+
 var _breadcrumbs = require('./reducers/breadcrumbs');
 
 var _breadcrumbs2 = _interopRequireDefault(_breadcrumbs);
@@ -137,3 +145,5 @@ exports.dismissLightbox = _lightbox3.dismissLightbox;
 exports.LightboxContainer = _LightboxContainer2.default;
 exports.formatInteger = _UIManager.formatInteger;
 exports.formatBooleanSign = _UIManager.formatBooleanSign;
+exports.LoaderContent = _LoaderContent2.default;
+exports.CustomReactQuill = _CustomReactQuill2.default;

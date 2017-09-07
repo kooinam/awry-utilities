@@ -109,7 +109,7 @@ var matchRoutes = exports.matchRoutes = function matchRoutes(routes, pathname) {
     }
   }
 
-  return matchedRoutes.reverse();
+  return matchedRoutes.slice().reverse();
 };
 
 var matchBreadcrumbs = exports.matchBreadcrumbs = function matchBreadcrumbs(matchedRoutes, breadcrumbIdentifiers) {
@@ -163,7 +163,7 @@ var matchBreadcrumbs = exports.matchBreadcrumbs = function matchBreadcrumbs(matc
 };
 
 var matchRouteParams = exports.matchRouteParams = function matchRouteParams(matchedRoutes, key) {
-  var matchedRoute = matchedRoutes.reverse().find(function (route) {
+  var matchedRoute = matchedRoutes.slice().reverse().find(function (route) {
     return route.match.params[key];
   });
 
@@ -173,7 +173,7 @@ var matchRouteParams = exports.matchRouteParams = function matchRouteParams(matc
 };
 
 var matchRouteProperty = exports.matchRouteProperty = function matchRouteProperty(matchedRoutes, key) {
-  var matchedRoute = matchedRoutes.reverse().find(function (route) {
+  var matchedRoute = matchedRoutes.slice().reverse().find(function (route) {
     return route.routeProps && route.routeProps[key] != undefined;
   });
 

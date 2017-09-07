@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Pagination } from 'antd';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 /*
   <CustomPagination
@@ -47,23 +47,22 @@ class CustomPagination extends Component {
       inner = page;
     }
 
-    let to = {
-      query: {
-        page: page,
-      },
+    const to = {
+      search: `?page=${page}`,
       pathname: this.props.urlGetter(page),
-    }
+    };
 
     return (
       <Link to={to} className="page-inner">
         {inner}
       </Link>
-    )
+    );
   }
 
   render() {
-    return (
+    let pagination = (
       <Pagination
+        className="ant-pagination"
         itemRender= {this.props.urlGetter ? this.renderPaginationPage : undefined}
         current={this.props.tableParams.pagination.current}
         total={this.props.tableParams.pagination.total}
@@ -73,6 +72,20 @@ class CustomPagination extends Component {
         onShowSizeChange={this.handleChangePagination}
       />
     );
+    if (this.props.hideSizeChanger) {
+      pagination = (
+        <Pagination
+          className="ant-pagination"
+          itemRender= {this.props.urlGetter ? this.renderPaginationPage : undefined}
+          current={this.props.tableParams.pagination.current}
+          total={this.props.tableParams.pagination.total}
+          defaultPageSize={this.props.tableParams.pagination.per_page}
+          onChange={this.handleChangePagination}
+        />
+      );
+    }
+
+    return pagination;
   }
 }
 
