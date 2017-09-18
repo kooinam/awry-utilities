@@ -33,6 +33,7 @@ import FiltersContainer from './components/FiltersContainer';
 import LightboxContainer from './components/LightboxContainer';
 import LoaderContent from './components/LoaderContent';
 import CustomReactQuill from './components/CustomReactQuill';
+import SiderEditor from './components/SiderEditor';
 
 import BreadcrumbsReducer from './reducers/breadcrumbs';
 import SSRReducer from './reducers/ssr';
@@ -89,5 +90,6 @@ export {
   formatBooleanSign,
   LoaderContent,
   CustomReactQuill,
+  SiderEditor,
 };
 

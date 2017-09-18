@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Row, Col } from 'antd';
+import { Row, Col, Button } from 'antd';
 import uuidV4 from 'uuid/v4';
 
 /*
@@ -31,16 +31,27 @@ class DetailsContainer extends Component {
         titleCol = 4;
         col = 24;
       }
+      let editCol = 0;
+      let editable = null
+      if (detail.editable) {
+        editCol = 2;
+        editable = (
+          <Col span={2}>
+            <Button icon="edit" onClick={detail.editable} />
+          </Col>
+        );
+      }
 
       return (
-        <Col md={col} className="ant-details" key={uuidV4()}>
+        <Col lg={col} className="ant-details" key={uuidV4()}>
           <Row>
-            <Col md={titleCol} className="ant-details-title">
+            <Col span={titleCol} className="ant-details-title">
               {detail.title}
             </Col>
-            <Col md={24 - titleCol} className="ant-details-value">
+            <Col span={24 - titleCol - editCol} className="ant-details-value">
               {detail.value}
             </Col>
+            {editable}
           </Row>
         </Col>
       );

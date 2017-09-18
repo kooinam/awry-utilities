@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import _ from 'lodash';
 import { matchRouteParams } from './BreadcrumbsNavigator';
 import { connect } from 'react-redux';
 import type { Connector } from 'react-redux';

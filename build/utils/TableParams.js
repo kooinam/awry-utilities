@@ -49,12 +49,12 @@ var TableParams = function (_Object) {
       itemsName: null,
       ItemKlass: null,
       url: null,
-      paramsGetter: function paramsGetter() {
+      paramsGetter: function paramsGetter(tableParams) {
         return {
           params: {
-            q: _this.filter,
-            per_page: _this.pagination.per_page,
-            page: _this.pagination.current
+            q: tableParams.filter,
+            per_page: tableParams.pagination.per_page,
+            page: tableParams.pagination.current
           }
         };
       },
@@ -92,11 +92,11 @@ var TableParams = function (_Object) {
     };
 
     _this.setComponent = function (setter, setterCallback) {
+      setter(_this);
       var component = _this.component;
       if (component) {
         var tableParams = component.state[_this.key];
         tableParams.rotateUuid();
-        setter(tableParams);
         var state = {};
         state[_this.key] = tableParams;
         component.setState(state, setterCallback);
@@ -109,8 +109,10 @@ var TableParams = function (_Object) {
       if (_this.ssrKey && _this.component && _this.component.props.SSRReducer && _this.component.props.SSRReducer.ssrItems && _this.component.props.SSRReducer.ssrItems[_this.ssrKey] && !_this.component.props.SSRReducer.ssrItems[_this.ssrKey].isServed) {
         return new Promise(function (resolve) {
           var items = _this.component.props.SSRReducer.ssrItems[_this.ssrKey].value;
+          var pagination = _this.component.props.SSRReducer.ssrItems[_this.ssrKey].pagination;
           _this.setComponent(function (tableParams) {
             tableParams.items = items;
+            tableParams.pagination = pagination;
           }, function () {
             if (_this.callback) {
               _this.callback(items);
@@ -129,7 +131,7 @@ var TableParams = function (_Object) {
           }, function () {
             var axiosGetter = _this.axiosGetter;
             axiosGetter().then(function (instance) {
-              var params = _this.paramsGetter();
+              var params = _this.paramsGetter(_this);
               params.params.scope = _this.scope;
 
               return instance.get(_this.url, params);
@@ -143,9 +145,10 @@ var TableParams = function (_Object) {
                   tableParams.isError = false;
                   tableParams.items = items;
                   tableParams.pagination.total = response.data.total_count;
+                  tableParams.responseData = response.data;
                 }, function () {
                   if (_this.callback) {
-                    _this.callback(items);
+                    _this.callback(items, response.data);
                   }
                   resolve(items);
                 });

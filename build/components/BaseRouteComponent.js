@@ -14,10 +14,6 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouterDom = require('react-router-dom');
 
-var _lodash = require('lodash');
-
-var _lodash2 = _interopRequireDefault(_lodash);
-
 var _BreadcrumbsNavigator = require('./BreadcrumbsNavigator');
 
 var _reactRedux = require('react-redux');

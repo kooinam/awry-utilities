@@ -16,6 +16,12 @@ var _col = require('antd/lib/col');
 
 var _col2 = _interopRequireDefault(_col);
 
+var _css3 = require('antd/lib/button/style/css');
+
+var _button = require('antd/lib/button');
+
+var _button2 = _interopRequireDefault(_button);
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = require('react');
@@ -63,23 +69,34 @@ var DetailsContainer = function (_Component) {
           titleCol = 4;
           col = 24;
         }
+        var editCol = 0;
+        var editable = null;
+        if (detail.editable) {
+          editCol = 2;
+          editable = _react2.default.createElement(
+            _col2.default,
+            { span: 2 },
+            _react2.default.createElement(_button2.default, { icon: 'edit', onClick: detail.editable })
+          );
+        }
 
         return _react2.default.createElement(
           _col2.default,
-          { md: col, className: 'ant-details', key: (0, _v2.default)() },
+          { lg: col, className: 'ant-details', key: (0, _v2.default)() },
           _react2.default.createElement(
             _row2.default,
             null,
             _react2.default.createElement(
               _col2.default,
-              { md: titleCol, className: 'ant-details-title' },
+              { span: titleCol, className: 'ant-details-title' },
               detail.title
             ),
             _react2.default.createElement(
               _col2.default,
-              { md: 24 - titleCol, className: 'ant-details-value' },
+              { span: 24 - titleCol - editCol, className: 'ant-details-value' },
               detail.value
-            )
+            ),
+            editable
           )
         );
       });

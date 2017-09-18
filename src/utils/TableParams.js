@@ -23,12 +23,12 @@ class TableParams extends Object {
       itemsName: null,
       ItemKlass: null,
       url: null,
-      paramsGetter: () => {
+      paramsGetter: (tableParams) => {
         return {
           params: {
-            q: this.filter,
-            per_page: this.pagination.per_page,
-            page: this.pagination.current,
+            q: tableParams.filter,
+            per_page: tableParams.pagination.per_page,
+            page: tableParams.pagination.current,
           },
         };
       },
@@ -71,11 +71,11 @@ class TableParams extends Object {
   }
 
   setComponent = (setter, setterCallback) => {
+    setter(this);
     const component = this.component;
     if (component) {
       const tableParams = component.state[this.key];
       tableParams.rotateUuid();
-      setter(tableParams);
       const state = {};
       state[this.key] = tableParams;
       component.setState(state, setterCallback);
@@ -89,8 +89,10 @@ class TableParams extends Object {
     if (this.ssrKey && this.component && this.component.props.SSRReducer && this.component.props.SSRReducer.ssrItems && this.component.props.SSRReducer.ssrItems[this.ssrKey] && !this.component.props.SSRReducer.ssrItems[this.ssrKey].isServed) {
       return new Promise((resolve) => {
         const items = this.component.props.SSRReducer.ssrItems[this.ssrKey].value;
+        const pagination = this.component.props.SSRReducer.ssrItems[this.ssrKey].pagination;
         this.setComponent((tableParams) => {
           tableParams.items = items;
+          tableParams.pagination = pagination;
         }, () => {
           if (this.callback) {
             this.callback(items);
@@ -109,7 +111,7 @@ class TableParams extends Object {
         }, () => {
           const axiosGetter = this.axiosGetter;
           axiosGetter().then((instance) => {
-            const params = this.paramsGetter();
+            const params = this.paramsGetter(this);
             params.params.scope = this.scope;
 
             return instance.get(this.url, params);
@@ -123,9 +125,10 @@ class TableParams extends Object {
                 tableParams.isError = false;
                 tableParams.items = items;
                 tableParams.pagination.total = response.data.total_count;
+                tableParams.responseData = response.data;
               }, () => {
                 if (this.callback) {
-                  this.callback(items);
+                  this.callback(items, response.data);
                 }
                 resolve(items);
               });
