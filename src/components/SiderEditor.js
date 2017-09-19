@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Row, Col, Button, Form, Input, Table } from 'antd';
+import { Link } from 'react-router-dom';
 
 import { getFieldError } from '../utils/UIManager';
 import TableParams from '../utils/TableParams';
 import Actioner from '../utils/Actioner';
 import ErrorContainer from './ErrorContainer';
+import { formatDate, formatTime } from '../utils/UIManager';
+import CustomPagination from './CustomPagination';
 
 /*
   <SiderEditor
@@ -34,7 +37,7 @@ import ErrorContainer from './ErrorContainer';
         itemsName: 'users',
         ItemKlass: User,
         url: '/logs.json',
-        key: 'update_profile',
+        type: 'Member',
         id: this.props.user.id,
         fieldNames,
       }
@@ -59,19 +62,20 @@ class SiderEditor extends Component {
     super(props);
 
     const { formParams, logParams } = this.props;
+    const actioner = (formParams) ? new Actioner({
+      component: this,
+      key: 'actioner',
+      axiosGetter: formParams.axiosGetter,
+      method: 'patch',
+      itemName: formParams.itemName,
+      ItemKlass: formParams.ItemKlass,
+      successMessageGetter: formParams.successMessageGetter,
+      successCallback: formParams.successCallback,
+      errorMessageGetter: formParams.errorMessageGetter,
+    }) : null;
 
     this.state = {
-      actioner: new Actioner({
-        component: this,
-        key: 'actioner',
-        axiosGetter: formParams.axiosGetter,
-        method: 'patch',
-        itemName: formParams.itemName,
-        ItemKlass: formParams.ItemKlass,
-        successMessageGetter: formParams.successMessageGetter,
-        successCallback: formParams.successCallback,
-        errorMessageGetter: formParams.errorMessageGetter,
-      }),
+      actioner: actioner,
       tableParams: new TableParams({
         component: this,
         key: 'tableParams',
@@ -88,7 +92,7 @@ class SiderEditor extends Component {
               q: tableParams.filter,
               per_page: tableParams.pagination.per_page,
               page: tableParams.pagination.current,
-              log_action: logParams.key,
+              log_type: logParams.type,
               log_id: logParams.id,
               field_names: logParams.fieldNames,
             },
@@ -118,37 +122,69 @@ class SiderEditor extends Component {
     }
 
     const columns = [{
-      className: '',
+      className: 'ant-td-padding-sm',
       width: '20%',
       title: 'Done by',
-      key: 'username',
+      key: 'actioner',
       render: (value, record) => {
         return (
-          <Link to={`/admin/users/${record.username}`} target="_blank">
-            {record.username}
+          <Link to={`/admin/users/${record.actioner_username}`} target="_blank">
+            {record.actioner_username}
           </Link>
         );
       },
     }, {
-      className: '',
+      className: 'ant-td-center ant-td-padding-sm',
       width: '20%',
       title: 'Time',
       key: 'created_at',
       render: (value, record) => {
         return (
           <div>
-            {record.created_at}
+            {formatDate(record.created_at)}
+            <br />
+            <small>
+              {formatTime(record.created_at)}
+            </small>
           </div>
         );
       },
     }, {
-      className: '',
-      width: '60%',
+      className: 'ant-td-padding-sm',
+      width: '30%',
+      title: 'Changes',
+      key: 'log_changes',
+      render: (value, record) => {
+        const logChanges = Object.keys(record.log_changes).map((key) => {
+          return (
+            <Row key={key} className="ant-space-row">
+              <Col span={12}>
+                <span className="ant-label ant-label-block">
+                  {key}
+                </span>
+              </Col>
+              <Col span={12}>
+                <span className="ant-texter-sm">
+                  {record.log_changes[key]}
+                </span>
+              </Col>
+            </Row>
+          );
+        });
+        return (
+          <div>
+            {logChanges}
+          </div>
+        )
+      }
+    }, {
+      className: 'ant-td-padding-sm',
+      width: '30%',
       title: 'Remarks',
       key: 'remark',
       render: (value, record) => {
         return (
-          <div>
+          <div className="ant-texter">
             {record.remarks}
           </div>
         )
@@ -180,7 +216,8 @@ class SiderEditor extends Component {
       }
 
       const attributes = (this.props.form.getFieldsValue());
-      const params = this.props.formParamsParser(attributes);
+      const params = (this.props.formParamsParser) ? this.props.formParamsParser(attributes) : attributes;
+      params.log_remarks = attributes.log_remarks;
 
       this.state.actioner.do(this.props.formParams.url, params);
 
@@ -197,38 +234,56 @@ class SiderEditor extends Component {
       formInputs = formInputsGetter(item, form, actioner);
     }
 
+    const formComponent = (this.state.actioner) ? (
+      <Col md={24}>
+        <Form onSubmit={this.handleSubmit}>
+          <Row>
+            <Col md={24}>
+              <Form.Item {...getFieldError(actioner.error, 'log_remarks')} label="Remarks" hasFeedback>
+                {form.getFieldDecorator('log_remarks', {
+                  rules: [
+                    { required: true, message: 'Remarks is required' },
+                  ],
+                  initialValue: null,
+                })(
+                  <Input type="textarea" placeholder="Remarks" rows={4} />,
+                )}
+              </Form.Item>
+            </Col>
+          </Row>
+          {formInputs}
+          <Row>
+            <Col md={24}>
+              <Form.Item>
+                <Button type="primary" htmlType="submit" loading={this.state.actioner.isLoading}>
+                  {this.props.formParams.confirmText || 'Update'}
+                </Button>
+              </Form.Item>
+            </Col>
+          </Row>
+        </Form>
+      </Col>
+    ) : null;
+
     return (
       <Row className={`ant-sider-editor ${this.props.className}`}>
+        {formComponent}
         <Col md={24}>
-          <Form onSubmit={this.handleSubmit}>
-            <Row>
-              <Col md={24}>
-                <Form.Item {...getFieldError(actioner.error, 'remarks')} label="Remarks" hasFeedback>
-                  {form.getFieldDecorator('remarks', {
-                    rules: [
-                      { required: true, message: 'Remarks is required' },
-                    ],
-                    initialValue: null,
-                  })(
-                    <Input type="textarea" placeholder="Remarks" />,
-                  )}
-                </Form.Item>
-              </Col>
-            </Row>
-            {formInputs}
-            <Row>
-              <Col md={24}>
-                <Form.Item>
-                  <Button type="primary" htmlType="submit" loading={this.state.actioner.isLoading}>
-                    Submit
-                  </Button>
-                </Form.Item>
-              </Col>
-            </Row>
-          </Form>
-        </Col>
-        <Col md={24} className={'ant-card-content'}>
-          {this.renderItems()}
+          <Row className={'ant-content'} style={{ marginLeft: 0, marginRight: 0 }}>
+            <Col md={24}>
+              {this.renderItems()}
+            </Col>
+          </Row>
+          <Row>
+            <Col md={24} className={'pull-right'}>
+              <CustomPagination
+                key={this.state.tableParams.uuid}
+                tableParams={this.state.tableParams}
+                loadItems={this.loadItems}
+                anchor="listing"
+              />
+            </Col>
+          </Row>
         </Col>
       </Row>
     );

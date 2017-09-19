@@ -10,35 +10,35 @@ var _button = require('antd/lib/button');
 
 var _button2 = _interopRequireDefault(_button);
 
-var _css2 = require('antd/lib/row/style/css');
-
-var _row = require('antd/lib/row');
-
-var _row2 = _interopRequireDefault(_row);
-
-var _css3 = require('antd/lib/col/style/css');
-
-var _col = require('antd/lib/col');
-
-var _col2 = _interopRequireDefault(_col);
-
-var _css4 = require('antd/lib/form/style/css');
+var _css2 = require('antd/lib/form/style/css');
 
 var _form = require('antd/lib/form');
 
 var _form2 = _interopRequireDefault(_form);
 
-var _css5 = require('antd/lib/input/style/css');
+var _css3 = require('antd/lib/input/style/css');
 
 var _input = require('antd/lib/input');
 
 var _input2 = _interopRequireDefault(_input);
 
-var _css6 = require('antd/lib/table/style/css');
+var _css4 = require('antd/lib/table/style/css');
 
 var _table = require('antd/lib/table');
 
 var _table2 = _interopRequireDefault(_table);
+
+var _css5 = require('antd/lib/row/style/css');
+
+var _row = require('antd/lib/row');
+
+var _row2 = _interopRequireDefault(_row);
+
+var _css6 = require('antd/lib/col/style/css');
+
+var _col = require('antd/lib/col');
+
+var _col2 = _interopRequireDefault(_col);
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -49,6 +49,8 @@ var _react = require('react');
 var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = require('react-redux');
+
+var _reactRouterDom = require('react-router-dom');
 
 var _UIManager = require('../utils/UIManager');
 
@@ -63,6 +65,10 @@ var _Actioner2 = _interopRequireDefault(_Actioner);
 var _ErrorContainer = require('./ErrorContainer');
 
 var _ErrorContainer2 = _interopRequireDefault(_ErrorContainer);
+
+var _CustomPagination = require('./CustomPagination');
+
+var _CustomPagination2 = _interopRequireDefault(_CustomPagination);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -99,7 +105,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
         itemsName: 'users',
         ItemKlass: User,
         url: '/logs.json',
-        key: 'update_profile',
+        type: 'Member',
         id: this.props.user.id,
         fieldNames,
       }
@@ -141,19 +147,19 @@ var SiderEditor = function (_Component) {
       }
 
       var columns = [{
-        className: '',
+        className: 'ant-td-padding-sm',
         width: '20%',
         title: 'Done by',
-        key: 'username',
+        key: 'actioner',
         render: function render(value, record) {
           return _react2.default.createElement(
-            Link,
-            { to: '/admin/users/' + record.username, target: '_blank' },
-            record.username
+            _reactRouterDom.Link,
+            { to: '/admin/users/' + record.actioner_username, target: '_blank' },
+            record.actioner_username
           );
         }
       }, {
-        className: '',
+        className: 'ant-td-center ant-td-padding-sm',
         width: '20%',
         title: 'Time',
         key: 'created_at',
@@ -161,18 +167,60 @@ var SiderEditor = function (_Component) {
           return _react2.default.createElement(
             'div',
             null,
-            record.created_at
+            (0, _UIManager.formatDate)(record.created_at),
+            _react2.default.createElement('br', null),
+            _react2.default.createElement(
+              'small',
+              null,
+              (0, _UIManager.formatTime)(record.created_at)
+            )
           );
         }
       }, {
-        className: '',
-        width: '60%',
+        className: 'ant-td-padding-sm',
+        width: '30%',
+        title: 'Changes',
+        key: 'log_changes',
+        render: function render(value, record) {
+          var logChanges = Object.keys(record.log_changes).map(function (key) {
+            return _react2.default.createElement(
+              _row2.default,
+              { key: key, className: 'ant-space-row' },
+              _react2.default.createElement(
+                _col2.default,
+                { span: 12 },
+                _react2.default.createElement(
+                  'span',
+                  { className: 'ant-label ant-label-block' },
+                  key
+                )
+              ),
+              _react2.default.createElement(
+                _col2.default,
+                { span: 12 },
+                _react2.default.createElement(
+                  'span',
+                  { className: 'ant-texter-sm' },
+                  record.log_changes[key]
+                )
+              )
+            );
+          });
+          return _react2.default.createElement(
+            'div',
+            null,
+            logChanges
+          );
+        }
+      }, {
+        className: 'ant-td-padding-sm',
+        width: '30%',
         title: 'Remarks',
         key: 'remark',
         render: function render(value, record) {
           return _react2.default.createElement(
             'div',
-            null,
+            { className: 'ant-texter' },
             record.remarks
           );
         }
@@ -201,7 +249,8 @@ var SiderEditor = function (_Component) {
         }
 
         var attributes = _this.props.form.getFieldsValue();
-        var params = _this.props.formParamsParser(attributes);
+        var params = _this.props.formParamsParser ? _this.props.formParamsParser(attributes) : attributes;
+        params.log_remarks = attributes.log_remarks;
 
         _this.state.actioner.do(_this.props.formParams.url, params);
 
@@ -213,19 +262,20 @@ var SiderEditor = function (_Component) {
         formParams = _this$props.formParams,
         logParams = _this$props.logParams;
 
+    var actioner = formParams ? new _Actioner2.default({
+      component: _this,
+      key: 'actioner',
+      axiosGetter: formParams.axiosGetter,
+      method: 'patch',
+      itemName: formParams.itemName,
+      ItemKlass: formParams.ItemKlass,
+      successMessageGetter: formParams.successMessageGetter,
+      successCallback: formParams.successCallback,
+      errorMessageGetter: formParams.errorMessageGetter
+    }) : null;
 
     _this.state = {
-      actioner: new _Actioner2.default({
-        component: _this,
-        key: 'actioner',
-        axiosGetter: formParams.axiosGetter,
-        method: 'patch',
-        itemName: formParams.itemName,
-        ItemKlass: formParams.ItemKlass,
-        successMessageGetter: formParams.successMessageGetter,
-        successCallback: formParams.successCallback,
-        errorMessageGetter: formParams.errorMessageGetter
-      }),
+      actioner: actioner,
       tableParams: new _TableParams2.default({
         component: _this,
         key: 'tableParams',
@@ -242,7 +292,7 @@ var SiderEditor = function (_Component) {
               q: tableParams.filter,
               per_page: tableParams.pagination.per_page,
               page: tableParams.pagination.current,
-              log_action: logParams.key,
+              log_type: logParams.type,
               log_id: logParams.id,
               field_names: logParams.fieldNames
             }
@@ -272,55 +322,79 @@ var SiderEditor = function (_Component) {
         formInputs = formInputsGetter(item, form, actioner);
       }
 
-      return _react2.default.createElement(
-        _row2.default,
-        { className: 'ant-sider-editor ' + this.props.className },
+      var formComponent = this.state.actioner ? _react2.default.createElement(
+        _col2.default,
+        { md: 24 },
         _react2.default.createElement(
-          _col2.default,
-          { md: 24 },
+          _form2.default,
+          { onSubmit: this.handleSubmit },
           _react2.default.createElement(
-            _form2.default,
-            { onSubmit: this.handleSubmit },
+            _row2.default,
+            null,
             _react2.default.createElement(
-              _row2.default,
-              null,
+              _col2.default,
+              { md: 24 },
               _react2.default.createElement(
-                _col2.default,
-                { md: 24 },
-                _react2.default.createElement(
-                  _form2.default.Item,
-                  _extends({}, (0, _UIManager.getFieldError)(actioner.error, 'remarks'), { label: 'Remarks', hasFeedback: true }),
-                  form.getFieldDecorator('remarks', {
-                    rules: [{ required: true, message: 'Remarks is required' }],
-                    initialValue: null
-                  })(_react2.default.createElement(_input2.default, { type: 'textarea', placeholder: 'Remarks' }))
-                )
+                _form2.default.Item,
+                _extends({}, (0, _UIManager.getFieldError)(actioner.error, 'log_remarks'), { label: 'Remarks', hasFeedback: true }),
+                form.getFieldDecorator('log_remarks', {
+                  rules: [{ required: true, message: 'Remarks is required' }],
+                  initialValue: null
+                })(_react2.default.createElement(_input2.default, { type: 'textarea', placeholder: 'Remarks', rows: 4 }))
               )
-            ),
-            formInputs,
+            )
+          ),
+          formInputs,
+          _react2.default.createElement(
+            _row2.default,
+            null,
             _react2.default.createElement(
-              _row2.default,
-              null,
+              _col2.default,
+              { md: 24 },
               _react2.default.createElement(
-                _col2.default,
-                { md: 24 },
+                _form2.default.Item,
+                null,
                 _react2.default.createElement(
-                  _form2.default.Item,
-                  null,
-                  _react2.default.createElement(
-                    _button2.default,
-                    { type: 'primary', htmlType: 'submit', loading: this.state.actioner.isLoading },
-                    'Submit'
-                  )
+                  _button2.default,
+                  { type: 'primary', htmlType: 'submit', loading: this.state.actioner.isLoading },
+                  this.props.formParams.confirmText || 'Update'
                 )
               )
             )
           )
-        ),
+        )
+      ) : null;
+
+      return _react2.default.createElement(
+        _row2.default,
+        { className: 'ant-sider-editor ' + this.props.className },
+        formComponent,
         _react2.default.createElement(
           _col2.default,
-          { md: 24, className: 'ant-card-content' },
-          this.renderItems()
+          { md: 24 },
+          _react2.default.createElement(
+            _row2.default,
+            { className: 'ant-content', style: { marginLeft: 0, marginRight: 0 } },
+            _react2.default.createElement(
+              _col2.default,
+              { md: 24 },
+              this.renderItems()
+            )
+          ),
+          _react2.default.createElement(
+            _row2.default,
+            null,
+            _react2.default.createElement(
+              _col2.default,
+              { md: 24, className: 'pull-right' },
+              _react2.default.createElement(_CustomPagination2.default, {
+                key: this.state.tableParams.uuid,
+                tableParams: this.state.tableParams,
+                loadItems: this.loadItems,
+                anchor: 'listing'
+              })
+            )
+          )
         )
       );
     }

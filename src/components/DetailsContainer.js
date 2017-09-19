@@ -36,8 +36,18 @@ class DetailsContainer extends Component {
       if (detail.editable) {
         editCol = 2;
         editable = (
-          <Col span={2}>
+          <Col span={2} className="pull-right">
             <Button icon="edit" onClick={detail.editable} />
+          </Col>
+        );
+      }
+      let showCol = 0;
+      let showable = null
+      if (detail.showable) {
+        showCol = 2;
+        showable = (
+          <Col span={2} className="pull-right">
+            <Button icon="eye" onClick={detail.showable} />
           </Col>
         );
       }
@@ -48,10 +58,11 @@ class DetailsContainer extends Component {
             <Col span={titleCol} className="ant-details-title">
               {detail.title}
             </Col>
-            <Col span={24 - titleCol - editCol} className="ant-details-value">
+            <Col span={24 - titleCol - editCol - showCol} className="ant-details-value">
               {detail.value}
             </Col>
             {editable}
+            {showable}
           </Row>
         </Col>
       );

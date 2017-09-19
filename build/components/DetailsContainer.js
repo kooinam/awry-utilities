@@ -75,8 +75,18 @@ var DetailsContainer = function (_Component) {
           editCol = 2;
           editable = _react2.default.createElement(
             _col2.default,
-            { span: 2 },
+            { span: 2, className: 'pull-right' },
             _react2.default.createElement(_button2.default, { icon: 'edit', onClick: detail.editable })
+          );
+        }
+        var showCol = 0;
+        var showable = null;
+        if (detail.showable) {
+          showCol = 2;
+          showable = _react2.default.createElement(
+            _col2.default,
+            { span: 2, className: 'pull-right' },
+            _react2.default.createElement(_button2.default, { icon: 'eye', onClick: detail.showable })
           );
         }
 
@@ -93,10 +103,11 @@ var DetailsContainer = function (_Component) {
             ),
             _react2.default.createElement(
               _col2.default,
-              { span: 24 - titleCol - editCol, className: 'ant-details-value' },
+              { span: 24 - titleCol - editCol - showCol, className: 'ant-details-value' },
               detail.value
             ),
-            editable
+            editable,
+            showable
           )
         );
       });
