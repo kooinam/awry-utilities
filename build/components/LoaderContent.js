@@ -4,6 +4,18 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _css = require('antd/lib/card/style/css');
+
+var _card = require('antd/lib/card');
+
+var _card2 = _interopRequireDefault(_card);
+
+var _css2 = require('antd/lib/spin/style/css');
+
+var _spin = require('antd/lib/spin');
+
+var _spin2 = _interopRequireDefault(_spin);
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = require('react');
@@ -30,20 +42,7 @@ var LoaderContent = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, (LoaderContent.__proto__ || Object.getPrototypeOf(LoaderContent)).call(this, props));
 
-    _this.renderContent = function () {
-      if (!_this.props.isError) {
-        return _react2.default.createElement(
-          'div',
-          { key: 'loader-container' },
-          _this.props.children
-        );
-      }
-      return null;
-    };
-
     _this.state = {};
-
-    _this.renderContent = _this.renderContent.bind(_this);
     return _this;
   }
 
@@ -51,16 +50,50 @@ var LoaderContent = function (_Component) {
     key: 'render',
     value: function render() {
       var delay = this.props.delay || 0;
-      var duration = this.props.duration || 450;
+      var duration = this.props.duration || 800;
+      var _props = this.props,
+          inanimate = _props.inanimate,
+          firstLoading = _props.firstLoading,
+          loading = _props.loading;
 
-      if (typeof window !== 'undefined') {
-        return _react2.default.createElement(
-          _rcQueueAnim2.default,
-          { type: ['right'], delay: delay, duration: duration },
-          this.renderContent()
+
+      var content = this.props.children;
+
+      if (this.props.isError) {
+        content = _react2.default.createElement(
+          'div',
+          { className: 'text-center ant-error' },
+          'Something went wrong. Click \xA0',
+          _react2.default.createElement(
+            'a',
+            { onClick: this.props.onRetry },
+            'here'
+          ),
+          '\xA0 to try again.'
         );
       }
-      return this.renderContent();
+
+      if (!inanimate && typeof window != 'undefined') {
+        content = _react2.default.createElement(
+          _rcQueueAnim2.default,
+          { type: ['right', 'alpha'], delay: delay, duration: duration },
+          _react2.default.createElement(
+            'div',
+            { key: 'loader-content' },
+            content
+          )
+        );
+      }
+
+      return _react2.default.createElement(
+        _card2.default,
+        { loading: firstLoading, className: 'ant-loader-card ' + this.props.className },
+        _react2.default.createElement(
+          _spin2.default,
+          { spinning: (!firstLoading && loading) == true },
+          content
+        )
+      );
     }
   }]);
 

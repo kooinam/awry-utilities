@@ -20,6 +20,10 @@ var _reactRedux = require('react-redux');
 
 var _reactRouterDom = require('react-router-dom');
 
+var _scrollToElement = require('scroll-to-element');
+
+var _scrollToElement2 = _interopRequireDefault(_scrollToElement);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -54,7 +58,11 @@ var CustomPagination = function (_Component) {
       _this.props.loadItems();
 
       if (_this.props.anchor && document.getElementById(_this.props.anchor)) {
-        window.scrollTo(0, document.getElementById(_this.props.anchor).getBoundingClientRect().top + window.scrollY);
+        (0, _scrollToElement2.default)(document.getElementById(_this.props.anchor), {
+          offset: 0,
+          ease: 'out-circ',
+          duration: 500
+        });
       }
     };
 

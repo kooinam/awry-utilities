@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Pagination } from 'antd';
 import { Link } from 'react-router-dom';
+import scrollToElement from 'scroll-to-element';
 
 /*
   <CustomPagination
@@ -31,7 +32,11 @@ class CustomPagination extends Component {
     this.props.loadItems();
 
     if (this.props.anchor && document.getElementById(this.props.anchor)) {
-      window.scrollTo(0, document.getElementById(this.props.anchor).getBoundingClientRect().top + window.scrollY);
+      scrollToElement(document.getElementById(this.props.anchor), {
+        offset: 0,
+        ease: 'out-circ',
+        duration: 500,
+      });
     }
   }
 

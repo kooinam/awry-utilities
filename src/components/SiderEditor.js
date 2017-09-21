@@ -34,8 +34,6 @@ import CustomPagination from './CustomPagination';
     logParams={
       {
         axiosGetter: () => getAxios('log-admin'),
-        itemsName: 'users',
-        ItemKlass: User,
         url: '/logs.json',
         type: 'Member',
         id: this.props.user.id,

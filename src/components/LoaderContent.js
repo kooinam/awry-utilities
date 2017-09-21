@@ -1,12 +1,6 @@
 import React, { Component } from 'react';
+import { Card, Spin } from 'antd';
 import QueueAnim from 'rc-queue-anim';
-
-type Props = {
-  children: Component,
-  isError: Boolean,
-  delay: Number,
-  duration: Number,
-}
 
 class LoaderContent extends Component {
   constructor(props) {
@@ -14,35 +8,46 @@ class LoaderContent extends Component {
 
     this.state = {
     };
-
-    this.renderContent = this.renderContent.bind(this);
-  }
-
-  props: Props;
-
-  renderContent = () => {
-    if (!this.props.isError) {
-      return (
-        <div key="loader-container">
-          { this.props.children }
-        </div>
-      );
-    }
-    return null;
   }
 
   render() {
     const delay = this.props.delay || 0;
-    const duration = this.props.duration || 450;
+    const duration = this.props.duration || 800;
+    const { inanimate, firstLoading, loading } = this.props;
 
-    if (typeof (window) !== 'undefined') {
-      return (
-        <QueueAnim type={['right']} delay={delay} duration={duration}>
-          {this.renderContent()}
+    let content = this.props.children;
+
+    if (this.props.isError) {
+      content = (
+        <div className="text-center ant-error">
+          Something went wrong. Click
+          &nbsp;
+          <a onClick={this.props.onRetry}>
+            here
+          </a>
+          &nbsp;
+          to try again.
+        </div>
+      );
+    }
+
+    if (!inanimate && typeof(window) != 'undefined') {
+      content = (
+        <QueueAnim type={['right', 'alpha']} delay={delay} duration={duration}>
+          <div key="loader-content">
+            {content}
+          </div>
         </QueueAnim>
       );
     }
-    return this.renderContent();
+
+    return (
+      <Card loading={firstLoading} className={`ant-loader-card ${this.props.className}`}>
+        <Spin spinning={(!firstLoading && loading) == true}>
+          {content}
+        </Spin>
+      </Card>
+    )
   }
 }
 
