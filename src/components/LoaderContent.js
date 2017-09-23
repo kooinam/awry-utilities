@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Card, Spin } from 'antd';
-import QueueAnim from 'rc-queue-anim';
+
+import Fade from './Fade';
 
 class LoaderContent extends Component {
   constructor(props) {
@@ -11,8 +12,7 @@ class LoaderContent extends Component {
   }
 
   render() {
-    const delay = this.props.delay || 0;
-    const duration = this.props.duration || 800;
+    const duration = this.props.duration || 0.5;
     const { inanimate, firstLoading, loading } = this.props;
 
     let content = this.props.children;
@@ -33,11 +33,11 @@ class LoaderContent extends Component {
 
     if (!inanimate && typeof(window) != 'undefined') {
       content = (
-        <QueueAnim type={['right', 'alpha']} delay={delay} duration={duration}>
-          <div key="loader-content">
-            {content}
-          </div>
-        </QueueAnim>
+        <Fade
+          duration={duration}
+        >
+          {content}
+        </Fade>
       );
     }
 

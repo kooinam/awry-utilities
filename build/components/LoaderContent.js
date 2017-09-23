@@ -22,9 +22,9 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _rcQueueAnim = require('rc-queue-anim');
+var _Fade = require('./Fade');
 
-var _rcQueueAnim2 = _interopRequireDefault(_rcQueueAnim);
+var _Fade2 = _interopRequireDefault(_Fade);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -49,8 +49,7 @@ var LoaderContent = function (_Component) {
   _createClass(LoaderContent, [{
     key: 'render',
     value: function render() {
-      var delay = this.props.delay || 0;
-      var duration = this.props.duration || 800;
+      var duration = this.props.duration || 0.5;
       var _props = this.props,
           inanimate = _props.inanimate,
           firstLoading = _props.firstLoading,
@@ -75,13 +74,11 @@ var LoaderContent = function (_Component) {
 
       if (!inanimate && typeof window != 'undefined') {
         content = _react2.default.createElement(
-          _rcQueueAnim2.default,
-          { type: ['right', 'alpha'], delay: delay, duration: duration },
-          _react2.default.createElement(
-            'div',
-            { key: 'loader-content' },
-            content
-          )
+          _Fade2.default,
+          {
+            duration: duration
+          },
+          content
         );
       }
 

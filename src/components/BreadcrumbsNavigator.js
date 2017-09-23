@@ -17,7 +17,12 @@ export const expandRoutes = (routes, parentRoute) => {
     const newRoute = Object.assign({}, route);
     if (parentRoute) {
       newRoute.parentRoute = parentRoute;
-      newRoute.path = `${parentRoute.path}/${newRoute.path}`;
+      if (parentRoute.path && parentRoute.path.length > 1) {
+        newRoute.path = `${parentRoute.path}/${newRoute.path}`;
+      }
+      else {
+        newRoute.path = `${parentRoute.path}${newRoute.path}`;
+      }
     }
     newRoute.originalPath = newRoute.path;
     if (route.routes) {

@@ -9,7 +9,12 @@ class BaseRouteComponent extends Component {
     const { match, matchedRoutes, onMount, routes } = this.props;
     let url = '';
     if (match) {
-      url = `${match.url}/`;
+      if (match.url && match.url.length > 1) {
+        url = `${match.url}/`;
+      }
+      else {
+        url = match.url;
+      }
     }
 
     const routeWithSubRoutes = (route) => {

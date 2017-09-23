@@ -69,7 +69,8 @@ var TableParams = function (_Object) {
       isLoading: false,
       isError: false,
       items: [],
-      ssrKey: null
+      ssrKey: null,
+      isSSR: false
     }, attributes);
 
     var _this = _possibleConstructorReturn(this, (TableParams.__proto__ || Object.getPrototypeOf(TableParams)).call(this, newAttributes));
@@ -113,6 +114,8 @@ var TableParams = function (_Object) {
           _this.setComponent(function (tableParams) {
             tableParams.items = items;
             tableParams.pagination = pagination;
+            tableParams.lastSearchId += 1;
+            tableParams.isSSR = true;
           }, function () {
             if (_this.callback) {
               _this.callback(items);
@@ -128,6 +131,7 @@ var TableParams = function (_Object) {
 
           _this.setComponent(function (tableParams) {
             tableParams.isLoading = true;
+            tableParams.isSSR = false;
           }, function () {
             var axiosGetter = _this.axiosGetter;
             axiosGetter().then(function (instance) {

@@ -123,7 +123,7 @@ class Draggable extends Object {
   }
 
   getTrNode = (target) => {
-    return this.getClosestSelector(target, 'tr', this.component.refs.dragContainer.tableNode);
+    return this.getClosestSelector(target, 'tr', this.component.dragContainer.tableNode);
   }
 }
 

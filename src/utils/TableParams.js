@@ -44,6 +44,7 @@ class TableParams extends Object {
       isError: false,
       items: [],
       ssrKey: null,
+      isSSR: false,
     }, attributes);
 
     super(newAttributes);
@@ -93,6 +94,8 @@ class TableParams extends Object {
         this.setComponent((tableParams) => {
           tableParams.items = items;
           tableParams.pagination = pagination;
+          tableParams.lastSearchId += 1;
+          tableParams.isSSR = true;
         }, () => {
           if (this.callback) {
             this.callback(items);
@@ -107,7 +110,8 @@ class TableParams extends Object {
         const searchId = this.lastSearchId;
 
         this.setComponent((tableParams) => {
-          tableParams.isLoading = true
+          tableParams.isLoading = true;
+          tableParams.isSSR = false;
         }, () => {
           const axiosGetter = this.axiosGetter;
           axiosGetter().then((instance) => {

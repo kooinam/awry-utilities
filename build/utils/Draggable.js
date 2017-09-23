@@ -136,7 +136,7 @@ var Draggable = function (_Object) {
     };
 
     _this.getTrNode = function (target) {
-      return _this.getClosestSelector(target, 'tr', _this.component.refs.dragContainer.tableNode);
+      return _this.getClosestSelector(target, 'tr', _this.component.dragContainer.tableNode);
     };
 
     _this.rotateUuid();

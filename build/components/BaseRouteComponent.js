@@ -48,7 +48,11 @@ var BaseRouteComponent = function (_Component) {
 
       var url = '';
       if (match) {
-        url = match.url + '/';
+        if (match.url && match.url.length > 1) {
+          url = match.url + '/';
+        } else {
+          url = match.url;
+        }
       }
 
       var routeWithSubRoutes = function routeWithSubRoutes(route) {
