@@ -111,7 +111,6 @@ class TableParams extends Object {
 
         this.setComponent((tableParams) => {
           tableParams.isLoading = true;
-          tableParams.isSSR = false;
         }, () => {
           const axiosGetter = this.axiosGetter;
           axiosGetter().then((instance) => {
@@ -130,6 +129,7 @@ class TableParams extends Object {
                 tableParams.items = items;
                 tableParams.pagination.total = response.data.total_count;
                 tableParams.responseData = response.data;
+                tableParams.isSSR = false;
               }, () => {
                 if (this.callback) {
                   this.callback(items, response.data);
@@ -145,6 +145,7 @@ class TableParams extends Object {
               this.setComponent((tableParams) => {
                 tableParams.isLoading = false;
                 tableParams.isError = true;
+                tableParams.isSSR = false;
               }, () => {
                 if (error && error.response) {
                   if (this.errorMessage) {

@@ -131,7 +131,6 @@ var TableParams = function (_Object) {
 
           _this.setComponent(function (tableParams) {
             tableParams.isLoading = true;
-            tableParams.isSSR = false;
           }, function () {
             var axiosGetter = _this.axiosGetter;
             axiosGetter().then(function (instance) {
@@ -150,6 +149,7 @@ var TableParams = function (_Object) {
                   tableParams.items = items;
                   tableParams.pagination.total = response.data.total_count;
                   tableParams.responseData = response.data;
+                  tableParams.isSSR = false;
                 }, function () {
                   if (_this.callback) {
                     _this.callback(items, response.data);
@@ -164,6 +164,7 @@ var TableParams = function (_Object) {
                 _this.setComponent(function (tableParams) {
                   tableParams.isLoading = false;
                   tableParams.isError = true;
+                  tableParams.isSSR = false;
                 }, function () {
                   if (error && error.response) {
                     if (_this.errorMessage) {
