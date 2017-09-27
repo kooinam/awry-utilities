@@ -4,6 +4,10 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _reactCookies = require('react-cookies');
+
+var _reactCookies2 = _interopRequireDefault(_reactCookies);
+
 var _v = require('uuid/v4');
 
 var _v2 = _interopRequireDefault(_v);
@@ -34,5 +38,34 @@ var BaseModel = function (_Object) {
 
   return BaseModel;
 }(Object);
+
+BaseModel.getCookie = function (key) {
+  return _reactCookies2.default.load(key);
+};
+
+BaseModel.setCookie = function (key, value) {
+  if (window.location.hostname.match(/([^.]*\.(com|net|me))/g)) {
+    _reactCookies2.default.save(key, value, {
+      path: '/',
+      domain: '.' + window.location.hostname.match(/([^.]*\.(com|net|me))/g)[0]
+    });
+  } else {
+    _reactCookies2.default.save(key, value, {
+      path: '/'
+    });
+  }
+};
+
+BaseModel.removeCookie = function (key) {
+  if (window.location.hostname.match(/([^.]*\.(com|net|me))/g)) {
+    _reactCookies2.default.remove(key, {
+      path: '/',
+      domain: '.' + window.location.hostname.match(/([^.]*\.(com|net|me))/g)[0]
+    });
+    _reactCookies2.default.remove(key, { path: '/' });
+  } else {
+    _reactCookies2.default.remove(key, { path: '/' });
+  }
+};
 
 exports.default = BaseModel;
