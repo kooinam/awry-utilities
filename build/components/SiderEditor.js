@@ -145,26 +145,14 @@ var SiderEditor = function (_Component) {
       }
 
       var columns = [{
-        className: 'ant-td-padding-sm',
-        width: '20%',
-        title: 'Done by',
-        key: 'actioner',
-        render: function render(value, record) {
-          return _react2.default.createElement(
-            _reactRouterDom.Link,
-            { to: '/admin/users/' + record.actioner_username, target: '_blank' },
-            record.actioner_username
-          );
-        }
-      }, {
         className: 'ant-td-center ant-td-padding-sm',
         width: '20%',
         title: 'Time',
         key: 'created_at',
         render: function render(value, record) {
           return _react2.default.createElement(
-            'div',
-            null,
+            _reactRouterDom.Link,
+            { to: '/admin/logs/' + record.id, target: '_blank' },
             (0, _UIManager.formatDate)(record.created_at),
             _react2.default.createElement('br', null),
             _react2.default.createElement(
@@ -173,6 +161,26 @@ var SiderEditor = function (_Component) {
               (0, _UIManager.formatTime)(record.created_at)
             )
           );
+        }
+      }, {
+        className: 'ant-td-padding-sm',
+        width: '20%',
+        title: 'Done by',
+        key: 'actioner',
+        render: function render(value, record) {
+          if (!record.is_system) {
+            return _react2.default.createElement(
+              _reactRouterDom.Link,
+              { to: '/admin/users/' + record.actioner_username, target: '_blank' },
+              record.actioner_username
+            );
+          } else {
+            return _react2.default.createElement(
+              'div',
+              null,
+              'System'
+            );
+          }
         }
       }, {
         className: 'ant-td-padding-sm',
@@ -271,6 +279,10 @@ var SiderEditor = function (_Component) {
       successCallback: formParams.successCallback,
       errorMessageGetter: formParams.errorMessageGetter
     }) : null;
+
+    logParams.fieldNames = (logParams.fieldNames || []).map(function (field) {
+      return field + '=';
+    });
 
     _this.state = {
       actioner: actioner,

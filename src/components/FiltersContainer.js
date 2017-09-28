@@ -72,7 +72,11 @@ class FiltersContainer extends Component {
           </label>
           <Input
             onChange={(event) => {
-              this.props.onSearch(`${filter.field}_cont`, event.target.value);
+              if (filter.exact) {
+                this.props.onSearch(`${filter.field}`, event.target.value);
+              } else {
+                this.props.onSearch(`${filter.field}_cont`, event.target.value);
+              }
             }}
             placeholder={filter.name}
           />

@@ -65,12 +65,16 @@ class CustomPagination extends Component {
         </Link>
       );
     }
+
+    return (
+      <Link to={to} className="page-inner" />
+    );
   }
 
   render() {
     let pagination = (
       <Pagination
-        className="ant-pagination"
+        className={`ant-pagination ${(this.props.urlGetter) ? 'ant-custom-pagination' : ''}`}
         itemRender= {this.props.urlGetter ? this.renderPaginationPage : undefined}
         current={this.props.tableParams.pagination.current}
         total={this.props.tableParams.pagination.total}

@@ -122,7 +122,11 @@ var FiltersContainer = function (_Component) {
           ),
           _react2.default.createElement(_input2.default, {
             onChange: function onChange(event) {
-              _this.props.onSearch(filter.field + '_cont', event.target.value);
+              if (filter.exact) {
+                _this.props.onSearch('' + filter.field, event.target.value);
+              } else {
+                _this.props.onSearch(filter.field + '_cont', event.target.value);
+              }
             },
             placeholder: filter.name
           })

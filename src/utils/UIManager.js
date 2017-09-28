@@ -115,10 +115,12 @@ export const getNotificationDuration = () =>
 export const getMessageDuration = () =>
   3;
 
-export const formatImageUrl = (url) => {
+export const formatImageUrl = (url, key) => {
+  key = key || 'resources';
+
   if(url && url.length > 0) {
     if(url[0] == '/') {
-      return `${getBaseUrl('resources')}/${url}`;
+      return `${getBaseUrl(key)}/${url}`;
     }
     else {
       return url;

@@ -204,10 +204,12 @@ var getMessageDuration = exports.getMessageDuration = function getMessageDuratio
   return 3;
 };
 
-var formatImageUrl = exports.formatImageUrl = function formatImageUrl(url) {
+var formatImageUrl = exports.formatImageUrl = function formatImageUrl(url, key) {
+  key = key || 'resources';
+
   if (url && url.length > 0) {
     if (url[0] == '/') {
-      return (0, _NetworkManager.getBaseUrl)('resources') + '/' + url;
+      return (0, _NetworkManager.getBaseUrl)(key) + '/' + url;
     } else {
       return url;
     }

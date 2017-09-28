@@ -72,6 +72,10 @@ class SiderEditor extends Component {
       errorMessageGetter: formParams.errorMessageGetter,
     }) : null;
 
+    logParams.fieldNames = (logParams.fieldNames || []).map((field) => {
+      return `${field}=`;
+    });
+
     this.state = {
       actioner: actioner,
       tableParams: new TableParams({
@@ -120,32 +124,40 @@ class SiderEditor extends Component {
     }
 
     const columns = [{
-      className: 'ant-td-padding-sm',
-      width: '20%',
-      title: 'Done by',
-      key: 'actioner',
-      render: (value, record) => {
-        return (
-          <Link to={`/admin/users/${record.actioner_username}`} target="_blank">
-            {record.actioner_username}
-          </Link>
-        );
-      },
-    }, {
       className: 'ant-td-center ant-td-padding-sm',
       width: '20%',
       title: 'Time',
       key: 'created_at',
       render: (value, record) => {
         return (
-          <div>
+          <Link to={`/admin/logs/${record.id}`} target="_blank">
             {formatDate(record.created_at)}
             <br />
             <small>
               {formatTime(record.created_at)}
             </small>
-          </div>
+          </Link>
         );
+      },
+    }, {
+      className: 'ant-td-padding-sm',
+      width: '20%',
+      title: 'Done by',
+      key: 'actioner',
+      render: (value, record) => {
+        if (!record.is_system) {
+          return (
+            <Link to={`/admin/users/${record.actioner_username}`} target="_blank">
+              {record.actioner_username}
+            </Link>
+          );
+        } else {
+          return (
+            <div>
+              System
+            </div>
+          );
+        }
       },
     }, {
       className: 'ant-td-padding-sm',
@@ -173,8 +185,8 @@ class SiderEditor extends Component {
           <div>
             {logChanges}
           </div>
-        )
-      }
+        );
+      },
     }, {
       className: 'ant-td-padding-sm',
       width: '30%',
@@ -185,8 +197,8 @@ class SiderEditor extends Component {
           <div className="ant-texter">
             {record.remarks}
           </div>
-        )
-      }
+        );
+      },
     }];
 
     const locale = {
