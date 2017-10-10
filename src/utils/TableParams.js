@@ -22,6 +22,7 @@ class TableParams extends Object {
       axiosGetter: null,
       itemsName: null,
       ItemKlass: null,
+      urlGetter: null,
       url: null,
       paramsGetter: (tableParams) => {
         return {
@@ -117,7 +118,7 @@ class TableParams extends Object {
             const params = this.paramsGetter(this);
             params.params.scope = this.scope;
 
-            return instance.get(this.url, params);
+            return instance.get((this.url || this.urlGetter()), params);
           }).then((response) => {
             if (searchId === this.lastSearchId) {
               const items = response.data[this.itemsName].map((item) => {

@@ -10,6 +10,10 @@ var _message = require('antd/lib/message');
 
 var _message2 = _interopRequireDefault(_message);
 
+var _v = require('uuid/v4');
+
+var _v2 = _interopRequireDefault(_v);
+
 var _UIManager = require('./UIManager');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -58,10 +62,16 @@ var Actioner = function (_Object) {
 
     var _this = _possibleConstructorReturn(this, (Actioner.__proto__ || Object.getPrototypeOf(Actioner)).call(this, newAttributes));
 
+    _this.rotateUuid = function () {
+      _this.uuid = (0, _v2.default)();
+      return _this;
+    };
+
     _this.do = function (url, params, key) {
       var component = _this.component;
       var actioner = component.state[_this.key];
       actioner.isLoading = true;
+      _this.rotateUuid();
       var state = {};
       state[_this.key] = actioner;
       component.setState(state, function () {
@@ -82,6 +92,7 @@ var Actioner = function (_Object) {
           var actioner2 = component.state[_this.key];
           actioner2.isLoading = false;
           actioner2.error = null;
+          _this.rotateUuid();
           var state2 = {};
           state2[_this.key] = actioner2;
           var item = new _this.ItemKlass(response.data[_this.itemName]);
@@ -97,6 +108,7 @@ var Actioner = function (_Object) {
           var actioner2 = component.state[_this.key];
           actioner2.isLoading = false;
           actioner2.error = error;
+          _this.rotateUuid();
           var state2 = {};
           state2[_this.key] = actioner2;
           component.setState(state2, function () {
@@ -115,6 +127,7 @@ var Actioner = function (_Object) {
       });
     };
 
+    _this.rotateUuid();
     return _this;
   }
 

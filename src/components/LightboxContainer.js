@@ -15,8 +15,16 @@ class LightboxContainer extends Component {
     };
   }
 
+  componentDidUpdate = (prevProps, prevState) => {
+    if (!prevProps.isLightboxOpen && this.props.isLightboxOpen) {
+      this.setState({
+        selectedImageIndex: this.props.lightboxIndex,
+      });
+    }
+  }
+
   render() {
-    if(this.props.isLightboxOpen && this.state.selectedImageIndex < this.props.lightboxImages.length) {
+    if (this.props.isLightboxOpen && this.state.selectedImageIndex < this.props.lightboxImages.length) {
       return (
         <Lightbox
           animationDuration={(this.props.lightboxImages.length == 1)? 0 : 300}
@@ -43,7 +51,7 @@ class LightboxContainer extends Component {
             }
           }
         />
-      )
+      );
     }
     else {
       return null;
@@ -56,6 +64,7 @@ const connector: Connector<{}, Props> = connect(
   ({ LightboxReducer }: Reducer) => ({
     isLightboxOpen: LightboxReducer.isLightboxOpen,
     lightboxImages: LightboxReducer.images,
+    lightboxIndex: LightboxReducer.index,
   }),
 );
 /* eslint-enable no-unused-vars */

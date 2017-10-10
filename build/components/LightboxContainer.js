@@ -36,6 +36,14 @@ var LightboxContainer = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, (LightboxContainer.__proto__ || Object.getPrototypeOf(LightboxContainer)).call(this, props));
 
+    _this.componentDidUpdate = function (prevProps, prevState) {
+      if (!prevProps.isLightboxOpen && _this.props.isLightboxOpen) {
+        _this.setState({
+          selectedImageIndex: _this.props.lightboxIndex
+        });
+      }
+    };
+
     _this.state = {
       selectedImageIndex: 0
     };
@@ -83,7 +91,8 @@ var connector = (0, _reactRedux.connect)(function (_ref) {
   var LightboxReducer = _ref.LightboxReducer;
   return {
     isLightboxOpen: LightboxReducer.isLightboxOpen,
-    lightboxImages: LightboxReducer.images
+    lightboxImages: LightboxReducer.images,
+    lightboxIndex: LightboxReducer.index
   };
 });
 /* eslint-enable no-unused-vars */

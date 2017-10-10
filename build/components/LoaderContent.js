@@ -53,7 +53,8 @@ var LoaderContent = function (_Component) {
       var _props = this.props,
           inanimate = _props.inanimate,
           firstLoading = _props.firstLoading,
-          loading = _props.loading;
+          loading = _props.loading,
+          noTextCenter = _props.noTextCenter;
 
 
       var content = this.props.children;
@@ -61,7 +62,7 @@ var LoaderContent = function (_Component) {
       if (this.props.isError) {
         content = _react2.default.createElement(
           'div',
-          { className: 'text-center ant-error' },
+          { className: (noTextCenter ? '' : 'text-center') + ' ant-error' },
           'Something went wrong. Click \xA0',
           _react2.default.createElement(
             'a',

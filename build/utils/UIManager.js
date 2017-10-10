@@ -31,7 +31,10 @@ var _NetworkManager = require('./NetworkManager');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function capitalize(str) {
+function capitalize(str, dep) {
+  if (dep && dep.length > 0 && dep[0] === dep[0].toUpperCase()) {
+    return '';
+  }
   // let strVal = '';
   var newStr = str.replace(/_/g, ' ');
   // newStr = newStr.split(' ');
@@ -92,8 +95,11 @@ var getFieldError = exports.getFieldError = function getFieldError(error, field)
   if (error && error.response && error.response.data.errors && error.response.data.errors[field]) {
     message = '';
     var fieldError = error.response.data.errors[field];
-    if (fieldError instanceof Array === false) {
-      message = capitalize(field) + ' ' + fieldError.message;
+
+    if (typeof fieldError === 'string') {
+      message = message + ' ' + capitalize(field, fieldError) + ' ' + fieldError;
+    } else if (fieldError instanceof Array === false) {
+      message = message + ' ' + capitalize(field, fieldError.message) + ' ' + fieldError.message;
     } else {
       var _iteratorNormalCompletion = true;
       var _didIteratorError = false;
@@ -103,7 +109,7 @@ var getFieldError = exports.getFieldError = function getFieldError(error, field)
         for (var _iterator = fieldError[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
           var errorMessage = _step.value;
 
-          message = message + ' ' + capitalize(field) + ' ' + errorMessage;
+          message = message + ' ' + capitalize(field, errorMessage) + ' ' + errorMessage;
         }
       } catch (err) {
         _didIteratorError = true;
@@ -143,27 +149,35 @@ var getFieldsError = exports.getFieldsError = function getFieldsError(error, fie
       var field = _step2.value;
 
       if (error && error.response && error.response.data.errors && error.response.data.errors[field]) {
-        var _iteratorNormalCompletion3 = true;
-        var _didIteratorError3 = false;
-        var _iteratorError3 = undefined;
+        var fieldError = error.response.data.errors[field];
 
-        try {
-          for (var _iterator3 = error.response.data.errors[field][Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
-            var errorMessage = _step3.value;
+        if (typeof fieldError === 'string') {
+          message = message + ' ' + capitalize(field, fieldError) + ' ' + fieldError;
+        } else if (fieldError instanceof Array === false) {
+          message = message + ' ' + capitalize(field, fieldError.message) + ' ' + fieldError.message;
+        } else {
+          var _iteratorNormalCompletion3 = true;
+          var _didIteratorError3 = false;
+          var _iteratorError3 = undefined;
 
-            message = message + ' ' + capitalize(field) + ' ' + errorMessage;
-          }
-        } catch (err) {
-          _didIteratorError3 = true;
-          _iteratorError3 = err;
-        } finally {
           try {
-            if (!_iteratorNormalCompletion3 && _iterator3.return) {
-              _iterator3.return();
+            for (var _iterator3 = fieldError[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+              var errorMessage = _step3.value;
+
+              message = message + ' ' + capitalize(field, errorMessage) + ' ' + errorMessage;
             }
+          } catch (err) {
+            _didIteratorError3 = true;
+            _iteratorError3 = err;
           } finally {
-            if (_didIteratorError3) {
-              throw _iteratorError3;
+            try {
+              if (!_iteratorNormalCompletion3 && _iterator3.return) {
+                _iterator3.return();
+              }
+            } finally {
+              if (_didIteratorError3) {
+                throw _iteratorError3;
+              }
             }
           }
         }

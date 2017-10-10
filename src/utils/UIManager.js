@@ -6,7 +6,10 @@ import { Icon } from 'antd';
 
 import { getBaseUrl } from './NetworkManager';
 
-function capitalize(str) {
+function capitalize(str, dep) {
+  if (dep && dep.length > 0 && dep[0] === dep[0].toUpperCase()) {
+    return '';
+  }
   // let strVal = '';
   let newStr = str.replace(/_/g, ' ');
   // newStr = newStr.split(' ');
@@ -69,11 +72,14 @@ export const getFieldError = (error, field) => {
   if (error && error.response && error.response.data.errors && error.response.data.errors[field]) {
     message = '';
     const fieldError = error.response.data.errors[field];
-    if (fieldError instanceof Array === false) {
-      message = `${capitalize(field)} ${fieldError.message}`;
+
+    if (typeof (fieldError) === 'string') {
+      message = `${message} ${capitalize(field, fieldError)} ${fieldError}`;
+    } else if (fieldError instanceof Array === false) {
+      message = `${message} ${capitalize(field, fieldError.message)} ${fieldError.message}`;
     } else {
-      for(let errorMessage of fieldError) {
-        message = `${message} ${capitalize(field)} ${errorMessage}`;
+      for (let errorMessage of fieldError) {
+        message = `${message} ${capitalize(field, errorMessage)} ${errorMessage}`;
       }
     }
   }
@@ -91,10 +97,17 @@ export const getFieldError = (error, field) => {
 export const getFieldsError = (error, fields) => {
   let message = '';
   for(let field of fields) {
-    if (error && error.response && error.response.data.errors
-      && error.response.data.errors[field]) {
-      for (let errorMessage of error.response.data.errors[field]) {
-        message = `${message} ${capitalize(field)} ${errorMessage}`;
+    if (error && error.response && error.response.data.errors && error.response.data.errors[field]) {
+      const fieldError = error.response.data.errors[field];
+
+      if (typeof (fieldError) === 'string') {
+        message = `${message} ${capitalize(field, fieldError)} ${fieldError}`;
+      } else if (fieldError instanceof Array === false) {
+        message = `${message} ${capitalize(field, fieldError.message)} ${fieldError.message}`;
+      } else {
+        for (let errorMessage of fieldError) {
+          message = `${message} ${capitalize(field, errorMessage)} ${errorMessage}`;
+        }
       }
     }
   };

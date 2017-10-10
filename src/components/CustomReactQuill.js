@@ -78,7 +78,6 @@ class CustomReactQuill extends React.Component {
       'link', 'image',
     ]
 
-
     const uploadProps = {
       name: 'file',
       action: `${getBaseUrl(this.props.axiosName)}/attachments`,

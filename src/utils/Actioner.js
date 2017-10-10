@@ -1,3 +1,4 @@
+import uuidV4 from 'uuid/v4'
 import { message } from 'antd';
 import { getMessageDuration } from './UIManager';
 
@@ -34,12 +35,20 @@ class Actioner extends Object {
     }, attributes);
 
     super(newAttributes);
+
+    this.rotateUuid();
+  }
+
+  rotateUuid = () => {
+    this.uuid = uuidV4();
+    return this;
   }
 
   do = (url, params, key) => {
     const component = this.component;
     const actioner = component.state[this.key];
     actioner.isLoading = true;
+    this.rotateUuid();
     const state = {};
     state[this.key] = actioner;
     component.setState(state, () => {
@@ -60,6 +69,7 @@ class Actioner extends Object {
         const actioner2 = component.state[this.key];
         actioner2.isLoading = false;
         actioner2.error = null;
+        this.rotateUuid();
         const state2 = {};
         state2[this.key] = actioner2;
         const item = new this.ItemKlass(response.data[this.itemName]);
@@ -75,6 +85,7 @@ class Actioner extends Object {
         const actioner2 = component.state[this.key];
         actioner2.isLoading = false;
         actioner2.error = error;
+        this.rotateUuid();
         const state2 = {};
         state2[this.key] = actioner2;
         component.setState(state2, () => {

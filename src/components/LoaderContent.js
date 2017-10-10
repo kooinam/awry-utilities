@@ -7,19 +7,18 @@ class LoaderContent extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-    };
+    this.state = {};
   }
 
   render() {
     const duration = this.props.duration || 0.5;
-    const { inanimate, firstLoading, loading } = this.props;
+    const { inanimate, firstLoading, loading, noTextCenter } = this.props;
 
     let content = this.props.children;
 
     if (this.props.isError) {
       content = (
-        <div className="text-center ant-error">
+        <div className={`${(noTextCenter) ? '' : 'text-center'} ant-error`}>
           Something went wrong. Click
           &nbsp;
           <a onClick={this.props.onRetry}>

@@ -48,6 +48,7 @@ var TableParams = function (_Object) {
       axiosGetter: null,
       itemsName: null,
       ItemKlass: null,
+      urlGetter: null,
       url: null,
       paramsGetter: function paramsGetter(tableParams) {
         return {
@@ -137,7 +138,7 @@ var TableParams = function (_Object) {
               var params = _this.paramsGetter(_this);
               params.params.scope = _this.scope;
 
-              return instance.get(_this.url, params);
+              return instance.get(_this.url || _this.urlGetter(), params);
             }).then(function (response) {
               if (searchId === _this.lastSearchId) {
                 var items = response.data[_this.itemsName].map(function (item) {
