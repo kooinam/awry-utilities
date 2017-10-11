@@ -28,6 +28,7 @@ class ItemLoader extends Object {
       item: null,
       callback: null,
       ssrKey: null,
+      isSSR: false,
     }, attributes);
 
     super(attributes);
@@ -68,7 +69,8 @@ class ItemLoader extends Object {
       return new Promise((resolve) => {
         const item = this.component.props.SSRReducer.ssrItems[this.ssrKey].value;
         this.setComponent((itemLoader) => {
-          itemLoader.item = item;
+          itemLoader.item = new this.ItemKlass(item);
+          itemLoader.isSSR = true;
         }, () => {
           if (this.callback) {
             this.callback(item);
@@ -95,6 +97,7 @@ class ItemLoader extends Object {
                 itemLoader.isLoading = false;
                 itemLoader.isError = false;
                 itemLoader.item = item;
+                itemLoader.isSSR = false;
               }, () => {
                 if(this.callback) {
                   this.callback(item);
@@ -110,6 +113,7 @@ class ItemLoader extends Object {
               this.setComponent((itemLoader) => {
                 itemLoader.isLoading = false;
                 itemLoader.isError = true;
+                itemLoader.isSSR = false;
               }, () => {
                 if(error && error.response) {
                   if(this.errorMessage) {

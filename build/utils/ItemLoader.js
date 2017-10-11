@@ -53,7 +53,8 @@ var ItemLoader = function (_Object) {
       isLoading: false,
       item: null,
       callback: null,
-      ssrKey: null
+      ssrKey: null,
+      isSSR: false
     }, attributes);
 
     var _this = _possibleConstructorReturn(this, (ItemLoader.__proto__ || Object.getPrototypeOf(ItemLoader)).call(this, attributes));
@@ -87,7 +88,8 @@ var ItemLoader = function (_Object) {
         return new Promise(function (resolve) {
           var item = _this.component.props.SSRReducer.ssrItems[_this.ssrKey].value;
           _this.setComponent(function (itemLoader) {
-            itemLoader.item = item;
+            itemLoader.item = new _this.ItemKlass(item);
+            itemLoader.isSSR = true;
           }, function () {
             if (_this.callback) {
               _this.callback(item);
@@ -114,6 +116,7 @@ var ItemLoader = function (_Object) {
                   itemLoader.isLoading = false;
                   itemLoader.isError = false;
                   itemLoader.item = item;
+                  itemLoader.isSSR = false;
                 }, function () {
                   if (_this.callback) {
                     _this.callback(item);
@@ -128,6 +131,7 @@ var ItemLoader = function (_Object) {
                 _this.setComponent(function (itemLoader) {
                   itemLoader.isLoading = false;
                   itemLoader.isError = true;
+                  itemLoader.isSSR = false;
                 }, function () {
                   if (error && error.response) {
                     if (_this.errorMessage) {

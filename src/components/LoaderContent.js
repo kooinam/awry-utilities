@@ -12,7 +12,7 @@ class LoaderContent extends Component {
 
   render() {
     const duration = this.props.duration || 0.5;
-    const { inanimate, firstLoading, loading, noTextCenter } = this.props;
+    const { inanimate, firstLoading, loading, noTextCenter, isSSR } = this.props;
 
     let content = this.props.children;
 
@@ -41,12 +41,12 @@ class LoaderContent extends Component {
     }
 
     return (
-      <Card loading={firstLoading} className={`ant-loader-card ${this.props.className}`}>
+      <Card loading={firstLoading || (!isSSR && typeof (window) === 'undefined')} className={`ant-loader-card ${this.props.className}`}>
         <Spin spinning={(!firstLoading && loading) == true}>
           {content}
         </Spin>
       </Card>
-    )
+    );
   }
 }
 

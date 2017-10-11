@@ -52,9 +52,9 @@ var ErrorContainer = function (_Component) {
       return _react2.default.createElement(
         _spin2.default,
         { spinning: this.props.spinning, className: '' + this.props.className },
-        _react2.default.createElement(
+        this.props.children ? this.props.children : _react2.default.createElement(
           'div',
-          { className: 'text-center' },
+          { className: 'ant-error ' + (!this.props.noTextCenter ? 'text-center' : '') },
           'Something went wrong. Click\xA0',
           _react2.default.createElement(
             'a',

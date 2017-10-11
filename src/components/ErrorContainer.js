@@ -20,13 +20,17 @@ class ErrorContainer extends Component {
   render() {
     return (
       <Spin spinning={this.props.spinning} className={`${this.props.className}`}>
-        <div className={'text-center'}>
-          Something went wrong. Click&nbsp;
-          <a role="button" tabIndex="0" onClick={this.props.onRetry}>
-            here
-          </a>
-          &nbsp;to try again.
-        </div>
+        {
+          (this.props.children) ? this.props.children : (
+            <div className={`ant-error ${(!this.props.noTextCenter) ? 'text-center' : ''}`}>
+              Something went wrong. Click&nbsp;
+              <a role="button" tabIndex="0" onClick={this.props.onRetry}>
+                here
+              </a>
+              &nbsp;to try again.
+            </div>
+          )
+        }
       </Spin>
     );
   }

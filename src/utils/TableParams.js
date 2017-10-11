@@ -93,7 +93,9 @@ class TableParams extends Object {
         const items = this.component.props.SSRReducer.ssrItems[this.ssrKey].value;
         const pagination = this.component.props.SSRReducer.ssrItems[this.ssrKey].pagination;
         this.setComponent((tableParams) => {
-          tableParams.items = items;
+          tableParams.items = items.map((item) => {
+            return new this.ItemKlass(item);
+          });
           tableParams.pagination = pagination;
           tableParams.lastSearchId += 1;
           tableParams.isSSR = true;
@@ -123,7 +125,7 @@ class TableParams extends Object {
             if (searchId === this.lastSearchId) {
               const items = response.data[this.itemsName].map((item) => {
                 return new this.ItemKlass(item);
-              })
+              });
               this.setComponent((tableParams) => {
                 tableParams.isLoading = false;
                 tableParams.isError = false;

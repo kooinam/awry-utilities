@@ -113,7 +113,9 @@ var TableParams = function (_Object) {
           var items = _this.component.props.SSRReducer.ssrItems[_this.ssrKey].value;
           var pagination = _this.component.props.SSRReducer.ssrItems[_this.ssrKey].pagination;
           _this.setComponent(function (tableParams) {
-            tableParams.items = items;
+            tableParams.items = items.map(function (item) {
+              return new _this.ItemKlass(item);
+            });
             tableParams.pagination = pagination;
             tableParams.lastSearchId += 1;
             tableParams.isSSR = true;

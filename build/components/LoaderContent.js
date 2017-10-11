@@ -54,7 +54,8 @@ var LoaderContent = function (_Component) {
           inanimate = _props.inanimate,
           firstLoading = _props.firstLoading,
           loading = _props.loading,
-          noTextCenter = _props.noTextCenter;
+          noTextCenter = _props.noTextCenter,
+          isSSR = _props.isSSR;
 
 
       var content = this.props.children;
@@ -85,7 +86,7 @@ var LoaderContent = function (_Component) {
 
       return _react2.default.createElement(
         _card2.default,
-        { loading: firstLoading, className: 'ant-loader-card ' + this.props.className },
+        { loading: firstLoading || !isSSR && typeof window === 'undefined', className: 'ant-loader-card ' + this.props.className },
         _react2.default.createElement(
           _spin2.default,
           { spinning: (!firstLoading && loading) == true },
