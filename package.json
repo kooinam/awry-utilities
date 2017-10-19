@@ -1,6 +1,6 @@
 {
   "name": "awry-utilities",
-  "version": "1.0.70",
+  "version": "1.0.71",
   "description": "",
   "main": "build/index.js",
   "watch": {
@@ -52,6 +52,7 @@
     "prop-types": "^15.5.10",
     "quill-image-resize-module": "^3.0.0",
     "rc-queue-anim": "^1.2.3",
+    "rc-select": "^6.9.5",
     "react-cookies": "^0.1.0",
     "react-image-lightbox": "^3.4.3",
     "react-image-lightbox-universal": "0.0.2",
