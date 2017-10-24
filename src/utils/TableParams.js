@@ -88,7 +88,7 @@ class TableParams extends Object {
   }
 
   loadItems = () => {
-    if (this.ssrKey && this.component && this.component.props.SSRReducer && this.component.props.SSRReducer.ssrItems && this.component.props.SSRReducer.ssrItems[this.ssrKey] && !this.component.props.SSRReducer.ssrItems[this.ssrKey].isServed) {
+    if (this.ssrKey && this.component && this.component.props.SSRReducer && this.component.props.SSRReducer.ssrItems && this.component.props.SSRReducer.ssrItems[this.ssrKey] && (!this.component.props.SSRReducer.ssrItems[this.ssrKey].isServed || cache)) {
       return new Promise((resolve) => {
         const items = this.component.props.SSRReducer.ssrItems[this.ssrKey].value;
         const pagination = this.component.props.SSRReducer.ssrItems[this.ssrKey].pagination;
@@ -104,7 +104,7 @@ class TableParams extends Object {
             this.callback(items);
           }
           this.component.props.dispatch(invalidateSSRItems(this.ssrKey));
-          resolve();
+          resolve(items);
         });
       });
     } else {

@@ -29,6 +29,7 @@ class ItemLoader extends Object {
       callback: null,
       ssrKey: null,
       isSSR: false,
+      cache: false,
     }, attributes);
 
     super(attributes);
@@ -65,7 +66,7 @@ class ItemLoader extends Object {
   }
 
   loadItem = (url, params) => {
-    if (this.ssrKey && this.component && this.component.props.SSRReducer && this.component.props.SSRReducer.ssrItems && this.component.props.SSRReducer.ssrItems[this.ssrKey] && !this.component.props.SSRReducer.ssrItems[this.ssrKey].isServed) {
+    if (this.ssrKey && this.component && this.component.props.SSRReducer && this.component.props.SSRReducer.ssrItems && this.component.props.SSRReducer.ssrItems[this.ssrKey] && (!this.component.props.SSRReducer.ssrItems[this.ssrKey].isServed || this.cache)) {
       return new Promise((resolve) => {
         const item = this.component.props.SSRReducer.ssrItems[this.ssrKey].value;
         this.setComponent((itemLoader) => {
@@ -76,7 +77,7 @@ class ItemLoader extends Object {
             this.callback(item);
           }
           this.component.props.dispatch(invalidateSSRItems(this.ssrKey));
-          resolve();
+          resolve(item);
         });
       });
     } else {

@@ -54,7 +54,8 @@ var ItemLoader = function (_Object) {
       item: null,
       callback: null,
       ssrKey: null,
-      isSSR: false
+      isSSR: false,
+      cache: false
     }, attributes);
 
     var _this = _possibleConstructorReturn(this, (ItemLoader.__proto__ || Object.getPrototypeOf(ItemLoader)).call(this, attributes));
@@ -84,7 +85,7 @@ var ItemLoader = function (_Object) {
     };
 
     _this.loadItem = function (url, params) {
-      if (_this.ssrKey && _this.component && _this.component.props.SSRReducer && _this.component.props.SSRReducer.ssrItems && _this.component.props.SSRReducer.ssrItems[_this.ssrKey] && !_this.component.props.SSRReducer.ssrItems[_this.ssrKey].isServed) {
+      if (_this.ssrKey && _this.component && _this.component.props.SSRReducer && _this.component.props.SSRReducer.ssrItems && _this.component.props.SSRReducer.ssrItems[_this.ssrKey] && (!_this.component.props.SSRReducer.ssrItems[_this.ssrKey].isServed || _this.cache)) {
         return new Promise(function (resolve) {
           var item = _this.component.props.SSRReducer.ssrItems[_this.ssrKey].value;
           _this.setComponent(function (itemLoader) {
@@ -95,7 +96,7 @@ var ItemLoader = function (_Object) {
               _this.callback(item);
             }
             _this.component.props.dispatch((0, _ssr.invalidateSSRItems)(_this.ssrKey));
-            resolve();
+            resolve(item);
           });
         });
       } else {

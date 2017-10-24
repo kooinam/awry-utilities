@@ -108,7 +108,7 @@ var TableParams = function (_Object) {
     };
 
     _this.loadItems = function () {
-      if (_this.ssrKey && _this.component && _this.component.props.SSRReducer && _this.component.props.SSRReducer.ssrItems && _this.component.props.SSRReducer.ssrItems[_this.ssrKey] && !_this.component.props.SSRReducer.ssrItems[_this.ssrKey].isServed) {
+      if (_this.ssrKey && _this.component && _this.component.props.SSRReducer && _this.component.props.SSRReducer.ssrItems && _this.component.props.SSRReducer.ssrItems[_this.ssrKey] && (!_this.component.props.SSRReducer.ssrItems[_this.ssrKey].isServed || cache)) {
         return new Promise(function (resolve) {
           var items = _this.component.props.SSRReducer.ssrItems[_this.ssrKey].value;
           var pagination = _this.component.props.SSRReducer.ssrItems[_this.ssrKey].pagination;
@@ -124,7 +124,7 @@ var TableParams = function (_Object) {
               _this.callback(items);
             }
             _this.component.props.dispatch((0, _ssr.invalidateSSRItems)(_this.ssrKey));
-            resolve();
+            resolve(items);
           });
         });
       } else {
