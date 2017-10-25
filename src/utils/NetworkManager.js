@@ -1,32 +1,38 @@
 import axios from 'axios';
 
-const Network = {
-  component: null,
-  preferences: {},
-};
+function getNetwork() {
+  global = (typeof (window) === 'undefined') ? global : window;
+
+  global.Network = global.Network || {
+    component: null,
+    preferences: {},
+  };
+
+  return global.Network;
+}
 
 export const setupAxios = (component) => {
-  Network.component = component;
+  getNetwork().component = component;
 };
 
 export const addAxiosPreferences = (key, preferences) => {
-  Network.preferences[key] = preferences;
+  getNetwork().preferences[key] = preferences;
 };
 
 const addInterceptors = (instance) => {
-  if (Network.component) {
+  if (getNetwork().component) {
     instance.interceptors.request.use((config) => {
-      Network.component.showLoading();
+      getNetwork().component.showLoading();
       return config;
     }, error =>
       Promise.reject(error),
     );
 
     instance.interceptors.response.use((response) => {
-      Network.component.hideLoading();
+      getNetwork().component.hideLoading();
       return response;
     }, (error) => {
-      Network.component.hideLoading();
+      getNetwork().component.hideLoading();
       if (error && error.response) {
         if (error.response.status === 401) {
           Network.component.unauthorized();
@@ -43,7 +49,7 @@ const addInterceptors = (instance) => {
 
 export const getBaseUrl = (key) => {
   let baseURL = '/api';
-  const preferences = Network.preferences[key];
+  const preferences = getNetwork().preferences[key];
   if (preferences) {
     baseURL = preferences.baseURL;
   }
@@ -55,7 +61,7 @@ export const getHeadersSetter = (key) => {
   let headersSetter = () => {
     return {};
   };
-  const preferences = Network.preferences[key];
+  const preferences = getNetwork().preferences[key];
   if (preferences) {
     headersSetter = preferences.headersSetter;
   }

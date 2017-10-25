@@ -108,7 +108,7 @@ var TableParams = function (_Object) {
     };
 
     _this.loadItems = function () {
-      if (_this.ssrKey && _this.component && _this.component.props.SSRReducer && _this.component.props.SSRReducer.ssrItems && _this.component.props.SSRReducer.ssrItems[_this.ssrKey] && (!_this.component.props.SSRReducer.ssrItems[_this.ssrKey].isServed || cache)) {
+      if (_this.ssrKey && _this.component && _this.component.props.SSRReducer && _this.component.props.SSRReducer.ssrItems && _this.component.props.SSRReducer.ssrItems[_this.ssrKey] && (!_this.component.props.SSRReducer.ssrItems[_this.ssrKey].isServed || _this.cache)) {
         return new Promise(function (resolve) {
           var items = _this.component.props.SSRReducer.ssrItems[_this.ssrKey].value;
           var pagination = _this.component.props.SSRReducer.ssrItems[_this.ssrKey].pagination;
