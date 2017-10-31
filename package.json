@@ -1,6 +1,6 @@
 {
   "name": "awry-utilities",
-  "version": "1.0.74",
+  "version": "1.0.77",
   "description": "",
   "main": "build/index.js",
   "watch": {

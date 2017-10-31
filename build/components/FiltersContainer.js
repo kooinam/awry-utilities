@@ -73,7 +73,7 @@ var FiltersContainer = function (_Component) {
           col = 12;
         }
 
-        if (filter.type == 'number') {
+        if (filter.type === 'number') {
           return _react2.default.createElement(
             _col2.default,
             { md: col, key: filter.field, className: 'ant-filter' },
@@ -91,7 +91,7 @@ var FiltersContainer = function (_Component) {
               placeholder: filter.name
             })
           );
-        } else if (filter.type == 'checkbox') {
+        } else if (filter.type === 'checkbox') {
           return _react2.default.createElement(
             _col2.default,
             { md: col, key: filter.field, className: 'ant-filter' },
@@ -108,6 +108,34 @@ var FiltersContainer = function (_Component) {
               },
               placeholder: filter.name
             })
+          );
+        } else if (filter.type === 'select') {
+          return _react2.default.createElement(
+            _col2.default,
+            { md: col, key: filter.field, className: 'ant-filter' },
+            _react2.default.createElement(
+              'label',
+              { htmlFor: filter.field },
+              filter.name,
+              ':'
+            ),
+            _react2.default.createElement(
+              _select2.default,
+              {
+                labelInValue: true,
+                defaultValue: filter.default,
+                onChange: function onChange(option) {
+                  _this.props.onSearch('' + filter.field, option.key);
+                }
+              },
+              filter.filters.map(function (item) {
+                return _react2.default.createElement(
+                  _select2.default.Option,
+                  { key: item.key },
+                  item.label
+                );
+              })
+            )
           );
         }
 

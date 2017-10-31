@@ -164,7 +164,7 @@ var FilterSelect = function (_Component) {
       if (this.props.form) {
         return _react2.default.createElement(
           _form2.default.Item,
-          _extends({}, (0, _UIManager.getFieldsError)(this.props.error, this.props.errorKeys), { label: this.props.name }),
+          _extends({}, (0, _UIManager.getFieldsError)(this.props.error, this.props.errorKeys), { label: !this.props.hideLabel && this.props.name }),
           this.props.form.getFieldDecorator(this.props.formKey, {
             initialValue: initialValue,
             rules: rules

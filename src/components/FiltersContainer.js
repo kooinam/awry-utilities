@@ -33,7 +33,7 @@ class FiltersContainer extends Component {
         col = 12;
       }
 
-      if (filter.type == 'number') {
+      if (filter.type === 'number') {
         return (
           <Col md={col} key={filter.field} className={'ant-filter'}>
             <label htmlFor={filter.field}>
@@ -48,7 +48,7 @@ class FiltersContainer extends Component {
             />
           </Col>
         );
-      } else if (filter.type == 'checkbox') {
+      } else if (filter.type === 'checkbox') {
         return (
           <Col md={col} key={filter.field} className={'ant-filter'}>
             <label htmlFor={filter.field}>
@@ -61,6 +61,31 @@ class FiltersContainer extends Component {
               }}
               placeholder={filter.name}
             />
+          </Col>
+        );
+      } else if (filter.type === 'select') {
+        return (
+          <Col md={col} key={filter.field} className={'ant-filter'}>
+            <label htmlFor={filter.field}>
+              {filter.name}:
+            </label>
+            <Select
+              labelInValue
+              defaultValue={filter.default}
+              onChange={(option) => {
+                this.props.onSearch(`${filter.field}`, option.key);
+              }}
+            >
+              {
+                filter.filters.map((item) => {
+                  return (
+                    <Select.Option key={item.key}>
+                      {item.label}
+                    </Select.Option>
+                  )
+                })
+              }
+            </Select>
           </Col>
         );
       }

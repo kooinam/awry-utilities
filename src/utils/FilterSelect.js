@@ -99,7 +99,7 @@ class FilterSelect extends Component {
 
     if (this.props.form) {
       return (
-        <Form.Item {...getFieldsError(this.props.error, this.props.errorKeys)} label={this.props.name}>
+        <Form.Item {...getFieldsError(this.props.error, this.props.errorKeys)} label={!this.props.hideLabel && this.props.name}>
           {
             this.props.form.getFieldDecorator(this.props.formKey, {
               initialValue: initialValue,
