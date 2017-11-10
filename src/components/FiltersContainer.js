@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Row, Col, Input, Select } from 'antd';
 
+import FilterSelect from '../utils/FilterSelect';
+
 /*
   <FiltersContainer
     filters={[{
@@ -69,11 +71,17 @@ class FiltersContainer extends Component {
             <label htmlFor={filter.field}>
               {filter.name}:
             </label>
+            <br />
             <Select
+              allowClear
               labelInValue
               defaultValue={filter.default}
               onChange={(option) => {
-                this.props.onSearch(`${filter.field}`, option.key);
+                if (option) {
+                  this.props.onSearch(`${filter.field}`, option.key);
+                } else {
+                  this.props.onSearch(`${filter.field}`, '');
+                }
               }}
             >
               {
@@ -86,6 +94,29 @@ class FiltersContainer extends Component {
                 })
               }
             </Select>
+          </Col>
+        );
+      } else if (filter.type === 'custom_select') {
+        return (
+          <Col md={col} key={filter.field} className={'ant-filter'}>
+            <label htmlFor={filter.field}>
+              {filter.name}:
+            </label>
+            <br />
+            <FilterSelect
+              tableParams={filter.tableParams}
+              filterFields={[filter.filterField]}
+              keyField='id'
+              labelField={filter.labelField}
+              name={filter.name}
+              handleChange={(option) => {
+                if (option) {
+                  this.props.onSearch(`${filter.field}`, option.key);
+                } else {
+                  this.props.onSearch(`${filter.field}`, '');
+                }
+              }}
+            />
           </Col>
         );
       }

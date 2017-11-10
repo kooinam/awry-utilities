@@ -56,7 +56,7 @@ var formatMoney = exports.formatMoney = function formatMoney(amount, currency, p
     format: '%s%v',
     symbol: symbol
   };
-  if (amount) {
+  if (amount === 0 || amount) {
     return (0, _formatCurrency2.default)(amount, opts);
   }
 

@@ -36,6 +36,10 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = require('react-redux');
 
+var _FilterSelect = require('../utils/FilterSelect');
+
+var _FilterSelect2 = _interopRequireDefault(_FilterSelect);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -119,13 +123,19 @@ var FiltersContainer = function (_Component) {
               filter.name,
               ':'
             ),
+            _react2.default.createElement('br', null),
             _react2.default.createElement(
               _select2.default,
               {
+                allowClear: true,
                 labelInValue: true,
                 defaultValue: filter.default,
                 onChange: function onChange(option) {
-                  _this.props.onSearch('' + filter.field, option.key);
+                  if (option) {
+                    _this.props.onSearch('' + filter.field, option.key);
+                  } else {
+                    _this.props.onSearch('' + filter.field, '');
+                  }
                 }
               },
               filter.filters.map(function (item) {
@@ -136,6 +146,32 @@ var FiltersContainer = function (_Component) {
                 );
               })
             )
+          );
+        } else if (filter.type === 'custom_select') {
+          return _react2.default.createElement(
+            _col2.default,
+            { md: col, key: filter.field, className: 'ant-filter' },
+            _react2.default.createElement(
+              'label',
+              { htmlFor: filter.field },
+              filter.name,
+              ':'
+            ),
+            _react2.default.createElement('br', null),
+            _react2.default.createElement(_FilterSelect2.default, {
+              tableParams: filter.tableParams,
+              filterFields: [filter.filterField],
+              keyField: 'id',
+              labelField: filter.labelField,
+              name: filter.name,
+              handleChange: function handleChange(option) {
+                if (option) {
+                  _this.props.onSearch('' + filter.field, option.key);
+                } else {
+                  _this.props.onSearch('' + filter.field, '');
+                }
+              }
+            })
           );
         }
 

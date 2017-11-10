@@ -24,7 +24,7 @@ function capitalize(str, dep) {
 export const formatMoney = (amount, currency, placeholder) => {
   const newPlaceholder = placeholder || '$0.00';
   let newAmount = amount;
-  if(amount < 0) {
+  if (amount < 0) {
     newAmount = -amount;
   }
   const symbol = getSymbolFromCurrency(currency);
@@ -32,7 +32,7 @@ export const formatMoney = (amount, currency, placeholder) => {
     format: '%s%v',
     symbol: symbol,
   };
-  if(amount) {
+  if (amount === 0 || amount) {
     return formatCurrency(amount, opts);
   }
 
