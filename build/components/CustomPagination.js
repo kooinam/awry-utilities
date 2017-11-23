@@ -98,25 +98,15 @@ var CustomPagination = function (_Component) {
     key: 'render',
     value: function render() {
       var pagination = _react2.default.createElement(_pagination2.default, {
-        className: 'ant-pagination ' + (this.props.urlGetter ? 'ant-custom-pagination' : ''),
+        className: 'ant-pagination ' + (this.props.urlGetter ? 'ant-custom-pagination' : 'asd'),
         itemRender: this.props.urlGetter ? this.renderPaginationPage : undefined,
         current: this.props.tableParams.pagination.current,
         total: this.props.tableParams.pagination.total,
         defaultPageSize: this.props.tableParams.pagination.per_page,
         onChange: this.handleChangePagination,
-        showSizeChanger: true,
+        showSizeChanger: !this.props.hideSizeChanger,
         onShowSizeChange: this.handleChangePagination
       });
-      if (this.props.hideSizeChanger) {
-        pagination = _react2.default.createElement(_pagination2.default, {
-          className: 'ant-pagination',
-          itemRender: this.props.urlGetter ? this.renderPaginationPage : undefined,
-          current: this.props.tableParams.pagination.current,
-          total: this.props.tableParams.pagination.total,
-          defaultPageSize: this.props.tableParams.pagination.per_page,
-          onChange: this.handleChangePagination
-        });
-      }
 
       return pagination;
     }

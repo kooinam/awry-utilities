@@ -152,7 +152,7 @@ var SiderEditor = function (_Component) {
         render: function render(value, record) {
           return _react2.default.createElement(
             _reactRouterDom.Link,
-            { to: '/admin/logs/' + record.id, target: '_blank' },
+            { to: '/mat/logs/' + record.id, target: '_blank' },
             (0, _UIManager.formatDate)(record.created_at),
             _react2.default.createElement('br', null),
             _react2.default.createElement(
@@ -171,7 +171,7 @@ var SiderEditor = function (_Component) {
           if (!record.is_system) {
             return _react2.default.createElement(
               _reactRouterDom.Link,
-              { to: '/admin/users/' + record.actioner_username, target: '_blank' },
+              { to: '/mat/users/' + record.actioner_username, target: '_blank' },
               record.actioner_username
             );
           } else {

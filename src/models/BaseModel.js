@@ -17,6 +17,10 @@ class BaseModel extends Object {
   }
 
   static setCookie = (key, value) => {
+    if (typeof (window) === 'undefined') {
+      return;
+    }
+
     if (window.location.hostname.match(/([^.]*\.(com|net|me))/g)) {
       cookie.save(key, value, {
         path: '/',
@@ -30,6 +34,10 @@ class BaseModel extends Object {
   }
 
   static removeCookie = (key) => {
+    if (typeof (window) === 'undefined') {
+      return;
+    }
+
     if (window.location.hostname.match(/([^.]*\.(com|net|me))/g)) {
       cookie.remove(key, {
         path: '/',

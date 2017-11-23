@@ -110,7 +110,8 @@ var FiltersContainer = function (_Component) {
               onChange: function onChange(event) {
                 _this.props.onSearch('' + filter.field, event.target.checked);
               },
-              placeholder: filter.name
+              placeholder: filter.name,
+              defaultChecked: filter.defaultChecked
             })
           );
         } else if (filter.type === 'select') {

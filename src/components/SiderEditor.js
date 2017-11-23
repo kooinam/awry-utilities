@@ -130,7 +130,7 @@ class SiderEditor extends Component {
       key: 'created_at',
       render: (value, record) => {
         return (
-          <Link to={`/admin/logs/${record.id}`} target="_blank">
+          <Link to={`/mat/logs/${record.id}`} target="_blank">
             {formatDate(record.created_at)}
             <br />
             <small>
@@ -147,7 +147,7 @@ class SiderEditor extends Component {
       render: (value, record) => {
         if (!record.is_system) {
           return (
-            <Link to={`/admin/users/${record.actioner_username}`} target="_blank">
+            <Link to={`/mat/users/${record.actioner_username}`} target="_blank">
               {record.actioner_username}
             </Link>
           );

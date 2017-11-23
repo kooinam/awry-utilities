@@ -44,6 +44,10 @@ BaseModel.getCookie = function (key) {
 };
 
 BaseModel.setCookie = function (key, value) {
+  if (typeof window === 'undefined') {
+    return;
+  }
+
   if (window.location.hostname.match(/([^.]*\.(com|net|me))/g)) {
     _reactCookies2.default.save(key, value, {
       path: '/',
@@ -57,6 +61,10 @@ BaseModel.setCookie = function (key, value) {
 };
 
 BaseModel.removeCookie = function (key) {
+  if (typeof window === 'undefined') {
+    return;
+  }
+
   if (window.location.hostname.match(/([^.]*\.(com|net|me))/g)) {
     _reactCookies2.default.remove(key, {
       path: '/',

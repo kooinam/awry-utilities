@@ -62,6 +62,7 @@ class FiltersContainer extends Component {
                 this.props.onSearch(`${filter.field}`, event.target.checked);
               }}
               placeholder={filter.name}
+              defaultChecked={filter.defaultChecked}
             />
           </Col>
         );

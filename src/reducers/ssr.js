@@ -1,4 +1,7 @@
+import _ from 'lodash';
+
 export default (state = {
+  key: _.uniqueId(),
   ssrItems: {},
 }, action) => {
   switch (action.type) {
@@ -9,10 +12,12 @@ export default (state = {
           state.ssrItems[key] = action.payload.ssrItems[key]
         }
       }
+      state.key = _.uniqueId();
       state.ssrItems = Object.assign({}, state.ssrItems);
 
       return state;
     case 'INVALIDATE_SSR_ITEMS':
+      state.key = _.uniqueId();
       state.ssrItems[action.payload.key].isServed = true;
       state.ssrItems = Object.assign({}, state.ssrItems);
 

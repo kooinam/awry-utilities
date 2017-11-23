@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.renderActions = exports.SiderEditor = exports.CustomReactQuill = exports.LoaderContent = exports.formatBooleanSign = exports.formatInteger = exports.LightboxContainer = exports.dismissLightbox = exports.openLightbox = exports.LightboxReducer = exports.Draggable = exports.setupSSRItems = exports.SSRReducer = exports.FiltersContainer = exports.DetailsContainer = exports.TabContainer = exports.BaseRouteComponent = exports.ErrorContainer = exports.ItemLoader = exports.CustomPagination = exports.matchRouteProperty = exports.matchRouteParams = exports.matchBreadcrumbs = exports.matchRoutes = exports.expandRoutes = exports.setupBreadcrumbIdentifiers = exports.BreadcrumbsReducer = exports.BreadcrumbsNavigator = exports.formatImageUrl = exports.formatTime = exports.formatDate = exports.formatMoney = exports.TableParams = exports.SimpleSelect = exports.FilterSelect = exports.BaseModel = exports.getMessageDuration = exports.getNotificationDuration = exports.getFieldsError = exports.getFieldError = exports.getErrorDescription = exports.getHeadersSetter = exports.getBaseUrl = exports.addAxiosPreferences = exports.getAxios = exports.setupAxios = exports.ModalParams = exports.Actioner = undefined;
+exports.setupHelmet = exports.HelmetReducer = exports.renderActions = exports.SiderEditor = exports.CustomReactQuill = exports.LoaderContent = exports.formatBooleanSign = exports.formatInteger = exports.LightboxContainer = exports.dismissLightbox = exports.openLightbox = exports.LightboxReducer = exports.Draggable = exports.setupSSRItems = exports.SSRReducer = exports.FiltersContainer = exports.DetailsContainer = exports.TabContainer = exports.BaseRouteComponent = exports.ErrorContainer = exports.ItemLoader = exports.CustomPagination = exports.matchRouteProperty = exports.matchRouteParams = exports.matchBreadcrumbs = exports.matchRoutes = exports.expandRoutes = exports.setupBreadcrumbIdentifiers = exports.BreadcrumbsReducer = exports.BreadcrumbsNavigator = exports.formatImageUrl = exports.formatTime = exports.formatDate = exports.formatMoney = exports.TableParams = exports.SimpleSelect = exports.FilterSelect = exports.BaseModel = exports.getMessageDuration = exports.getNotificationDuration = exports.getFieldsError = exports.getFieldError = exports.getErrorDescription = exports.getHeadersSetter = exports.getBaseUrl = exports.addAxiosPreferences = exports.getAxios = exports.setupAxios = exports.ModalParams = exports.Actioner = undefined;
 
 var _Actioner = require('./utils/Actioner');
 
@@ -97,6 +97,10 @@ var _ssr = require('./reducers/ssr');
 
 var _ssr2 = _interopRequireDefault(_ssr);
 
+var _helmet = require('./reducers/helmet');
+
+var _helmet2 = _interopRequireDefault(_helmet);
+
 var _lightbox = require('./reducers/lightbox');
 
 var _lightbox2 = _interopRequireDefault(_lightbox);
@@ -104,6 +108,8 @@ var _lightbox2 = _interopRequireDefault(_lightbox);
 var _breadcrumbs3 = require('./actions/breadcrumbs');
 
 var _ssr3 = require('./actions/ssr');
+
+var _helmet3 = require('./actions/helmet');
 
 var _lightbox3 = require('./actions/lightbox');
 
@@ -157,3 +163,5 @@ exports.LoaderContent = _LoaderContent2.default;
 exports.CustomReactQuill = _CustomReactQuill2.default;
 exports.SiderEditor = _SiderEditor2.default;
 exports.renderActions = _renderActions2.default;
+exports.HelmetReducer = _helmet2.default;
+exports.setupHelmet = _helmet3.setupHelmet;

@@ -13,13 +13,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = function () {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
     key: _lodash2.default.uniqueId(),
-    ssrItems: {}
+    items: {}
   };
   var action = arguments[1];
 
   switch (action.type) {
-    case 'SETUP_SSR_ITEMS':
-      var keys = Object.keys(action.payload.ssrItems);
+    case 'SETUP_HELMET':
+      var keys = Object.keys(action.payload.items);
       var _iteratorNormalCompletion = true;
       var _didIteratorError = false;
       var _iteratorError = undefined;
@@ -28,8 +28,8 @@ exports.default = function () {
         for (var _iterator = keys[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
           var key = _step.value;
 
-          if (state.ssrItems[key] != action.payload.ssrItems[key]) {
-            state.ssrItems[key] = action.payload.ssrItems[key];
+          if (state.items[key] != action.payload.items[key]) {
+            state.items[key] = action.payload.items[key];
           }
         }
       } catch (err) {
@@ -48,13 +48,7 @@ exports.default = function () {
       }
 
       state.key = _lodash2.default.uniqueId();
-      state.ssrItems = Object.assign({}, state.ssrItems);
-
-      return state;
-    case 'INVALIDATE_SSR_ITEMS':
-      state.key = _lodash2.default.uniqueId();
-      state.ssrItems[action.payload.key].isServed = true;
-      state.ssrItems = Object.assign({}, state.ssrItems);
+      state.items = Object.assign({}, state.items);
 
       return state;
     default:

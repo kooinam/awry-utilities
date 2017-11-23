@@ -38,10 +38,12 @@ import renderActions from './components/renderActions';
 
 import BreadcrumbsReducer from './reducers/breadcrumbs';
 import SSRReducer from './reducers/ssr';
+import HelmetReducer from './reducers/helmet';
 import LightboxReducer from './reducers/lightbox';
 
 import { setupBreadcrumbIdentifiers } from './actions/breadcrumbs';
 import { setupSSRItems } from './actions/ssr';
+import { setupHelmet } from './actions/helmet';
 import { openLightbox, dismissLightbox } from './actions/lightbox';
 
 export {
@@ -93,5 +95,7 @@ export {
   CustomReactQuill,
   SiderEditor,
   renderActions,
+  HelmetReducer,
+  setupHelmet,
 };
 
