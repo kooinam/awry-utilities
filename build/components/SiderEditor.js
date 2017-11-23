@@ -185,8 +185,8 @@ var SiderEditor = function (_Component) {
       }, {
         className: 'ant-td-padding-sm',
         width: '30%',
-        title: 'Changes',
-        key: 'log_changes',
+        title: _this.props.data ? 'Data' : 'Changes',
+        key: 'log',
         render: function render(value, record) {
           var logChanges = Object.keys(record.log_changes).map(function (key) {
             return _react2.default.createElement(
@@ -212,10 +212,36 @@ var SiderEditor = function (_Component) {
               )
             );
           });
+
+          var logData = Object.keys(record.log_data).map(function (key) {
+            return _react2.default.createElement(
+              _row2.default,
+              { key: key, className: 'ant-space-row' },
+              _react2.default.createElement(
+                _col2.default,
+                { span: 12 },
+                _react2.default.createElement(
+                  'span',
+                  { className: 'ant-label ant-label-block' },
+                  key
+                )
+              ),
+              _react2.default.createElement(
+                _col2.default,
+                { span: 12 },
+                _react2.default.createElement(
+                  'span',
+                  { className: 'ant-texter-sm' },
+                  record.log_data[key]
+                )
+              )
+            );
+          });
+
           return _react2.default.createElement(
             'div',
             null,
-            logChanges
+            _this.props.data ? logData : logChanges
           );
         }
       }, {
@@ -272,7 +298,7 @@ var SiderEditor = function (_Component) {
       component: _this,
       key: 'actioner',
       axiosGetter: formParams.axiosGetter,
-      method: 'patch',
+      method: formParams.method,
       itemName: formParams.itemName,
       ItemKlass: formParams.ItemKlass,
       successMessageGetter: formParams.successMessageGetter,
@@ -282,6 +308,10 @@ var SiderEditor = function (_Component) {
 
     logParams.fieldNames = (logParams.fieldNames || []).map(function (field) {
       return field + '=';
+    });
+
+    logParams.dataFields = (logParams.dataFields || []).map(function (field) {
+      return '' + field;
     });
 
     _this.state = {
@@ -304,7 +334,8 @@ var SiderEditor = function (_Component) {
               page: tableParams.pagination.current,
               log_type: logParams.type,
               log_id: logParams.id,
-              field_names: logParams.fieldNames
+              field_names: logParams.fieldNames,
+              data_fields: logParams.dataFields
             }
           };
         }

@@ -64,7 +64,7 @@ class SiderEditor extends Component {
       component: this,
       key: 'actioner',
       axiosGetter: formParams.axiosGetter,
-      method: 'patch',
+      method: formParams.method,
       itemName: formParams.itemName,
       ItemKlass: formParams.ItemKlass,
       successMessageGetter: formParams.successMessageGetter,
@@ -74,6 +74,10 @@ class SiderEditor extends Component {
 
     logParams.fieldNames = (logParams.fieldNames || []).map((field) => {
       return `${field}=`;
+    });
+
+    logParams.dataFields = (logParams.dataFields || []).map((field) => {
+      return `${field}`;
     });
 
     this.state = {
@@ -97,6 +101,7 @@ class SiderEditor extends Component {
               log_type: logParams.type,
               log_id: logParams.id,
               field_names: logParams.fieldNames,
+              data_fields: logParams.dataFields,
             },
           };
         },
@@ -162,8 +167,8 @@ class SiderEditor extends Component {
     }, {
       className: 'ant-td-padding-sm',
       width: '30%',
-      title: 'Changes',
-      key: 'log_changes',
+      title: (this.props.data) ? 'Data' : 'Changes',
+      key: 'log',
       render: (value, record) => {
         const logChanges = Object.keys(record.log_changes).map((key) => {
           return (
@@ -181,9 +186,27 @@ class SiderEditor extends Component {
             </Row>
           );
         });
+
+        const logData = Object.keys(record.log_data).map((key) => {
+          return (
+            <Row key={key} className="ant-space-row">
+              <Col span={12}>
+                <span className="ant-label ant-label-block">
+                  {key}
+                </span>
+              </Col>
+              <Col span={12}>
+                <span className="ant-texter-sm">
+                  {record.log_data[key]}
+                </span>
+              </Col>
+            </Row>
+          );
+        });
+
         return (
           <div>
-            {logChanges}
+            {(this.props.data) ? logData : logChanges}
           </div>
         );
       },

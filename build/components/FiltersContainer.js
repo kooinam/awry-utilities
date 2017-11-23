@@ -10,19 +10,25 @@ var _row = require('antd/lib/row');
 
 var _row2 = _interopRequireDefault(_row);
 
-var _css2 = require('antd/lib/select/style/css');
+var _css2 = require('antd/lib/date-picker/style/css');
+
+var _datePicker = require('antd/lib/date-picker');
+
+var _datePicker2 = _interopRequireDefault(_datePicker);
+
+var _css3 = require('antd/lib/select/style/css');
 
 var _select = require('antd/lib/select');
 
 var _select2 = _interopRequireDefault(_select);
 
-var _css3 = require('antd/lib/col/style/css');
+var _css4 = require('antd/lib/col/style/css');
 
 var _col = require('antd/lib/col');
 
 var _col2 = _interopRequireDefault(_col);
 
-var _css4 = require('antd/lib/input/style/css');
+var _css5 = require('antd/lib/input/style/css');
 
 var _input = require('antd/lib/input');
 
@@ -171,6 +177,23 @@ var FiltersContainer = function (_Component) {
                 } else {
                   _this.props.onSearch('' + filter.field, '');
                 }
+              }
+            })
+          );
+        } else if (filter.type === 'date') {
+          return _react2.default.createElement(
+            _col2.default,
+            { md: col, key: filter.field, className: 'ant-filter' },
+            _react2.default.createElement(
+              'label',
+              { htmlFor: filter.field },
+              filter.name,
+              ':'
+            ),
+            _react2.default.createElement('br', null),
+            _react2.default.createElement(_datePicker2.default, {
+              onChange: function onChange(date, dateString) {
+                _this.props.onSearch('' + filter.field, dateString);
               }
             })
           );

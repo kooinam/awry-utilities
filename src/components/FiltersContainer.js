@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Row, Col, Input, Select } from 'antd';
+import { Row, Col, Input, Select, DatePicker } from 'antd';
 
 import FilterSelect from '../utils/FilterSelect';
 
@@ -117,6 +117,22 @@ class FiltersContainer extends Component {
                   this.props.onSearch(`${filter.field}`, '');
                 }
               }}
+            />
+          </Col>
+        );
+      } else if (filter.type === 'date') {
+        return (
+          <Col md={col} key={filter.field} className={'ant-filter'}>
+            <label htmlFor={filter.field}>
+              {filter.name}:
+            </label>
+            <br />
+            <DatePicker
+              onChange={
+                (date, dateString) => {
+                  this.props.onSearch(`${filter.field}`, dateString);
+                }
+              }
             />
           </Col>
         );
