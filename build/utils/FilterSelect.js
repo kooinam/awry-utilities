@@ -150,7 +150,10 @@ var FilterSelect = function (_Component) {
           placeholder: 'Select a ' + this.props.name,
           filterOption: false,
           disabled: this.props.disabled,
-          onChange: this.props.handleChange
+          onChange: this.props.handleChange,
+          dropdownAlign: {
+            offset: [0, 0]
+          }
         },
         this.props.tableParams.items.map(function (item) {
           return _react2.default.createElement(

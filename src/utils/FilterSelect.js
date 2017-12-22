@@ -84,6 +84,9 @@ class FilterSelect extends Component {
         filterOption={false}
         disabled={this.props.disabled}
         onChange={this.props.handleChange}
+        dropdownAlign={{
+          offset: [0, 0],
+        }}
       >
         {
           this.props.tableParams.items.map((item) => {

@@ -98,7 +98,10 @@ var SimpleSelect = function (_Component) {
           },
           labelInValue: true,
           placeholder: 'Select a ' + this.props.name,
-          disabled: this.props.disabled
+          disabled: this.props.disabled,
+          dropdownAlign: {
+            offset: [0, 0]
+          }
         }, this.props),
         this.props.items.map(function (item) {
           return _react2.default.createElement(

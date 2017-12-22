@@ -19,10 +19,6 @@ var _currencySymbolMap = require('currency-symbol-map');
 
 var _currencySymbolMap2 = _interopRequireDefault(_currencySymbolMap);
 
-var _formatCurrency = require('format-currency');
-
-var _formatCurrency2 = _interopRequireDefault(_formatCurrency);
-
 var _dateformat = require('dateformat');
 
 var _dateformat2 = _interopRequireDefault(_dateformat);
@@ -30,6 +26,88 @@ var _dateformat2 = _interopRequireDefault(_dateformat);
 var _NetworkManager = require('./NetworkManager');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var assert = require('assert');
+var parseNum = require('parse-num');
+
+function formatNumber(number, opts) {
+  opts = renameKeyShortcuts(Object.assign({}, {
+    nanZero: true,
+    locale: 'en-US',
+    localeMatcher: 'best fit',
+    useGrouping: true, // grouping separator determined by locale
+    maximumFractionDigits: 15
+    // OTHER
+    // minimumIntegerDigits
+    // minimumFractionDigits
+    // maximumFractionDigits
+    // minimumSignificantDigits
+    // maximumSignificantDigits
+  }, opts));
+
+  number = parseNum(number);
+
+  if (isNaN(number)) {
+    if (opts.nanZero === false) return 'NaN';else number = 0;
+  }
+
+  var nf = new Intl.NumberFormat([opts.locale], Object.assign({}, opts, { style: 'decimal' }));
+  return nf.format(number);
+}
+
+function renameKeyShortcuts(opts) {
+  Object.keys(opts).forEach(function (key) {
+    expandMin(opts, key);
+    expandMax(opts, key);
+  });
+
+  Object.keys(opts).forEach(function (key) {
+    return addDigits(opts, key);
+  });
+
+  return opts;
+}
+
+function expandMin(opts, key) {
+  expand(opts, key, 'min', 'minimum');
+}
+function expandMax(opts, key) {
+  expand(opts, key, 'max', 'maximum');
+}
+
+function expand(opts, key, shorthand, full) {
+  if (!key.includes(full) && key.startsWith(shorthand)) {
+    replaceKey(opts, key, key.replace(shorthand, full));
+  }
+}
+
+function addDigits(opts, key) {
+  if ((key.startsWith('minimum') || key.startsWith('maximum')) && !key.endsWith('Digits')) {
+    replaceKey(opts, key, key + 'Digits');
+  }
+}
+
+function replaceKey(obj, oldKey, newKey) {
+  obj[newKey] = obj[oldKey];
+  delete obj[oldKey];
+}
+
+function formatCurrency(amount, opts) {
+  opts = Object.assign({}, {
+    format: '%v', // %s => symbol, %v => value, %c => code
+    code: undefined,
+    symbol: undefined,
+    locale: 'en-US',
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+    nanZero: true
+  }, opts);
+  assert(opts.format.includes('%v'), 'Must have "%v" in `format` options.');
+
+  amount = formatNumber(amount, opts);
+
+  return opts.format.replace('%v', amount).replace('%s', opts.symbol).replace('%c', opts.code);
+}
 
 function capitalize(str, dep) {
   if (dep && dep.length > 0 && dep[0] === dep[0].toUpperCase()) {
@@ -57,7 +135,8 @@ var formatMoney = exports.formatMoney = function formatMoney(amount, currency, p
     symbol: symbol
   };
   if (amount === 0 || amount) {
-    return (0, _formatCurrency2.default)(amount, opts);
+    return formatCurrency(amount, opts);
+    // return amount;
   }
 
   return newPlaceholder;
@@ -92,14 +171,20 @@ var getErrorDescription = exports.getErrorDescription = function getErrorDescrip
 
 var getFieldError = exports.getFieldError = function getFieldError(error, field) {
   var message = null;
+  var iErrors = [];
   if (error && error.response && error.response.data.errors && error.response.data.errors[field]) {
     message = '';
     var fieldError = error.response.data.errors[field];
-
+    var iError = {
+      field: field,
+      messages: []
+    };
     if (typeof fieldError === 'string') {
       message = message + ' ' + capitalize(field, fieldError) + ' ' + fieldError;
+      iError.messages.push(fieldError);
     } else if (fieldError instanceof Array === false) {
       message = message + ' ' + capitalize(field, fieldError.message) + ' ' + fieldError.message;
+      iError.messages.push(fieldError.message);
     } else {
       var _iteratorNormalCompletion = true;
       var _didIteratorError = false;
@@ -110,6 +195,7 @@ var getFieldError = exports.getFieldError = function getFieldError(error, field)
           var errorMessage = _step.value;
 
           message = message + ' ' + capitalize(field, errorMessage) + ' ' + errorMessage;
+          iError.messages.push(errorMessage);
         }
       } catch (err) {
         _didIteratorError = true;
@@ -126,12 +212,16 @@ var getFieldError = exports.getFieldError = function getFieldError(error, field)
         }
       }
     }
+    if (iError.messages.length > 0) {
+      iErrors.push(iError);
+    }
   }
 
   if (message) {
     return {
       validateStatus: 'error',
-      help: message
+      help: message,
+      errors: iErrors
     };
   }
 
@@ -140,6 +230,7 @@ var getFieldError = exports.getFieldError = function getFieldError(error, field)
 
 var getFieldsError = exports.getFieldsError = function getFieldsError(error, fields) {
   var message = '';
+  var iErrors = [];
   var _iteratorNormalCompletion2 = true;
   var _didIteratorError2 = false;
   var _iteratorError2 = undefined;
@@ -150,11 +241,16 @@ var getFieldsError = exports.getFieldsError = function getFieldsError(error, fie
 
       if (error && error.response && error.response.data.errors && error.response.data.errors[field]) {
         var fieldError = error.response.data.errors[field];
-
+        var iError = {
+          field: field,
+          messages: []
+        };
         if (typeof fieldError === 'string') {
           message = message + ' ' + capitalize(field, fieldError) + ' ' + fieldError;
+          iError.messages.push(fieldError);
         } else if (fieldError instanceof Array === false) {
           message = message + ' ' + capitalize(field, fieldError.message) + ' ' + fieldError.message;
+          iError.messages.push(fieldError.message);
         } else {
           var _iteratorNormalCompletion3 = true;
           var _didIteratorError3 = false;
@@ -165,6 +261,7 @@ var getFieldsError = exports.getFieldsError = function getFieldsError(error, fie
               var errorMessage = _step3.value;
 
               message = message + ' ' + capitalize(field, errorMessage) + ' ' + errorMessage;
+              iError.messages.push(errorMessage);
             }
           } catch (err) {
             _didIteratorError3 = true;
@@ -180,6 +277,9 @@ var getFieldsError = exports.getFieldsError = function getFieldsError(error, fie
               }
             }
           }
+        }
+        if (iError.messages.length > 0) {
+          iErrors.push(iError);
         }
       }
     }
@@ -203,7 +303,8 @@ var getFieldsError = exports.getFieldsError = function getFieldsError(error, fie
   if (message.length > 0) {
     return {
       validateStatus: 'error',
-      help: message
+      help: message,
+      errors: iErrors
     };
   }
 

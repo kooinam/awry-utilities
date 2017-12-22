@@ -21,10 +21,10 @@ class BaseModel extends Object {
       return;
     }
 
-    if (window.location.hostname.match(/([^.]*\.(com|net|me))/g)) {
+    if (window.location.hostname.match(/([^.]*\.(com$|net$|me$))/g)) {
       cookie.save(key, value, {
         path: '/',
-        domain: '.'+window.location.hostname.match(/([^.]*\.(com|net|me))/g)[0],
+        domain: '.'+window.location.hostname.match(/([^.]*\.(com$|net$|me$))/g)[0],
       });
     } else {
       cookie.save(key, value, {
@@ -38,10 +38,10 @@ class BaseModel extends Object {
       return;
     }
 
-    if (window.location.hostname.match(/([^.]*\.(com|net|me))/g)) {
+    if (window.location.hostname.match(/([^.]*\.(com$|net$|me$))/g)) {
       cookie.remove(key, {
         path: '/',
-        domain: '.'+window.location.hostname.match(/([^.]*\.(com|net|me))/g)[0],
+        domain: '.'+window.location.hostname.match(/([^.]*\.(com$|net$|me$))/g)[0],
       });
       cookie.remove(key, { path: '/' });
     } else {

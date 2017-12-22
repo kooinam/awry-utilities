@@ -48,10 +48,10 @@ BaseModel.setCookie = function (key, value) {
     return;
   }
 
-  if (window.location.hostname.match(/([^.]*\.(com|net|me))/g)) {
+  if (window.location.hostname.match(/([^.]*\.(com$|net$|me$))/g)) {
     _reactCookies2.default.save(key, value, {
       path: '/',
-      domain: '.' + window.location.hostname.match(/([^.]*\.(com|net|me))/g)[0]
+      domain: '.' + window.location.hostname.match(/([^.]*\.(com$|net$|me$))/g)[0]
     });
   } else {
     _reactCookies2.default.save(key, value, {
@@ -65,10 +65,10 @@ BaseModel.removeCookie = function (key) {
     return;
   }
 
-  if (window.location.hostname.match(/([^.]*\.(com|net|me))/g)) {
+  if (window.location.hostname.match(/([^.]*\.(com$|net$|me$))/g)) {
     _reactCookies2.default.remove(key, {
       path: '/',
-      domain: '.' + window.location.hostname.match(/([^.]*\.(com|net|me))/g)[0]
+      domain: '.' + window.location.hostname.match(/([^.]*\.(com$|net$|me$))/g)[0]
     });
     _reactCookies2.default.remove(key, { path: '/' });
   } else {

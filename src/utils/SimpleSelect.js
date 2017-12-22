@@ -61,6 +61,9 @@ class SimpleSelect extends Component {
         labelInValue
         placeholder={`Select a ${this.props.name}`}
         disabled={this.props.disabled}
+        dropdownAlign={{
+          offset: [0, 0],
+        }}
         {...this.props}
       >
         {
