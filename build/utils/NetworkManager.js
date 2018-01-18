@@ -46,7 +46,9 @@ var addInterceptors = function addInterceptors(instance) {
       getNetwork().component.hideLoading();
       if (error && error.response) {
         if (error.response.status === 401) {
-          Network.component.unauthorized();
+          if (Network.component.unauthorized) {
+            Network.component.unauthorized();
+          }
           return Promise.reject(null);
         }
 
