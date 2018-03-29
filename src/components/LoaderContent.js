@@ -17,8 +17,8 @@ class LoaderContent extends Component {
     let content = this.props.children;
 
     if (this.props.isError) {
-      content = (
-        <div className={`${(noTextCenter) ? '' : 'text-center'} ant-error`}>
+      content = (this.props.errorContent) ? this.props.errorContent : (
+        <div className={`${(noTextCenter) ? '' : 'text-center'} ant-error help-text`}>
           Something went wrong. Click
           &nbsp;
           <a onClick={this.props.onRetry}>

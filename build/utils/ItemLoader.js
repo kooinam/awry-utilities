@@ -84,7 +84,7 @@ var ItemLoader = function (_Object) {
       }
     };
 
-    _this.loadItem = function (url, params) {
+    _this.loadItem = function (params) {
       if (_this.ssrKey && _this.component && _this.component.props.SSRReducer && _this.component.props.SSRReducer.ssrItems && _this.component.props.SSRReducer.ssrItems[_this.ssrKey] && (!_this.component.props.SSRReducer.ssrItems[_this.ssrKey].isServed || _this.cache)) {
         return new Promise(function (resolve) {
           var item = _this.component.props.SSRReducer.ssrItems[_this.ssrKey].value;
@@ -109,7 +109,7 @@ var ItemLoader = function (_Object) {
           }, function () {
             var axiosGetter = _this.axiosGetter;
             axiosGetter().then(function (instance) {
-              return instance.get(_this.url);
+              return instance.get(_this.url, params);
             }).then(function (response) {
               if (searchId === _this.lastSearchId) {
                 var item = new _this.ItemKlass(response.data[_this.itemName]);

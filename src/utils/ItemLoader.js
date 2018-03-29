@@ -65,7 +65,7 @@ class ItemLoader extends Object {
     }
   }
 
-  loadItem = (url, params) => {
+  loadItem = (params) => {
     if (this.ssrKey && this.component && this.component.props.SSRReducer && this.component.props.SSRReducer.ssrItems && this.component.props.SSRReducer.ssrItems[this.ssrKey] && (!this.component.props.SSRReducer.ssrItems[this.ssrKey].isServed || this.cache)) {
       return new Promise((resolve) => {
         const item = this.component.props.SSRReducer.ssrItems[this.ssrKey].value;
@@ -90,7 +90,7 @@ class ItemLoader extends Object {
         }, () => {
           const axiosGetter = this.axiosGetter;
           axiosGetter().then((instance) => {
-            return instance.get(this.url);
+            return instance.get(this.url, params);
           }).then((response) => {
             if (searchId === this.lastSearchId) {
               const item = new this.ItemKlass(response.data[this.itemName]);

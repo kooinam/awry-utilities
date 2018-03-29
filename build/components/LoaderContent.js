@@ -61,9 +61,9 @@ var LoaderContent = function (_Component) {
       var content = this.props.children;
 
       if (this.props.isError) {
-        content = _react2.default.createElement(
+        content = this.props.errorContent ? this.props.errorContent : _react2.default.createElement(
           'div',
-          { className: (noTextCenter ? '' : 'text-center') + ' ant-error' },
+          { className: (noTextCenter ? '' : 'text-center') + ' ant-error help-text' },
           'Something went wrong. Click \xA0',
           _react2.default.createElement(
             'a',

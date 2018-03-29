@@ -50,6 +50,7 @@ class CustomReactQuill extends React.Component {
       ImageResize: {
           // See optional "config" below
       },
+      formula: true,
       toolbar: {
         container: [
           ['bold', 'italic', 'underline', 'strike', 'blockquote'],
@@ -62,7 +63,7 @@ class CustomReactQuill extends React.Component {
           [{ 'color': [] }, { 'background': [] }],
           [{ 'font': [] }],
           [{ 'align': [] }],
-          ['link', 'image'],
+          ['link', 'image', 'formula'],
           ['clean'],
         ],
         handlers: {
