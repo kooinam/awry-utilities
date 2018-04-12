@@ -64,14 +64,48 @@ var LoaderContent = function (_Component) {
         content = this.props.errorContent ? this.props.errorContent : _react2.default.createElement(
           'div',
           { className: (noTextCenter ? '' : 'text-center') + ' ant-error help-text' },
-          'Something went wrong. Click \xA0',
+          'Something went wrong. Click\xA0',
           _react2.default.createElement(
             'a',
             { onClick: this.props.onRetry },
             'here'
           ),
-          '\xA0 to try again.'
+          '\xA0to try again.'
         );
+      }
+
+      if (this.props.errors) {
+        if (this.props.errors.errorStatus) {
+          if (this.props.errors.contents && this.props.errors.contents[this.props.errors.errorStatus]) {
+            content = this.props.errors.contents[this.props.errors.errorStatus];
+          } else {
+            if (this.props.errors.errorStatus === 403) {
+              content = _react2.default.createElement(
+                'div',
+                { className: (noTextCenter ? '' : 'text-center') + ' ant-error help-text' },
+                'Sorry, you are not authorized to view this...'
+              );
+            } else if (this.props.errors.errorStatus === 404) {
+              content = _react2.default.createElement(
+                'div',
+                { className: (noTextCenter ? '' : 'text-center') + ' ant-error help-text' },
+                'Sorry, resource not found...'
+              );
+            } else {
+              content = _react2.default.createElement(
+                'div',
+                { className: (noTextCenter ? '' : 'text-center') + ' ant-error help-text' },
+                'Something went wrong. Click\xA0',
+                _react2.default.createElement(
+                  'a',
+                  { onClick: this.props.onRetry },
+                  'here'
+                ),
+                '\xA0to try again.'
+              );
+            }
+          }
+        }
       }
 
       if (!inanimate && typeof window != 'undefined') {

@@ -69,6 +69,7 @@ var TableParams = function (_Object) {
       scope: null,
       isLoading: false,
       isError: false,
+      errorStatus: null,
       items: [],
       ssrKey: null,
       isSSR: false
@@ -149,6 +150,7 @@ var TableParams = function (_Object) {
                 _this.setComponent(function (tableParams) {
                   tableParams.isLoading = false;
                   tableParams.isError = false;
+                  tableParams.errorStatus = null;
                   tableParams.items = items;
                   tableParams.pagination.total = response.data.total_count;
                   tableParams.responseData = response.data;
@@ -167,7 +169,9 @@ var TableParams = function (_Object) {
                 _this.setComponent(function (tableParams) {
                   tableParams.isLoading = false;
                   tableParams.isError = true;
+                  tableParams.errorStatus = error.response.status;
                   tableParams.isSSR = false;
+                  tableParams.errors = {};
                 }, function () {
                   if (error && error.response) {
                     if (_this.errorMessage) {

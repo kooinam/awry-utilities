@@ -43,6 +43,7 @@ class TableParams extends Object {
       scope: null,
       isLoading: false,
       isError: false,
+      errorStatus: null,
       items: [],
       ssrKey: null,
       isSSR: false,
@@ -129,6 +130,7 @@ class TableParams extends Object {
               this.setComponent((tableParams) => {
                 tableParams.isLoading = false;
                 tableParams.isError = false;
+                tableParams.errorStatus = null;
                 tableParams.items = items;
                 tableParams.pagination.total = response.data.total_count;
                 tableParams.responseData = response.data;
@@ -148,7 +150,9 @@ class TableParams extends Object {
               this.setComponent((tableParams) => {
                 tableParams.isLoading = false;
                 tableParams.isError = true;
+                tableParams.errorStatus = error.response.status;
                 tableParams.isSSR = false;
+                tableParams.errors = {};
               }, () => {
                 if (error && error.response) {
                   if (this.errorMessage) {

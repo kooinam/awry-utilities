@@ -50,12 +50,14 @@ var ItemLoader = function (_Object) {
       url: null,
       errorMessage: null,
       isError: false,
+      errorStatus: null,
       isLoading: false,
       item: null,
       callback: null,
       ssrKey: null,
       isSSR: false,
-      cache: false
+      cache: false,
+      scope: null
     }, attributes);
 
     var _this = _possibleConstructorReturn(this, (ItemLoader.__proto__ || Object.getPrototypeOf(ItemLoader)).call(this, attributes));
@@ -109,6 +111,12 @@ var ItemLoader = function (_Object) {
           }, function () {
             var axiosGetter = _this.axiosGetter;
             axiosGetter().then(function (instance) {
+              params = params || {};
+              params.scope = _this.scope;
+              params = {
+                params: params
+              };
+
               return instance.get(_this.url, params);
             }).then(function (response) {
               if (searchId === _this.lastSearchId) {
@@ -116,6 +124,7 @@ var ItemLoader = function (_Object) {
                 _this.setComponent(function (itemLoader) {
                   itemLoader.isLoading = false;
                   itemLoader.isError = false;
+                  itemLoader.errorStatus = null;
                   itemLoader.item = item;
                   itemLoader.isSSR = false;
                 }, function () {
@@ -132,6 +141,7 @@ var ItemLoader = function (_Object) {
                 _this.setComponent(function (itemLoader) {
                   itemLoader.isLoading = false;
                   itemLoader.isError = true;
+                  itemLoader.errorStatus = error.response.status;
                   itemLoader.isSSR = false;
                 }, function () {
                   if (error && error.response) {

@@ -19,15 +19,45 @@ class LoaderContent extends Component {
     if (this.props.isError) {
       content = (this.props.errorContent) ? this.props.errorContent : (
         <div className={`${(noTextCenter) ? '' : 'text-center'} ant-error help-text`}>
-          Something went wrong. Click
-          &nbsp;
+          Something went wrong. Click&nbsp;
           <a onClick={this.props.onRetry}>
             here
           </a>
-          &nbsp;
-          to try again.
+          &nbsp;to try again.
         </div>
       );
+    }
+
+    if (this.props.errors) {
+      if (this.props.errors.errorStatus) {
+        if (this.props.errors.contents && this.props.errors.contents[this.props.errors.errorStatus]) {
+          content = this.props.errors.contents[this.props.errors.errorStatus];
+        } else {
+          if (this.props.errors.errorStatus === 403) {
+            content = (
+              <div className={`${(noTextCenter) ? '' : 'text-center'} ant-error help-text`}>
+                Sorry, you are not authorized to view this...
+              </div>
+            );
+          } else if (this.props.errors.errorStatus === 404) {
+            content = (
+              <div className={`${(noTextCenter) ? '' : 'text-center'} ant-error help-text`}>
+                Sorry, resource not found...
+              </div>
+            );
+          } else {
+            content = (
+              <div className={`${(noTextCenter) ? '' : 'text-center'} ant-error help-text`}>
+                Something went wrong. Click&nbsp;
+                <a onClick={this.props.onRetry}>
+                  here
+                </a>
+                &nbsp;to try again.
+              </div>
+            );
+          }
+        }
+      }
     }
 
     if (!inanimate && typeof(window) != 'undefined') {

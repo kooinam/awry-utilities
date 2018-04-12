@@ -24,12 +24,14 @@ class ItemLoader extends Object {
       url: null,
       errorMessage: null,
       isError: false,
+      errorStatus: null,
       isLoading: false,
       item: null,
       callback: null,
       ssrKey: null,
       isSSR: false,
       cache: false,
+      scope: null,
     }, attributes);
 
     super(attributes);
@@ -90,6 +92,12 @@ class ItemLoader extends Object {
         }, () => {
           const axiosGetter = this.axiosGetter;
           axiosGetter().then((instance) => {
+            params = params || {};
+            params.scope = this.scope;
+            params = {
+              params,
+            };
+
             return instance.get(this.url, params);
           }).then((response) => {
             if (searchId === this.lastSearchId) {
@@ -97,6 +105,7 @@ class ItemLoader extends Object {
               this.setComponent((itemLoader) => {
                 itemLoader.isLoading = false;
                 itemLoader.isError = false;
+                itemLoader.errorStatus = null;
                 itemLoader.item = item;
                 itemLoader.isSSR = false;
               }, () => {
@@ -114,6 +123,7 @@ class ItemLoader extends Object {
               this.setComponent((itemLoader) => {
                 itemLoader.isLoading = false;
                 itemLoader.isError = true;
+                itemLoader.errorStatus = error.response.status;
                 itemLoader.isSSR = false;
               }, () => {
                 if(error && error.response) {
