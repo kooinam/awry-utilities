@@ -123,8 +123,10 @@ class ItemLoader extends Object {
               this.setComponent((itemLoader) => {
                 itemLoader.isLoading = false;
                 itemLoader.isError = true;
-                itemLoader.errorStatus = error.response.status;
                 itemLoader.isSSR = false;
+                if (error && error.response) {
+                  itemLoader.errorStatus = error.response.status;
+                }
               }, () => {
                 if(error && error.response) {
                   if(this.errorMessage) {

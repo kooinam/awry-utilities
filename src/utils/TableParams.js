@@ -150,9 +150,11 @@ class TableParams extends Object {
               this.setComponent((tableParams) => {
                 tableParams.isLoading = false;
                 tableParams.isError = true;
-                tableParams.errorStatus = error.response.status;
                 tableParams.isSSR = false;
                 tableParams.errors = {};
+                if (error && error.response) {
+                  tableParams.errorStatus = error.response.status;
+                }
               }, () => {
                 if (error && error.response) {
                   if (this.errorMessage) {

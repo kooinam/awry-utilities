@@ -141,8 +141,10 @@ var ItemLoader = function (_Object) {
                 _this.setComponent(function (itemLoader) {
                   itemLoader.isLoading = false;
                   itemLoader.isError = true;
-                  itemLoader.errorStatus = error.response.status;
                   itemLoader.isSSR = false;
+                  if (error && error.response) {
+                    itemLoader.errorStatus = error.response.status;
+                  }
                 }, function () {
                   if (error && error.response) {
                     if (_this.errorMessage) {

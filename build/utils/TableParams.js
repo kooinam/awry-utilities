@@ -169,9 +169,11 @@ var TableParams = function (_Object) {
                 _this.setComponent(function (tableParams) {
                   tableParams.isLoading = false;
                   tableParams.isError = true;
-                  tableParams.errorStatus = error.response.status;
                   tableParams.isSSR = false;
                   tableParams.errors = {};
+                  if (error && error.response) {
+                    tableParams.errorStatus = error.response.status;
+                  }
                 }, function () {
                   if (error && error.response) {
                     if (_this.errorMessage) {
